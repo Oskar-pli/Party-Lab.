@@ -206,6 +206,1406 @@
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin-bottom: 14px;
+      max-height: 170px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 10px 8px;
+      border-radius: var(--radius-md);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chip.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+      color: #fff;
+    }
+    .chip.chip-18.active {
+      background: rgba(236, 72, 153, 0.2);
+      border-color: var(--accent-18);
+      color: #f472b6;
+    }
+
+    .players-container {
+      max-height: 120px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+      margin-bottom: 8px;
+    }
+    .player-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .player-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      outline: none;
+    }
+    .player-remove {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--card-border);
+    }
+    .step-btn {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.2rem;
+      font-weight: 800;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+    }
+    .step-val { font-weight: 800; font-size: 0.95rem; min-width: 20px; text-align: center; }
+
+    .toggle-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .toggle-btn.active {
+      background: var(--accent-impostor);
+      border-color: var(--accent-impostor);
+      color: #fff;
+    }
+
+    /* Touch Card */
+    .reveal-card {
+      flex: 1;
+      margin: 14px 0;
+      border-radius: var(--radius-lg);
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .reveal-card.revealed {
+      background: rgba(139, 92, 246, 0.12);
+      border-color: var(--accent-impostor);
+      border-style: solid;
+      box-shadow: inset 0 0 30px var(--accent-impostor-glow);
+    }
+    .secret-word {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      display: none;
+      margin-top: 6px;
+      line-height: 1.2;
+    }
+    .secret-sub {
+      font-size: 0.8rem;
+      color: var(--accent-impostor);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 800;
+      display: none;
+    }
+    .secret-hint-direct {
+      font-size: 0.82rem;
+      color: #fca5a5;
+      font-weight: 700;
+      margin-top: 8px;
+      display: none;
+    }
+    .hold-prompt { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); }
+
+    /* Results */
+    .result-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 14px 0;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .result-item {
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+    }
+    .result-item.is-imp {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: rgba(244, 63, 94, 0.4);
+      color: #ff6b87;
+    }
+
+    /* UI Bomba */
+    .bomb-zone {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .bomb-visual {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ff4b72, #990524);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      box-shadow: 0 0 40px var(--accent-bomb-glow);
+      animation: pulse 0.8s infinite alternate ease-in-out;
+    }
+    .bomb-category {
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.3;
+    }
+    @keyframes pulse {
+      from { transform: scale(0.95); }
+      to { transform: scale(1.05); }
+    }
+    .exploding {
+      animation: explode 0.4s forwards cubic-bezier(0.1, 0.9, 0.2, 1);
+    }
+    @keyframes explode {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); filter: brightness(2); }
+      100% { transform: scale(0.9); opacity: 0.2; }
+    }
+
+    /* UI Kto z Nas */
+    .who-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    .who-question {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <main id="app-container">
+
+    <!-- MENU GŁÓWNE -->
+    <section class="screen active" id="screen-menu">
+      <header class="header">
+        <h1 class="brand-title">Party Lab.</h1>
+      </header>
+
+      <div class="menu-grid">
+        <div class="game-card impostor" onclick="App.openImpostorConfig()">
+          <div class="game-icon">🎭</div>
+          <div class="game-info">
+            <h3>Impostor</h3>
+            <p>Trudne podpowiedzi, blef i dedukcja.</p>
+          </div>
+        </div>
+
+        <div class="game-card bomb" onclick="App.openBombConfig()">
+          <div class="game-icon">💣</div>
+          <div class="game-info">
+            <h3>Tykająca Bomba</h3>
+            <p>Czas dostosowany do liczby graczy.</p>
+          </div>
+        </div>
+
+        <div class="game-card who" onclick="App.openWhoConfig()">
+          <div class="game-icon">🎯</div>
+          <div class="game-info">
+            <h3>Kto z Nas?</h3>
+            <p>Pytania imprezowe i relacyjne.</p>
+          </div>
+        </div>
+      </div>
+
+      <div></div>
+    </section>
+
+    <!-- KONFIGURACJA IMPOSTOR -->
+    <section class="screen" id="screen-config-impostor">
+      <header class="header">
+        <h2 class="brand-title">Impostor</h2>
+        <span class="badge">Ustawienia</span>
+      </header>
+
+      <div>
+        <p class="section-title">Wybierz kategorię</p>
+        <div class="chips-grid" id="impostor-categories-grid"></div>
+
+        <div class="glass-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.1);" onclick="ImpostorEngine.addPlayer()">+ Dodaj</button>
+          </div>
+          <div class="players-container" id="impostor-players-list"></div>
+
+          <div class="setting-row">
+            <span style="font-weight:700; font-size:0.9rem;">Impostorzy</span>
+            <div class="stepper">
+              <button class="step-btn" onclick="ImpostorEngine.adjustImpostors(-1)">−</button>
+              <span class="step-val" id="val-impostors">1</span>
+              <button class="step-btn" onclick="ImpostorEngine.adjustImpostors(1)">+</button>
+            </div>
+          </div>
+
+          <div class="setting-row" style="margin-top:14px; padding-top:10px; border-top:1px solid var(--card-border);">
+            <span style="font-weight:700; font-size:0.9rem;">Podpowiedzi szpiega</span>
+            <button class="toggle-btn active" id="btn-toggle-hints" onclick="ImpostorEngine.toggleHints()">WŁĄCZONE</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="ImpostorEngine.start()">Rozpocznij grę</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Wróć</button>
+      </div>
+    </section>
+
+    <!-- ROZGRYWKA IMPOSTOR -->
+    <section class="screen" id="screen-game-impostor">
+      <header class="header">
+        <h2 class="brand-title" id="impostor-player-title">Gracz</h2>
+        <span class="badge" id="impostor-progress">1 / 4</span>
+      </header>
+
+      <div class="reveal-card" id="impostor-touch-card">
+        <div class="hold-prompt" id="hold-prompt">👇 Przytrzymaj palec na karcie</div>
+        <div class="secret-sub" id="secret-sub">Kategoria</div>
+        <div class="secret-word" id="secret-word">Hasło</div>
+        <div class="secret-hint-direct" id="secret-hint-direct">Wskazówka: ...</div>
+      </div>
+
+      <button class="btn btn-primary" id="impostor-next-btn" style="opacity:0; pointer-events:none;" onclick="ImpostorEngine.nextPlayer()">Następny gracz →</button>
+    </section>
+
+    <!-- DEBATA IMPOSTOR -->
+    <section class="screen" id="screen-impostor-end">
+      <header class="header">
+        <h2 class="brand-title">Wszyscy widzieli</h2>
+        <span class="badge">Dyskusja</span>
+      </header>
+
+      <div class="glass-box" style="text-align: center; margin: auto 0;">
+        <div style="font-size:3rem; margin-bottom:10px;">🗣️</div>
+        <h3 style="font-size: 1.3rem; font-weight:800; margin-bottom: 8px;">Telefon ląduje na stole</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.4;">Każdy mówi po jednym skojarzeniu. Przedyskutujcie sytuację i wytypujcie Impostora!</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="ImpostorEngine.revealResult()">Pokaż odpowiedzi i Impostorów</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Menu główne</button>
+      </div>
+    </section>
+
+    <!-- WYNIKI IMPOSTORA -->
+    <section class="screen" id="screen-impostor-results">
+      <header class="header">
+        <h2 class="brand-title">Rozwiązanie</h2>
+        <span class="badge">Koniec rundy</span>
+      </header>
+
+      <div class="glass-box" style="text-align:center; padding: 14px;">
+        <p class="section-title" style="margin:0;">Tajne hasło</p>
+        <h3 style="font-size: 1.6rem; font-weight:900; color:#fff;" id="result-secret-word">Hasło</h3>
+        <p style="font-size:0.8rem; color:var(--accent-impostor); font-weight:700;" id="result-secret-cat">Kategoria</p>
+      </div>
+
+      <div class="glass-box" style="flex:1; display:flex; flex-direction:column; justify-content:flex-start;">
+        <p class="section-title">Role graczy</p>
+        <div class="result-list" id="result-players-list"></div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="ImpostorEngine.start()">Kolejna runda</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Menu główne</button>
+      </div>
+    </section>
+
+    <!-- KONFIGURACJA BOMBA -->
+    <section class="screen" id="screen-config-bomb">
+      <header class="header">
+        <h2 class="brand-title">Tykająca Bomba</h2>
+        <span class="badge">Ustawienia</span>
+      </header>
+
+      <div>
+        <p class="section-title">Kategoria pytań</p>
+        <div class="chips-grid" id="bomb-categories-grid"></div>
+
+        <div class="glass-box">
+          <div class="setting-row" style="margin:0;">
+            <div>
+              <div style="font-weight:800; font-size:1rem;">Liczba graczy</div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;" id="bomb-time-estimate">Czas: ok. 45-60 sek</div>
+            </div>
+            <div class="stepper">
+              <button class="step-btn" onclick="BombEngine.adjustPlayers(-1)">−</button>
+              <span class="step-val" id="val-bomb-players">4</span>
+              <button class="step-btn" onclick="BombEngine.adjustPlayers(1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-danger" onclick="BombEngine.start()">ODPAL BOMBĘ (START)</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Wróć</button>
+      </div>
+    </section>
+
+    <!-- ROZGRYWKA BOMBA -->
+    <section class="screen" id="screen-game-bomb">
+      <header class="header">
+        <h2 class="brand-title">Bomba tyka!</h2>
+        <span class="badge" style="color: var(--accent-bomb);">Podawaj telefon!</span>
+      </header>
+
+      <div class="bomb-zone">
+        <div class="bomb-visual" id="bomb-icon">💣</div>
+        <p class="bomb-category" id="bomb-category-text">Kategoria...</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-ghost" id="bomb-stop-btn" onclick="BombEngine.stop()">Zatrzymaj grę</button>
+      </div>
+    </section>
+
+    <!-- KONFIGURACJA KTO Z NAS -->
+    <section class="screen" id="screen-config-who">
+      <header class="header">
+        <h2 class="brand-title">Kto z Nas?</h2>
+        <span class="badge">Ustawienia</span>
+      </header>
+
+      <div>
+        <p class="section-title">Kategoria pytań</p>
+        <div class="chips-grid" id="who-categories-grid"></div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="WhoEngine.start()">Rozpocznij</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Wróć</button>
+      </div>
+    </section>
+
+    <!-- ROZGRYWKA KTO Z NAS -->
+    <section class="screen" id="screen-game-who">
+      <header class="header">
+        <h2 class="brand-title">Kto z Nas?</h2>
+        <span class="badge" id="who-cat-badge">Kategoria</span>
+      </header>
+
+      <div class="glass-box who-card">
+        <p class="who-question" id="who-question-text">Pytanie...</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="WhoEngine.next()">Następne pytanie →</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Menu</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* BAZA DANYCH */
+    const partyLabDatabase = {
+      impostor: [
+        {
+          category: "Codzienne życie",
+          difficulty: "easy",
+          words: ["toaleta publiczna", "prysznic", "winda", "komunikacja miejska", "kolejka do kasy", "budzik", "lustro"]
+        },
+        {
+          category: "Codzienne życie",
+          difficulty: "medium",
+          words: ["sąsiad", "kurier", "współlokator", "zmywanie naczyń", "spóźnienie", "kac morderca", "niewygodne łóżko"]
+        },
+        {
+          category: "Imprezowe",
+          difficulty: "easy",
+          words: ["domówka", "karaoke", "kebab o 3 rano", "shoty", "urwany film", "Klub", "DJ"]
+        },
+        {
+          category: "Imprezowe",
+          difficulty: "medium",
+          words: ["powrót nocnym", "policja pod drzwiami", "pisanie do ex", "zgubiony telefon", "wyjście po angielsku", "pusty portfel", "taksówka"]
+        },
+        {
+          category: "Spicy",
+          difficulty: "medium",
+          words: ["Tinder", "randka z internetu", "pierwszy pocałunek", "friendzone", "red flag", "ghosting", "flirt", "crush", "walk of shame"]
+        },
+        {
+          category: "Spicy 18+",
+          difficulty: "hard",
+          words: ["wibrator", "kajdanki", "sponsoring", "OnlyFans", "zdrada", "szybki numerek", "podryw na taniej bajerce", "dickpic", "sugar daddy"]
+        },
+        {
+          category: "Seriale",
+          difficulty: "easy",
+          words: ["Stranger Things", "Squid Game", "Dom z papieru", "The Office", "Przyjaciele", "Wednesday"]
+        },
+        {
+          category: "Seriale",
+          difficulty: "medium",
+          words: ["Breaking Bad", "The Boys", "Euphoria", "Sex Education", "Black Mirror", "The Walking Dead", "You"]
+        },
+        {
+          category: "Gry: Minecraft",
+          difficulty: "medium",
+          words: ["Creeper", "diamentowy miecz", "Nether", "Enderman", "obsydian", "wioska", "kopanie w dół"]
+        },
+        {
+          category: "Gry: GTA",
+          difficulty: "medium",
+          words: ["Los Santos", "kod na nieśmiertelność", "kradzież auta", "gwiazdki policji", "napad na bank", "Grove Street"]
+        },
+        {
+          category: "Gry: The Sims",
+          difficulty: "hard",
+          words: ["usunięcie drabinki", "pożar w kuchni", "bara-bara", "Mroczny Kosiarz", "matlode", "kod na kase"]
+        },
+        {
+          category: "Internet i social media",
+          difficulty: "easy",
+          words: ["TikTok", "Instagram", "influencer", "Fame MMA", "Memy", "YouTube"]
+        },
+        {
+          category: "Internet i social media",
+          difficulty: "medium",
+          words: ["algorytm", "ban", "dramy", "cancel culture", "stream na Twitchu", "fake news"]
+        },
+        {
+          category: "Jedzenie",
+          difficulty: "easy",
+          words: ["pizza hawajska", "McDonald's", "sushi", "kebab", "energetyk"]
+        },
+        {
+          category: "Jedzenie",
+          difficulty: "medium",
+          words: ["ogórek kiszony", "ostry sos", "dietetyczna cola", "parówki", "awokado", "zupka chińska", "wegański burger"]
+        },
+        {
+          category: "Polska",
+          difficulty: "medium",
+          words: ["Biedronka", "PKP", "parawan na plaży", "rosół w niedzielę", "ZUS", "Janusz i Grażyna", "Paczkomat"]
+        },
+        {
+          category: "Szkoła",
+          difficulty: "medium",
+          words: ["niezapowiedziana kartkówka", "wywiadówka", "WF", "ściąganie", "uwaga w dzienniku", "wycieczka szkolna", "klasowy clown"]
+        },
+        {
+          category: "Siłownia",
+          difficulty: "medium",
+          words: ["martwy ciąg", "sterydy", "trener personalny", "kreatyna", "robienie nóg", "napięcie mięśni przed lustrem"]
+        }
+      ],
+      bomba: [
+        {
+          category: "Impreza",
+          difficulty: "easy",
+          words: ["wymówka, żeby nie iść na imprezę", "rzecz, którą gubisz po alkoholu", "najgorszy alkohol do picia", "piosenka, którą każdy drze ryja na karaoke", "coś, co robisz w klubowej łazience"]
+        },
+        {
+          category: "Spicy",
+          difficulty: "medium",
+          words: ["najgorsze miejsce na pierwszą randkę", "czerwona flaga u chłopaka/dziewczyny", "najgorsza wiadomość od ex", "rzecz, na którą zwracasz uwagę na Tinderze", "tekst na podryw, który zawsze nie działa"]
+        },
+        {
+          category: "Codzienne życie",
+          difficulty: "medium",
+          words: ["wstydliwy zakup w aptece lub sklepie", "rzecz, o której kłamiesz swoim rodzicom", "coś, co robisz, gdy nikt nie patrzy", "najgorszy prezent, jaki można dostać", "wymówka za spóźnienie"]
+        },
+        {
+          category: "Szkoła",
+          difficulty: "easy",
+          words: ["rzecz, którą robiłeś na nudnej lekcji", "wymówka z braku pracy domowej", "najgorszy typ nauczyciela", "coś, co zawsze kupowało się w sklepiku szkolnym"]
+        },
+        {
+          category: "Internet",
+          difficulty: "medium",
+          words: ["najdziwniejsza rzecz wyszukiwana w Google", "typ filmu, w który wsiąkasz o 3 rano na YouTubie", "rzecz, za którą można dostać bana", "najbardziej wkurzający typ influencera"]
+        },
+        {
+          category: "Światy",
+          difficulty: "medium",
+          words: ["rzecz, która potrafi zabić w Minecrafcie", "rzecz z uniwersum Harry'ego Pottera", "superbohater Marvela, który ma nudną moc", "broń, której użyjesz w apokalipsie zombie"]
+        },
+        {
+          category: "Spicy 18+",
+          difficulty: "hard",
+          words: ["miejsce na szybki numerek", "fetysz, o którym słyszałeś", "słowo, którego nie powiesz przy babci", "najgorszy moment, w którym do pokoju mogą wejść rodzice"]
+        },
+        {
+          category: "Random",
+          difficulty: "hard",
+          words: ["teoria spiskowa, w którą odrobinę wierzysz", "zwierzę, z którym wygrałbyś w walce na gołe pięści", "zawód, do którego kompletnie się nie nadajesz", "imię dla psa, które brzmi jak imię dla menela"]
+        }
+      ],
+      ktoZNas: [
+        {
+          category: "Impreza",
+          questions: [
+            "Kto z nas ma najgorsze pomysły po alkoholu?",
+            "Kto z nas najczęściej zasypia pierwszy na imprezie?",
+            "Kto z nas najprawdopodobniej zgubi portfel/telefon w klubie?",
+            "Kto z nas najbardziej zmienia swoją osobowość, gdy wypije?",
+            "Kto z nas wymyśla najsłabsze wymówki, by nie wyjść z domu?",
+            "Kto z nas mógłby przypadkowo wydać połowę wypłaty w jedną noc?",
+            "Kto z nas wychodzi po angielsku i nikomu nic nie mówi?"
+          ]
+        },
+        {
+          category: "Relacje",
+          questions: [
+            "Kto z nas ma największą szansę, żeby wrócić do swojego toksycznego ex?",
+            "Kto z nas ma najniższe standardy doboru partnera po pijaku?",
+            "Kto z nas najczęściej tkwi we friendzone?",
+            "Kto z nas najdłużej odpisuje na wiadomości (bo ignoruje ludzi)?",
+            "Kto z nas szybciej zakochałby się w kimś z Tindera po jednej randce?",
+            "Kto z nas ma najgorszy gust, jeśli chodzi o wybór crusha?",
+            "Kto z nas najprawdopodobniej wybaczyłby zdradę?"
+          ]
+        },
+        {
+          category: "Spicy",
+          questions: [
+            "Kto z nas flirtuje ze wszystkimi bez świadomości, że to robi?",
+            "Kto z nas wysłał kiedyś wiadomość do złej osoby i spalił się ze wstydu?",
+            "Kto z nas robi najlepsze pierwsze wrażenie, ale traci przy bliższym poznaniu?",
+            "Kto z nas najszybciej zgodziłby się na trójkąt?",
+            "Kto z nas na pewno ma na telefonie zdjęcia, za które poszedłby siedzieć?",
+            "Kto z nas najgłośniej zachowuje się w łóżku?",
+            "Kto z nas najprawdopodobniej ma założone tajne konto, z którego stalkuje innych?"
+          ]
+        },
+        {
+          category: "Śmieszne / Charakter",
+          questions: [
+            "Kto z nas zginąłby pierwszy w horrorze przez swoją głupotę?",
+            "Kto z nas ma najdziwniejsze algorytmy i polecane filmy na TikToku?",
+            "Kto z nas ma najkrótszy lont i najszybciej się wkurza grając w gry?",
+            "Kto z nas wierzy w najgłupsze teorie spiskowe?",
+            "Kto z nas najprawdopodobniej trafiłby do więzienia za coś, co uważał za żart?",
+            "Kto z nas jako jedyny rozśmieszyłby na pogrzebie resztę?",
+            "Kto z nas najbardziej polega na opinii mamy w dorosłym życiu?",
+            "Kto z nas jest w stanie przeżyć tydzień jedząc tylko zupki chińskie?"
+          ]
+        },
+        {
+          category: "Pieniądze i Przyszłość",
+          questions: [
+            "Kto z nas najszybciej straciłby milion zebrany w lotto?",
+            "Kto z nas kupuje absolutnie niepotrzebne i głupie rzeczy w internecie?",
+            "Kto z nas za 10 lat będzie miał kryzys wieku średniego i kupi sportowe auto?",
+            "Kto z nas ma największą szansę zostać utrzymankiem / sugar baby?",
+            "Kto z nas będzie tym dziwnym sąsiadem, który zawsze obserwuje wszystkich przez okno?"
+          ]
+        },
+        {
+          category: "Szkoła i Gry",
+          questions: [
+            "Kto z nas kłamał najwięcej prosto w oczy nauczycielom?",
+            "Kto z nas najszybciej rozwaliłby klawiaturę lub pada po przegranej w FIFĘ/LoLa?",
+            "Kto z nas jest największym tryhardem, nawet gdy gra o pietruszkę?",
+            "Kto z nas ściągał w najgłupszy możliwy sposób, ale i tak zdał?"
+          ]
+        }
+      ]
+    };
+
+    /* TRUDNE PODPOWIEDZI DLA HASEŁ IMPOSTORA */
+    const customHints = {
+      "toaleta publiczna": "Miejsce przymusowej wizyty",
+      "prysznic": "Codzienne odświeżenie",
+      "winda": "Chwilowe zamknięcie z obcymi",
+      "komunikacja miejska": "Wspólny ścisk w drodze",
+      "kolejka do kasy": "Próba ludzkiej cierpliwości",
+      "budzik": "Brutalny powrót do rzeczywistości",
+      "lustro": "Konfrontacja z samym sobą",
+      "sąsiad": "Ktoś za ścianą",
+      "kurier": "Niecierpliwie wyczekiwany gość",
+      "współlokator": "Dzielenie wspólnej przestrzeni",
+      "zmywanie naczyń": "Czynność odkładana na później",
+      "spóźnienie": "Niedotrzymanie terminu",
+      "kac morderca": "Konsekwencja dobrej nocy",
+      "niewygodne łóżko": "Przyczyna porannego bólu",
+      "domówka": "Spotkanie w prywatnych czterech ścianach",
+      "karaoke": "Występ bez wstydu",
+      "kebab o 3 rano": "Nocny ratunek",
+      "shoty": "Szybka dawka procentów",
+      "urwany film": "Biała plama w pamięci",
+      "Klub": "Głośna nocna przestrzeń",
+      "DJ": "Kontrola nad nastrojem tłumu",
+      "powrót nocnym": "Specyficzny klimat podróży",
+      "policja pod drzwiami": "Nieproszeni goście z nakazem",
+      "pisanie do ex": "Błąd popełniany pod wpływem",
+      "zgubiony telefon": "Nagła utrata kontaktu ze światem",
+      "wyjście po angielsku": "Zniknięcie bez pożegnania",
+      "pusty portfel": "Bolesny stan konta",
+      "taksówka": "Płatny powrót do bazy",
+      "Tinder": "Przesuwanie w poszukiwaniu szczęścia",
+      "randka z internetu": "Spotkanie z nieznajomym",
+      "pierwszy pocałunek": "Niezręczny początek",
+      "friendzone": "Zablokowanie na stopie koleżeńskiej",
+      "red flag": "Ostrzeżenie przed kłopotami",
+      "ghosting": "Nagłe urwanie kontaktu",
+      "flirt": "Niewinna gra pozorów",
+      "crush": "Skryty obiekt westchnień",
+      "walk of shame": "Poranny powrót we wczorajszym stroju",
+      "wibrator": "Dyskretny gadżet",
+      "kajdanki": "Ograniczenie swobody",
+      "sponsoring": "Układ oparty na korzyściach",
+      "OnlyFans": "Płatna subskrypcja profilu",
+      "zdrada": "Złamanie zaufania",
+      "szybki numerek": "Brak czasu na grę wstępną",
+      "podryw na taniej bajerce": "Słaby tekst na start",
+      "dickpic": "Niechciana przesyłka ze zdjęciem",
+      "sugar daddy": "Starszy opiekun z portfelem",
+      "Stranger Things": "Dziwne zjawiska w małym miasteczku",
+      "Squid Game",: "Śmiertelna gra o wielkie pieniądze",
+      "Dom z papieru": "Zorganizowany napad w maskach",
+      "The Office": "Absurdy w pracy biurowej",
+      "Przyjaciele": "Ekipa spotykająca się w kawiarni",
+      "Wednesday": "Mroczna dziewczyna w akademii",
+      "Breaking Bad": "Nauczyciel wchodzący w nielegalny biznes",
+      "The Boys": "Brutalna prawda o herosach",
+      "Euphoria": "Trudne dorastanie i imprezy",
+      "Sex Education": "Młodzieżowe poradnictwo",
+      "Black Mirror": "Mroczna strona technologii",
+      "The Walking Dead": "Walka o przetrwanie w ruinach",
+      "You": "Toksyczna obsesja na punkcie drugiej osoby",
+      "Creeper": "Cichy sabotażysta",
+      "diamentowy miecz": "Cenna broń do walki",
+      "Nether": "Piekielny wymiar",
+      "Enderman": "Lepiej nie patrzeć mu w oczy",
+      "obsydian": "Twardy budulec portalu",
+      "wioska": "Miejsce handlu z tubylcami",
+      "kopanie w dół": "Złamanie podstawowej zasady",
+      "Los Santos": "Miasto wielkich możliwości i zbrodni",
+      "kod na nieśmiertelność": "Nieuczciwe ułatwienie",
+      "kradzież auta": "Szybki sposób na zdobycie transportu",
+      "gwiazdki policji": "Poziom zainteresowania służb",
+      "napad na bank": "Skok po grubą gotówkę",
+      "Grove Street": "Rodzinna ulica gangu",
+      "usunięcie drabinki": "Złośliwy sposób na likwidację",
+      "pożar w kuchni": "Nieudana próba gotowania",
+      "bara-bara": "Animowane zbliżenie pod kołdrą",
+      "Mroczny Kosiarz": "Gość przychodzący na sam koniec",
+      "matlode": "Zastrzyk gotówki wpisany z klawiatury",
+      "kod na kase": "Szybkie wzbogacenie się",
+      "TikTok": "Krótkie formy wideo",
+      "Instagram": "Filtry i idealne kadry",
+      "influencer": "Osoba żyjąca z zasięgów",
+      "Fame MMA": "Pojedynki twórców w klatce",
+      "Memy": "Obrazkowy humor internetu",
+      "YouTube": "Platforma do oglądania filmów",
+      "algorytm": "Niewidzialny mechanizm podsuwający treści",
+      "ban": "Odcięcie od platformy",
+      "dramy": "Internetowe konflikty",
+      "cancel culture": "Masowe wykluczenie z sieci",
+      "stream na Twitchu": "Transmisja na żywo przed widzami",
+      "fake news": "Zmyślona sensacja",
+      "pizza hawajska": "Dzielący ludzi dodatek owocowy",
+      "McDonald's": "Szybkie jedzenie pod złotymi łukami",
+      "sushi": "Surowy specjał w rolkach",
+      "kebab": "Klasyk z sosem czosnkowym",
+      "energetyk": "Szybka puszka kofeiny",
+      "ogórek kiszony": "Tradycyjny dodatek ze słoika",
+      "ostry sos": "Ognista przyprawa na talerzu",
+      "dietetyczna cola": "Napój bez dodatku cukru",
+      "parówki": "Tani posiłek z wody",
+      "awokado": "Zielony modny dodatek",
+      "zupka chińska": "Błyskawiczny posiłek z torebki",
+      "wegański burger": "Roślinna alternatywa mięsa",
+      "Biedronka": "Popularny market w sąsiedztwie",
+      "PKP": "Podróż po szynach z opóźnieniem",
+      "parawan na plaży": "Wyznaczenie własnego terytorium nad wodą",
+      "rosół w niedzielę": "Tradycyjna zupa z makaronem",
+      "ZUS": "Instytucja pobierająca składki",
+      "Janusz i Grażyna": "Archetyp rodzimego małżeństwa",
+      "Paczkomat": "Odbiór przesyłki kodem o dowolnej porze",
+      "niezapowiedziana kartkówka": "Stres na pierwszych minutach",
+      "wywiadówka": "Spotkanie z rodzicami za plecami",
+      "WF": "Aktywność na sali gimnastycznej",
+      "ściąganie": "Dyskretna pomoc podczas sprawdzianu",
+      "uwaga w dzienniku": "Wpis psujący ocenę z zachowania",
+      "wycieczka szkolna": "Wspólny wyjazd z klasą",
+      "klasowy clown": "Osoba rozpraszająca całą lekcję",
+      "martwy ciąg": "Ciężkie unoszenie z ziemi",
+      "sterydy": "Nielegalne wspomaganie formy",
+      "trener personalny": "Osoba pilnująca powtórzeń",
+      "kreatyna": "Suplement na siłę i masę",
+      "robienie nóg": "Trening pomijany przez wielu",
+      "napięcie mięśni przed lustrem": "Sprawdzanie formy po treningu"
+    };
+
+    /* SYNTEZATOR AUDIO */
+    const SoundFX = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+      },
+      tick() {
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(950, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(350, this.ctx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.03);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.03);
+      },
+      boom() {
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(130, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(20, this.ctx.currentTime + 0.7);
+        gain.gain.setValueAtTime(0.9, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.7);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.7);
+      }
+    };
+
+    /* CONTROLLER GŁÓWNY */
+    const App = {
+      showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        SoundFX.init();
+      },
+      openImpostorConfig() {
+        ImpostorEngine.renderCategories();
+        this.showScreen('screen-config-impostor');
+      },
+      openBombConfig() {
+        BombEngine.renderCategories();
+        this.showScreen('screen-config-bomb');
+      },
+      openWhoConfig() {
+        WhoEngine.renderCategories();
+        this.showScreen('screen-config-who');
+      }
+    };
+
+    /* SILNIK IMPOSTORA */
+    const ImpostorEngine = {
+      players: ["Oskar", "Marek", "Kasia", "Piotr"],
+      impostorsCount: 1,
+      selectedCategory: "Wszystkie",
+      hintsEnabled: true,
+      currentIndex: 0,
+      assignedRoles: [],
+      currentWordData: null,
+      usedWords: [],
+
+      init() {
+        this.renderPlayersList();
+      },
+
+      renderCategories() {
+        const grid = document.getElementById('impostor-categories-grid');
+        grid.innerHTML = '';
+
+        const cats = ["Wszystkie", ...new Set(partyLabDatabase.impostor.map(i => i.category))];
+        cats.forEach(cat => {
+          const chip = document.createElement('div');
+          chip.className = `chip ${this.selectedCategory === cat ? 'active' : ''} ${cat.includes('18+') || cat.includes('Spicy') ? 'chip-18' : ''}`;
+          chip.innerText = cat;
+          chip.onclick = () => {
+            this.selectedCategory = cat;
+            this.renderCategories();
+          };
+          grid.appendChild(chip);
+        });
+      },
+
+      toggleHints() {
+        this.hintsEnabled = !this.hintsEnabled;
+        const btn = document.getElementById('btn-toggle-hints');
+        if (this.hintsEnabled) {
+          btn.classList.add('active');
+          btn.innerText = 'WŁĄCZONE';
+        } else {
+          btn.classList.remove('active');
+          btn.innerText = 'WYŁĄCZONE';
+        }
+      },
+
+      renderPlayersList() {
+        const container = document.getElementById('impostor-players-list');
+        container.innerHTML = '';
+        this.players.forEach((name, idx) => {
+          const row = document.createElement('div');
+          row.className = 'player-row';
+          row.innerHTML = `
+            <input type="text" class="player-input" value="${name}" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
+            ${this.players.length > 3 ? `<button class="player-remove" onclick="ImpostorEngine.removePlayer(${idx})">✕</button>` : ''}
+          `;
+          container.appendChild(row);
+        });
+        document.getElementById('impostor-player-count').innerText = this.players.length;
+        this.validateImpostors();
+      },
+
+      addPlayer() {
+        if (this.players.length >= 14) return;
+        this.players.push(`Gracz ${this.players.length + 1}`);
+        this.renderPlayersList();
+      },
+
+      removePlayer(idx) {
+        this.players.splice(idx, 1);
+        this.renderPlayersList();
+      },
+
+      updateName(idx, val) {
+        this.players[idx] = val.trim() || `Gracz ${idx + 1}`;
+      },
+
+      adjustImpostors(delta) {
+        this.impostorsCount = Math.max(1, Math.min(Math.floor(this.players.length / 2), this.impostorsCount + delta));
+        document.getElementById('val-impostors').innerText = this.impostorsCount;
+      },
+
+      validateImpostors() {
+        if (this.impostorsCount >= this.players.length) {
+          this.impostorsCount = Math.max(1, this.players.length - 1);
+        }
+        document.getElementById('val-impostors').innerText = this.impostorsCount;
+      },
+
+      getRandomWord() {
+        let pool = [];
+        if (this.selectedCategory === "Wszystkie") {
+          partyLabDatabase.impostor.forEach(pack => {
+            pack.words.forEach(w => pool.push({ word: w, category: pack.category }));
+          });
+        } else {
+          partyLabDatabase.impostor.filter(pack => pack.category === this.selectedCategory).forEach(pack => {
+            pack.words.forEach(w => pool.push({ word: w, category: pack.category }));
+          });
+        }
+
+        let available = pool.filter(p => !this.usedWords.includes(p.word));
+        if (available.length === 0) {
+          this.usedWords = [];
+          available = pool;
+        }
+
+        const picked = available[Math.floor(Math.random() * available.length)];
+        this.usedWords.push(picked.word);
+        
+        const hint = customHints[picked.word] || "Brak jednoznacznej wskazówki";
+        return { ...picked, hint };
+      },
+
+      start() {
+        this.currentWordData = this.getRandomWord();
+        this.currentIndex = 0;
+
+        const impIndexes = [];
+        while (impIndexes.length < this.impostorsCount) {
+          const rand = Math.floor(Math.random() * this.players.length);
+          if (!impIndexes.includes(rand)) impIndexes.push(rand);
+        }
+
+        this.assignedRoles = this.players.map((name, idx) => ({
+          name,
+          isImpostor: impIndexes.includes(idx)
+        }));
+
+        this.renderCurrentTurn();
+        App.showScreen('screen-game-impostor');
+        this.bindEvents();
+      },
+
+      renderCurrentTurn() {
+        const player = this.assignedRoles[this.currentIndex];
+        document.getElementById('impostor-player-title').innerText = player.name;
+        document.getElementById('impostor-progress').innerText = `${this.currentIndex + 1} / ${this.players.length}`;
+
+        const wordEl = document.getElementById('secret-word');
+        const subEl = document.getElementById('secret-sub');
+        const hintEl = document.getElementById('secret-hint-direct');
+
+        if (player.isImpostor) {
+          subEl.innerText = `Kategoria: ${this.currentWordData.category}`;
+          wordEl.innerText = "JESTEŚ IMPOSTOREM!";
+          wordEl.style.color = "var(--accent-bomb)";
+          
+          if (this.hintsEnabled && this.currentWordData.hint) {
+            hintEl.innerText = `Wskazówka: ${this.currentWordData.hint}`;
+            hintEl.style.display = 'block';
+          } else {
+            hintEl.innerText = '';
+            hintEl.style.display = 'none';
+          }
+        } else {
+          subEl.innerText = `Kategoria: ${this.currentWordData.category}`;
+          wordEl.innerText = this.currentWordData.word;
+          wordEl.style.color = "#fff";
+          hintEl.innerText = '';
+          hintEl.style.display = 'none';
+        }
+
+        this.hideCard();
+      },
+
+      bindEvents() {
+        const card = document.getElementById('impostor-touch-card');
+        const reveal = () => {
+          card.classList.add('revealed');
+          document.getElementById('hold-prompt').style.display = 'none';
+          document.getElementById('secret-sub').style.display = 'block';
+          document.getElementById('secret-word').style.display = 'block';
+          const player = this.assignedRoles[this.currentIndex];
+          if (player.isImpostor && this.hintsEnabled && this.currentWordData.hint) {
+            document.getElementById('secret-hint-direct').style.display = 'block';
+          }
+          if (navigator.vibrate) navigator.vibrate(35);
+        };
+        const hide = () => {
+          this.hideCard();
+          document.getElementById('impostor-next-btn').style.opacity = '1';
+          document.getElementById('impostor-next-btn').style.pointerEvents = 'auto';
+        };
+
+        card.onpointerdown = reveal;
+        card.onpointerup = hide;
+      },
+
+      hideCard() {
+        const card = document.getElementById('impostor-touch-card');
+        card.classList.remove('revealed');
+        document.getElementById('hold-prompt').style.display = 'block';
+        document.getElementById('secret-sub').style.display = 'none';
+        document.getElementById('secret-word').style.display = 'none';
+        document.getElementById('secret-hint-direct').style.display = 'none';
+      },
+
+      nextPlayer() {
+        this.currentIndex++;
+        document.getElementById('impostor-next-btn').style.opacity = '0';
+        document.getElementById('impostor-next-btn').style.pointerEvents = 'none';
+
+        if (this.currentIndex < this.players.length) {
+          this.renderCurrentTurn();
+        } else {
+          App.showScreen('screen-impostor-end');
+        }
+      },
+
+      revealResult() {
+        document.getElementById('result-secret-word').innerText = this.currentWordData.word;
+        document.getElementById('result-secret-cat').innerText = `Kategoria: ${this.currentWordData.category}`;
+
+        const list = document.getElementById('result-players-list');
+        list.innerHTML = '';
+
+        this.assignedRoles.forEach(p => {
+          const item = document.createElement('div');
+          item.className = `result-item ${p.isImpostor ? 'is-imp' : ''}`;
+          item.innerHTML = `
+            <span>${p.name}</span>
+            <span>${p.isImpostor ? '🎭 IMPOSTOR' : '✅ Zwykły gracz'}</span>
+          `;
+          list.appendChild(item);
+        });
+
+        App.showScreen('screen-impostor-results');
+      }
+    };
+
+    /* SILNIK BOMBY */
+    const BombEngine = {
+      playersCount: 4,
+      selectedCategory: "Wszystkie",
+      timer: null,
+      duration: 0,
+      elapsed: 0,
+
+      renderCategories() {
+        const grid = document.getElementById('bomb-categories-grid');
+        grid.innerHTML = '';
+
+        const cats = ["Wszystkie", ...new Set(partyLabDatabase.bomba.map(i => i.category))];
+        cats.forEach(cat => {
+          const chip = document.createElement('div');
+          chip.className = `chip ${this.selectedCategory === cat ? 'active' : ''} ${cat.includes('18+') || cat.includes('Spicy') ? 'chip-18' : ''}`;
+          chip.innerText = cat;
+          chip.onclick = () => {
+            this.selectedCategory = cat;
+            this.renderCategories();
+          };
+          grid.appendChild(chip);
+        });
+      },
+
+      adjustPlayers(delta) {
+        this.playersCount = Math.max(2, Math.min(15, this.playersCount + delta));
+        document.getElementById('val-bomb-players').innerText = this.playersCount;
+        
+        const minS = this.playersCount * 9;
+        const maxS = this.playersCount * 13;
+        document.getElementById('bomb-time-estimate').innerText = `Czas: ok. ${minS}-${maxS} sek`;
+      },
+
+      start() {
+        App.showScreen('screen-game-bomb');
+        document.getElementById('bomb-icon').classList.remove('exploding');
+        document.getElementById('bomb-icon').innerText = '💣';
+
+        let pool = [];
+        if (this.selectedCategory === "Wszystkie") {
+          partyLabDatabase.bomba.forEach(pack => pool.push(...pack.words));
+        } else {
+          partyLabDatabase.bomba.filter(pack => pack.category === this.selectedCategory).forEach(pack => pool.push(...pack.words));
+        }
+
+        const task = pool[Math.floor(Math.random() * pool.length)];
+        document.getElementById('bomb-category-text').innerText = task;
+
+        const baseTimePerPlayer = 10.5;
+        const randomVariation = (Math.random() * 6 - 3) * this.playersCount;
+        this.duration = Math.max(14, (this.playersCount * baseTimePerPlayer) + randomVariation);
+        this.elapsed = 0;
+
+        this.scheduleNextTick(650);
+      },
+
+      scheduleNextTick(delay) {
+        this.timer = setTimeout(() => {
+          this.elapsed += delay / 1000;
+          SoundFX.tick();
+
+          if (this.elapsed >= this.duration) {
+            this.explode();
+          } else {
+            const progress = this.elapsed / this.duration;
+            const nextDelay = Math.max(85, 650 * (1 - progress * 0.88));
+            this.scheduleNextTick(nextDelay);
+          }
+        }, delay);
+      },
+
+      explode() {
+        clearTimeout(this.timer);
+        SoundFX.boom();
+        if (navigator.vibrate) navigator.vibrate([300, 150, 400, 150, 600]);
+        
+        document.getElementById('bomb-icon').innerText = '💥';
+        document.getElementById('bomb-icon').classList.add('exploding');
+        document.getElementById('bomb-category-text').innerText = 'BUM! PRZEGRYWASZ!';
+      },
+
+      stop() {
+        clearTimeout(this.timer);
+        App.showScreen('screen-menu');
+      }
+    };
+
+    /* SILNIK KTO Z NAS */
+    const WhoEngine = {
+      selectedCategory: "Wszystkie",
+
+      renderCategories() {
+        const grid = document.getElementById('who-categories-grid');
+        grid.innerHTML = '';
+
+        const cats = ["Wszystkie", ...new Set(partyLabDatabase.ktoZNas.map(i => i.category))];
+        cats.forEach(cat => {
+          const chip = document.createElement('div');
+          chip.className = `chip ${this.selectedCategory === cat ? 'active' : ''} ${cat.includes('18+') || cat.includes('Spicy') ? 'chip-18' : ''}`;
+          chip.innerText = cat;
+          chip.onclick = () => {
+            this.selectedCategory = cat;
+            this.renderCategories();
+          };
+          grid.appendChild(chip);
+        });
+      },
+
+      start() {
+        App.showScreen('screen-game-who');
+        document.getElementById('who-cat-badge').innerText = this.selectedCategory.toUpperCase();
+        this.next();
+      },
+
+      next() {
+        let pool = [];
+        if (this.selectedCategory === "Wszystkie") {
+          partyLabDatabase.ktoZNas.forEach(pack => pool.push(...pack.questions));
+        } else {
+          partyLabDatabase.ktoZNas.filter(pack => pack.category === this.selectedCategory).forEach(pack => pool.push(...pack.questions));
+        }
+
+        const q = pool[Math.floor(Math.random() * pool.length)];
+        document.getElementById('who-question-text').innerText = q;
+        if (navigator.vibrate) navigator.vibrate(25);
+      }
+    };
+
+    // Inicjalizacja domyślna
+    ImpostorEngine.init();
+    BombEngine.adjustPlayers(0);
+  </script>
+</body>
+</html>
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bg-blobs {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .blob {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.22;
+    }
+    .blob-1 { top: -60px; left: -60px; background: var(--accent-impostor); }
+    .blob-2 { bottom: -60px; right: -60px; background: var(--accent-bomb); }
+
+    #app-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      height: 100vh;
+      height: 100dvh;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      overflow-y: auto;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+    .brand-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 40%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: auto 0;
+    }
+    .game-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.15s ease;
+    }
+    .game-card:active { transform: scale(0.97); }
+
+    .game-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .impostor .game-icon { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); }
+    .bomb .game-icon { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .who .game-icon { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
+
+    .game-info h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 2px; }
+    .game-info p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.3; }
+
+    .btn {
+      width: 100%;
+      padding: 17px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 800;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.1s ease;
+      flex-shrink: 0;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: #f3f4f6; color: #090a0f; }
+    .btn-ghost { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--card-border); }
+    .btn-danger { background: var(--accent-bomb); color: #fff; box-shadow: 0 8px 24px var(--accent-bomb-glow); }
+
+    .glass-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .chips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
       max-height: 160px;
       overflow-y: auto;
       padding-right: 2px;
