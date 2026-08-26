@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Party Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090a0f;
+      --card-bg: rgba(22, 26, 38, 0.78);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-impostor: #8b5cf6;
+      --accent-impostor-glow: rgba(139, 92, 246, 0.35);
+      --accent-bomb: #f43f5e;
+      --accent-bomb-glow: rgba(244, 63, 94, 0.35);
+      --accent-who: #06b6d4;
+      --accent-who-glow: rgba(6, 182, 212, 0.35);
+      --accent-18: #ec4899;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bg-blobs {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .blob {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.22;
+    }
+    .blob-1 { top: -60px; left: -60px; background: var(--accent-impostor); }
+    .blob-2 { bottom: -60px; right: -60px; background: var(--accent-bomb); }
+
+    #app-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      height: 100vh;
+      height: 100dvh;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      overflow-y: auto;
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      flex-shrink: 0;
+    }
+    .brand-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 40%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: auto 0;
+    }
+    .game-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.15s ease;
+    }
+    .game-card:active { transform: scale(0.97); }
+
+    .game-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .impostor .game-icon { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); }
+    .bomb .game-icon { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .who .game-icon { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
+
+    .game-info h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 2px; }
+    .game-info p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.3; }
+
+    .btn {
+      width: 100%;
+      padding: 17px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      font-weight: 800;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.1s ease;
+      flex-shrink: 0;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: #f3f4f6; color: #090a0f; }
+    .btn-ghost { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--card-border); }
+    .btn-danger { background: var(--accent-bomb); color: #fff; box-shadow: 0 8px 24px var(--accent-bomb-glow); }
+
+    .glass-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .chips-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+      max-height: 160px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      padding: 10px 8px;
+      border-radius: var(--radius-md);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .chip.active {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+      color: #fff;
+    }
+    .chip.chip-18.active {
+      background: rgba(236, 72, 153, 0.2);
+      border-color: var(--accent-18);
+      color: #f472b6;
+    }
+
+    .players-container {
+      max-height: 120px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 4px;
+      margin-bottom: 8px;
+    }
+    .player-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .player-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      padding: 10px 14px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      outline: none;
+    }
+    .player-remove {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .stepper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px 10px;
+      border-radius: 99px;
+      border: 1px solid var(--card-border);
+    }
+    .step-btn {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 1.2rem;
+      font-weight: 800;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+    }
+    .step-val { font-weight: 800; font-size: 0.95rem; min-width: 20px; text-align: center; }
+
+    /* Custom Toggle Switch */
+    .toggle-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .toggle-btn.active {
+      background: var(--accent-impostor);
+      border-color: var(--accent-impostor);
+      color: #fff;
+    }
+
+    /* Touch Card */
+    .reveal-card {
+      flex: 1;
+      margin: 14px 0;
+      border-radius: var(--radius-lg);
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.02);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .reveal-card.revealed {
+      background: rgba(139, 92, 246, 0.12);
+      border-color: var(--accent-impostor);
+      border-style: solid;
+      box-shadow: inset 0 0 30px var(--accent-impostor-glow);
+    }
+    .secret-word {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      display: none;
+      margin-top: 6px;
+      line-height: 1.2;
+    }
+    .secret-sub {
+      font-size: 0.8rem;
+      color: var(--accent-impostor);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 800;
+      display: none;
+    }
+    .secret-hint-direct {
+      font-size: 0.82rem;
+      color: #fca5a5;
+      font-weight: 700;
+      margin-top: 8px;
+      display: none;
+    }
+    .hold-prompt { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); }
+
+    /* Results */
+    .result-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 14px 0;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .result-item {
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+    }
+    .result-item.is-imp {
+      background: rgba(244, 63, 94, 0.15);
+      border-color: rgba(244, 63, 94, 0.4);
+      color: #ff6b87;
+    }
+
+    /* UI Bomba */
+    .bomb-zone {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .bomb-visual {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ff4b72, #990524);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      box-shadow: 0 0 40px var(--accent-bomb-glow);
+      animation: pulse 0.8s infinite alternate ease-in-out;
+    }
+    .bomb-category {
+      font-size: 1.35rem;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.3;
+    }
+    @keyframes pulse {
+      from { transform: scale(0.95); }
+      to { transform: scale(1.05); }
+    }
+    .exploding {
+      animation: explode 0.4s forwards cubic-bezier(0.1, 0.9, 0.2, 1);
+    }
+    @keyframes explode {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); filter: brightness(2); }
+      100% { transform: scale(0.9); opacity: 0.2; }
+    }
+
+    /* UI Kto z Nas */
+    .who-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    .who-question {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <main id="app-container">
+
+    <!-- MENU GŁÓWNE -->
+    <section class="screen active" id="screen-menu">
+      <header class="header">
+        <h1 class="brand-title">Party Lab.</h1>
+      </header>
+
+      <div class="menu-grid">
+        <div class="game-card impostor" onclick="App.showScreen('screen-config-impostor')">
+          <div class="game-icon">🎭</div>
+          <div class="game-info">
+            <h3>Impostor</h3>
+            <p>Trudne podpowiedzi, blef i dedukcja w grupie.</p>
+          </div>
+        </div>
+
+        <div class="game-card bomb" onclick="App.showScreen('screen-config-bomb')">
+          <div class="game-icon">💣</div>
+          <div class="game-info">
+            <h3>Tykająca Bomba</h3>
+            <p>Czas dostosowany do liczby graczy.</p>
+          </div>
+        </div>
+
+        <div class="game-card who" onclick="App.showScreen('screen-config-who')">
+          <div class="game-icon">🎯</div>
+          <div class="game-info">
+            <h3>Kto z Nas?</h3>
+            <p>Pytania imprezowe i głosowanie palcem.</p>
+          </div>
+        </div>
+      </div>
+
+      <div></div>
+    </section>
+
+    <!-- KONFIGURACJA IMPOSTOR -->
+    <section class="screen" id="screen-config-impostor">
+      <header class="header">
+        <h2 class="brand-title">Impostor</h2>
+        <span class="badge">Ustawienia</span>
+      </header>
+
+      <div>
+        <p class="section-title">Wybierz kategorię</p>
+        <div class="chips-grid" id="impostor-categories">
+          <div class="chip active" onclick="ImpostorEngine.setCategory('fortnite', this)">🎯 Fortnite</div>
+          <div class="chip" onclick="ImpostorEngine.setCategory('gta', this)">🚗 GTA & Gry Akcji</div>
+          <div class="chip" onclick="ImpostorEngine.setCategory('gaming', this)">🎮 Gaming & Esport</div>
+          <div class="chip" onclick="ImpostorEngine.setCategory('party', this)">🍻 Impreza & Klub</div>
+          <div class="chip" onclick="ImpostorEngine.setCategory('popculture', this)">🎬 Popkultura & Kino</div>
+          <div class="chip" onclick="ImpostorEngine.setCategory('cars', this)">🏎️ Motoryzacja</div>
+          <div class="chip" onclick="ImpostorEngine.setCategory('school', this)">🏫 Szkoła & Uczelnia</div>
+          <div class="chip" onclick="ImpostorEngine.setCategory('food', this)">🍕 Jedzenie & Gastro</div>
+          <div class="chip chip-18" onclick="ImpostorEngine.setCategory('spicy', this)">🔥 +18 Pikantne</div>
+        </div>
+
+        <div class="glass-box">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.1);" onclick="ImpostorEngine.addPlayer()">+ Dodaj</button>
+          </div>
+          <div class="players-container" id="impostor-players-list"></div>
+
+          <div class="setting-row">
+            <span style="font-weight:700; font-size:0.9rem;">Impostorzy</span>
+            <div class="stepper">
+              <button class="step-btn" onclick="ImpostorEngine.adjustImpostors(-1)">−</button>
+              <span class="step-val" id="val-impostors">1</span>
+              <button class="step-btn" onclick="ImpostorEngine.adjustImpostors(1)">+</button>
+            </div>
+          </div>
+
+          <div class="setting-row" style="margin-top:14px; padding-top:10px; border-top:1px solid var(--card-border);">
+            <span style="font-weight:700; font-size:0.9rem;">Podpowiedzi szpiega</span>
+            <button class="toggle-btn active" id="btn-toggle-hints" onclick="ImpostorEngine.toggleHints()">WŁĄCZONE</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="ImpostorEngine.start()">Rozpocznij grę</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Wróć</button>
+      </div>
+    </section>
+
+    <!-- ROZGRYWKA IMPOSTOR (HOLD TO REVEAL) -->
+    <section class="screen" id="screen-game-impostor">
+      <header class="header">
+        <h2 class="brand-title" id="impostor-player-title">Gracz</h2>
+        <span class="badge" id="impostor-progress">1 / 4</span>
+      </header>
+
+      <div class="reveal-card" id="impostor-touch-card">
+        <div class="hold-prompt" id="hold-prompt">👇 Przytrzymaj palec na karcie</div>
+        <div class="secret-sub" id="secret-sub">Kategoria</div>
+        <div class="secret-word" id="secret-word">Hasło</div>
+        <div class="secret-hint-direct" id="secret-hint-direct">Wskazówka: ...</div>
+      </div>
+
+      <button class="btn btn-primary" id="impostor-next-btn" style="opacity:0; pointer-events:none;" onclick="ImpostorEngine.nextPlayer()">Następny gracz →</button>
+    </section>
+
+    <!-- DEBATA IMPOSTOR -->
+    <section class="screen" id="screen-impostor-end">
+      <header class="header">
+        <h2 class="brand-title">Wszyscy widzieli</h2>
+        <span class="badge">Dyskusja</span>
+      </header>
+
+      <div class="glass-box" style="text-align: center; margin: auto 0;">
+        <div style="font-size:3rem; margin-bottom:10px;">🗣️</div>
+        <h3 style="font-size: 1.3rem; font-weight:800; margin-bottom: 8px;">Telefon ląduje na stole</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.4;">Każdy mówi po jednym słowie skojarzenia. Następnie przedyskutujcie i wytypujcie Impostora!</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="ImpostorEngine.revealResult()">Pokaż odpowiedzi i Impostorów</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Menu główne</button>
+      </div>
+    </section>
+
+    <!-- WYNIKI IMPOSTORA -->
+    <section class="screen" id="screen-impostor-results">
+      <header class="header">
+        <h2 class="brand-title">Rozwiązanie</h2>
+        <span class="badge">Koniec rundy</span>
+      </header>
+
+      <div class="glass-box" style="text-align:center; padding: 14px;">
+        <p class="section-title" style="margin:0;">Tajne hasło</p>
+        <h3 style="font-size: 1.6rem; font-weight:900; color:#fff;" id="result-secret-word">Pizza</h3>
+        <p style="font-size:0.8rem; color:var(--accent-impostor); font-weight:700;" id="result-secret-cat">Kategoria</p>
+      </div>
+
+      <div class="glass-box" style="flex:1; display:flex; flex-direction:column; justify-content:flex-start;">
+        <p class="section-title">Role graczy</p>
+        <div class="result-list" id="result-players-list"></div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="ImpostorEngine.start()">Kolejna runda</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Menu główne</button>
+      </div>
+    </section>
+
+    <!-- KONFIGURACJA BOMBA -->
+    <section class="screen" id="screen-config-bomb">
+      <header class="header">
+        <h2 class="brand-title">Tykająca Bomba</h2>
+        <span class="badge">Ustawienia</span>
+      </header>
+
+      <div>
+        <p class="section-title">Kategoria pytań</p>
+        <div class="chips-grid">
+          <div class="chip active" onclick="BombEngine.setCategory('gaming', this)">🎮 Gaming & Gry</div>
+          <div class="chip" onclick="BombEngine.setCategory('party', this)">🍻 Impreza & Klub</div>
+          <div class="chip" onclick="BombEngine.setCategory('general', this)">🌍 Życie & Klasyk</div>
+          <div class="chip chip-18" onclick="BombEngine.setCategory('spicy', this)">🔥 +18 Bez Cenzury</div>
+        </div>
+
+        <div class="glass-box">
+          <div class="setting-row" style="margin:0;">
+            <div>
+              <div style="font-weight:800; font-size:1rem;">Liczba graczy</div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;" id="bomb-time-estimate">Czas: ok. 45-60 sek</div>
+            </div>
+            <div class="stepper">
+              <button class="step-btn" onclick="BombEngine.adjustPlayers(-1)">−</button>
+              <span class="step-val" id="val-bomb-players">4</span>
+              <button class="step-btn" onclick="BombEngine.adjustPlayers(1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-danger" onclick="BombEngine.start()">ODPAL BOMBĘ (START)</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Wróć</button>
+      </div>
+    </section>
+
+    <!-- ROZGRYWKA BOMBA -->
+    <section class="screen" id="screen-game-bomb">
+      <header class="header">
+        <h2 class="brand-title">Bomba tyka!</h2>
+        <span class="badge" style="color: var(--accent-bomb);">Podawaj telefon!</span>
+      </header>
+
+      <div class="bomb-zone">
+        <div class="bomb-visual" id="bomb-icon">💣</div>
+        <p class="bomb-category" id="bomb-category-text">Kategoria...</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-ghost" id="bomb-stop-btn" onclick="BombEngine.stop()">Zatrzymaj grę</button>
+      </div>
+    </section>
+
+    <!-- KONFIGURACJA KTO Z NAS -->
+    <section class="screen" id="screen-config-who">
+      <header class="header">
+        <h2 class="brand-title">Kto z Nas?</h2>
+        <span class="badge">Ustawienia</span>
+      </header>
+
+      <div>
+        <p class="section-title">Kategoria pytań</p>
+        <div class="chips-grid">
+          <div class="chip active" onclick="WhoEngine.setCategory('party', this)">🎉 Impreza & Życie</div>
+          <div class="chip" onclick="WhoEngine.setCategory('gaming', this)">🎮 Ekipa Graczy</div>
+          <div class="chip" onclick="WhoEngine.setCategory('cringe', this)">😬 Niezręczne sytuacje</div>
+          <div class="chip chip-18" onclick="WhoEngine.setCategory('spicy', this)">🔥 +18 Pikantne</div>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="WhoEngine.start()">Rozpocznij</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Wróć</button>
+      </div>
+    </section>
+
+    <!-- ROZGRYWKA KTO Z NAS -->
+    <section class="screen" id="screen-game-who">
+      <header class="header">
+        <h2 class="brand-title">Kto z Nas?</h2>
+        <span class="badge" id="who-cat-badge">Kategoria</span>
+      </header>
+
+      <div class="glass-box who-card">
+        <p class="who-question" id="who-question-text">Pytanie...</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn btn-primary" onclick="WhoEngine.next()">Następne pytanie →</button>
+        <button class="btn btn-ghost" onclick="App.showScreen('screen-menu')">Menu</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* AUDIO SYNTH */
+    const SoundFX = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+      },
+      tick() {
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(950, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(350, this.ctx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.03);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.03);
+      },
+      boom() {
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(130, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(20, this.ctx.currentTime + 0.7);
+        gain.gain.setValueAtTime(0.9, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.7);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.7);
+      }
+    };
+
+    /* BAZA Z TRUDNYMI, ABSTRAKCYJNYMI PODPOWIEDZIAMI */
+    const Database = {
+      impostor: {
+        fortnite: [
+          { category: "Fortnite", word: "Tilted Towers", hint: "Wysoka zabudowa" },
+          { category: "Fortnite", word: "Beczka Chug Jug", hint: "Pełna regeneracja" },
+          { category: "Fortnite", word: "Battle Bus", hint: "Wspólny początek" },
+          { category: "Fortnite", word: "Pompa", hint: "Krótki dystans" },
+          { category: "Fortnite", word: "Kroplomierz Slurp", hint: "Płynne wsparcie" },
+          { category: "Fortnite", word: "Lama Zaopatrzeniowa", hint: "Rzadkie znalezisko" },
+          { category: "Fortnite", word: "Launchpad", hint: "Szybka ucieczka w górę" },
+          { category: "Fortnite", word: "Plecak Odrzutowy", hint: "Chwilowa przewaga wysokości" },
+          { category: "Fortnite", word: "Snajperka Bolcowa", hint: "Pojedynczy, precyzyjny strzał" },
+          { category: "Fortnite", word: "Karnet Bojowy", hint: "Sezonowy progres" },
+          { category: "Fortnite", word: "Złota Blacha", hint: "Maksymalna rzadkość" },
+          { category: "Fortnite", word: "Restart Bus", hint: "Druga szansa dla drużyny" }
+        ],
+        gta: [
+          { category: "GTA", word: "Niko Bellic", hint: "Nowy początek za oceanem" },
+          { category: "GTA", word: "Trevor Philips", hint: "Brak jakichkolwiek hamulców" },
+          { category: "GTA", word: "CJ Johnson", hint: "Powrót w rodzinne strony" },
+          { category: "GTA", word: "Pięć Gwiazdek", hint: "Służby bez litości" },
+          { category: "GTA", word: "Los Santos Custom", hint: "Modyfikacja wyglądu" },
+          { category: "GTA", word: "Klub Malibu", hint: "Nocne życie lat 80." },
+          { category: "GTA", word: "Czołg Rhino", hint: "Ciężki pancerz" },
+          { category: "GTA", word: "Pay and Spray", hint: "Szybka zmiana tożsamości" },
+          { category: "GTA", word: "Opressor", hint: "Kontrowersyjny pojazd" },
+          { category: "GTA", word: "Napad na Bank", hint: "Szybki zarobek pod presją" },
+          { category: "GTA", word: "Wsparcie z Powietrza", hint: "Śmigła nad głową" }
+        ],
+        gaming: [
+          { category: "Gaming", word: "Minecraft", hint: "Kwadratowa swoboda" },
+          { category: "Gaming", word: "Diamentowy Kilof", hint: "Trwałe narzędzie" },
+          { category: "Gaming", word: "Creeper", hint: "Cichy sabotażysta" },
+          { category: "Gaming", word: "Flashbang", hint: "Chwilowy brak widzenia" },
+          { category: "Gaming", word: "Bomba C4", hint: "Odliczanie do końca" },
+          { category: "Gaming", word: "Discord", hint: "Kanał łączności" },
+          { category: "Gaming", word: "Steam", hint: "Wirtualna biblioteka" },
+          { category: "Gaming", word: "Wiedźmin Geralt", hint: "Fachowiec od zleceń" },
+          { category: "Gaming", word: "Ranga Global", hint: "Szczyt drabinki" },
+          { category: "Gaming", word: "Smok Kresu", hint: "Ostateczna przeszkoda" },
+          { category: "Gaming", word: "Klawiatura Mechaniczna", hint: "Dźwięk każdego kliknięcia" },
+          { category: "Gaming", word: "Konto Smurf", hint: "Ukryte doświadczenie" }
+        ],
+        party: [
+          { category: "Impreza", word: "Kebab po melanżu", hint: "Nocny ratunek" },
+          { category: "Impreza", word: "Bramkarz w klubie", hint: "Weryfikacja na wejściu" },
+          { category: "Impreza", word: "Tequila z cytryną", hint: "Specyficzny rytuał" },
+          { category: "Impreza", word: "Beer Pong", hint: "Precyzja przy stole" },
+          { category: "Impreza", word: "DJ na scenie", hint: "Kontrola nad nastrojem" },
+          { category: "Impreza", word: "Zgon na kanapie", hint: "Przedwczesny finał" },
+          { category: "Impreza", word: "Rosół w niedzielę", hint: "Tradycyjna regeneracja" },
+          { category: "Impreza", word: "Shot Jagermeister", hint: "Ziołowy akcent" },
+          { category: "Impreza", word: "Karaoke", hint: "Występ bez wstydu" },
+          { category: "Impreza", word: "Opaska VIP", hint: "Dostęp do strefy wyższej" },
+          { category: "Impreza", word: "Głośnik JBL", hint: "Mobilny hałas" }
+        ],
+        popculture: [
+          { category: "Popkultura", word: "Walter White", hint: "Podwójne życie nauczyciela" },
+          { category: "Popkultura", word: "Skibidi Toilet", hint: "Viralowy absurd" },
+          { category: "Popkultura", word: "Gigachad", hint: "Internetowy wzór pewności" },
+          { category: "Popkultura", word: "Shrek", hint: "Życie z dala od ludzi" },
+          { category: "Popkultura", word: "Harry Potter", hint: "Wybraniec z przeszłością" },
+          { category: "Popkultura", word: "Darth Vader", hint: "Ciężki oddech w masce" },
+          { category: "Popkultura", word: "Spiderman", hint: "Wielka odpowiedzialność" },
+          { category: "Popkultura", word: "Peaky Blinders", hint: "Interesy w eleganckim stylu" },
+          { category: "Popkultura", word: "Netflix", hint: "Wieczorny wybór na kanapie" },
+          { category: "Popkultura", word: "Autotune", hint: "Wsparcie dla głosu" }
+        ],
+        cars: [
+          { category: "Motoryzacja", word: "BMW E46", hint: "Klasyk do zamiatania tyłem" },
+          { category: "Motoryzacja", word: "Mandat za prędkość", hint: "Kosztowny pośpiech" },
+          { category: "Motoryzacja", word: "Skrzynia Manualna", hint: "Pełna kontrola biegów" },
+          { category: "Motoryzacja", word: "Silnik V8", hint: "Głęboki pomruk pod maską" },
+          { category: "Motoryzacja", word: "Przegląd techniczny", hint: "Coroczna pieczątka" },
+          { category: "Motoryzacja", word: "Rondo Turbinowe", hint: "Wymuszony kierunek jazdy" },
+          { category: "Motoryzacja", word: "Kontrola Policji", hint: "Zatrzymanie na poboczu" },
+          { category: "Motoryzacja", word: "Tuning Wydechu", hint: "Zwracanie uwagi dźwiękiem" },
+          { category: "Motoryzacja", word: "Drift na śniegu", hint: "Zabawa na pustym parkingu" }
+        ],
+        school: [
+          { category: "Szkoła", word: "Niezapowiedziana Kartkówka", hint: "Stres z ostatnich lekcji" },
+          { category: "Szkoła", word: "Dyrektor Szkoły", hint: "Najwyższa instancja" },
+          { category: "Szkoła", word: "Kiblowanie w toalecie", hint: "Zabijanie czasu na przerwie" },
+          { category: "Szkoła", word: "Kawa z automatu", hint: "Tania dawka energii" },
+          { category: "Szkoła", word: "Zwolnienie z WF", hint: "Odpoczynek na ławce" },
+          { category: "Szkoła", word: "Dziennik Elektroniczny", hint: "Powiadomienia dla rodziców" },
+          { category: "Szkoła", word: "Ściąga na ręce", hint: "Ryzykowna pomoc naukowa" },
+          { category: "Szkoła", word: "Dzwonek na przerwę", hint: "Wyczekiwany dźwięk" },
+          { category: "Szkoła", word: "Poprawka w sierpniu", hint: "Skrócone wakacje" }
+        ],
+        food: [
+          { category: "Jedzenie", word: "Pizza Hawajska", hint: "Dzielący ludzi dodatek" },
+          { category: "Jedzenie", word: "Kebab w bułce", hint: "Szybki posiłek z sosem" },
+          { category: "Jedzenie", word: "Burger Drwala", hint: "Ciężka zimowa pozycja" },
+          { category: "Jedzenie", word: "Pierogi Ruskie", hint: "Domowy klasyk z farszem" },
+          { category: "Jedzenie", word: "Sos Czosnkowy", hint: "Uniwersalny dodatek" },
+          { category: "Jedzenie", word: "Frytki z Batatów", hint: "Słodsza wersja dodatku" },
+          { category: "Jedzenie", word: "Sushi", hint: "Zimne rolki z dodatkami" },
+          { category: "Jedzenie", word: "Zapiekanka z pieczarkami", hint: "Ciepła przekąska z pieca" }
+        ],
+        spicy: [
+          { category: "+18", word: "Masaż z happy endem", hint: "Dodatkowa usługa" },
+          { category: "+18", word: "Kajdanki z futerkiem", hint: "Ograniczenie swobody w sypialni" },
+          { category: "+18", word: "Aplikacja Tinder", hint: "Szybkie dopasowanie po zdjęciu" },
+          { category: "+18", word: "Walk of Shame", hint: "Poranny powrót wczorajszym strojem" },
+          { category: "+18", word: "OnlyFans", hint: "Płatna subskrypcja profilu" },
+          { category: "+18", word: "Kamasutra", hint: "Przewodnik po urozmaiceniach" },
+          { category: "+18", word: "Bikini", hint: "Odsłaniający strój na plażę" },
+          { category: "+18", word: "Gra wstępna", hint: "Wprowadzenie do finału" },
+          { category: "+18", word: "Bielizna koronkowa", hint: "Zmysłowy detal na wieczór" }
+        ]
+      },
+      bomb: {
+        gaming: [
+          "Skórki lub skiny w Fortnite",
+          "Gry z otwartym światem i autami",
+          "Przedmioty do wytworzenia w Minecrafcie",
+          "Teksty rzucane przy porażce w grze",
+          "Bronie z gier akcji",
+          "Znani streamerzy lub twórcy internetowi"
+        ],
+        party: [
+          "Napoje dodawane do alkoholu",
+          "Rzeczy gubione podczas wyjścia",
+          "Powody niewpuszczenia do lokalu",
+          "Nietrafione teksty na podryw",
+          "Jedzenie zamawiane w nocy",
+          "Zabawy towarzyskie przy stole"
+        ],
+        general: [
+          "Rzeczy w schowku samochodowym",
+          "Przedmioty codziennego użytku w łazience",
+          "Marki butów i odzieży",
+          "Państwa europejskie bez dostępu do morza",
+          "Przedmioty w plecaku",
+          "Zawody wymagające stroju służbowego"
+        ],
+        spicy: [
+          "Miejsca na szybkie zbliżenie",
+          "Czerwone flagi na pierwszym spotkaniu",
+          "Słowa, które psują intymny nastrój",
+          "Elementy ubioru zdejmowane najpierw",
+          "Nietypowe pomysły na randkę"
+        ]
+      },
+      who: {
+        party: [
+          "Kto najszybciej zgubiłby portfel i telefon na imprezie?",
+          "Kto najdłużej zbiera się do wyjścia z domu?",
+          "Kto wydałby całe pieniądze na nocne jedzenie?",
+          "Kto najczęściej odwołuje plany na ostatnią chwilę?",
+          "Kto potrafi zasnąć w najmniej wygodnym miejscu?"
+        ],
+        gaming: [
+          "Kto z nas najbardziej denerwuje się przy przegranej?",
+          "Kto wydał najwięcej na wirtualne przedmioty w grach?",
+          "Kto zarywa noce przed ekranem mimo wczesnego wstawania?",
+          "Kto ma najgorszy refleks w grach zręcznościowych?",
+          "Kto zawsze szuka wymówek przy porażce?"
+        ],
+        cringe: [
+          "Kto trzyma w galerii najbardziej przypałowe zdjęcia?",
+          "Kto najdokładniej przegląda profile obcych osób?",
+          "Kto potrafi skłamać bez mrugnięcia okiem?",
+          "Kto ma największy bałagan w pokoju?",
+          "Kto rzuca najbardziej suchymi żartami?"
+        ],
+        spicy: [
+          "Kto wysyła najwięcej odważnych zdjęć?",
+          "Kto najszybciej poszedłby na szaloną randkę w ciemno?",
+          "Kto miał najbardziej niezręczną przygodę randkową?",
+          "Kto najczęściej wraca i kasuje aplikacje randkowe?"
+        ]
+      }
+    };
+
+    /* CONTROLLER GŁÓWNY */
+    const App = {
+      showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        SoundFX.init();
+      }
+    };
+
+    /* SILNIK IMPOSTORA */
+    const ImpostorEngine = {
+      players: ["Oskar", "Marek", "Kasia", "Piotr"],
+      impostorsCount: 1,
+      category: 'fortnite',
+      hintsEnabled: true,
+      currentIndex: 0,
+      assignedRoles: [],
+      currentWordData: null,
+      usedWords: {},
+
+      init() {
+        this.renderPlayersList();
+      },
+
+      setCategory(cat, el) {
+        this.category = cat;
+        el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+      },
+
+      toggleHints() {
+        this.hintsEnabled = !this.hintsEnabled;
+        const btn = document.getElementById('btn-toggle-hints');
+        if (this.hintsEnabled) {
+          btn.classList.add('active');
+          btn.innerText = 'WŁĄCZONE';
+        } else {
+          btn.classList.remove('active');
+          btn.innerText = 'WYŁĄCZONE';
+        }
+      },
+
+      renderPlayersList() {
+        const container = document.getElementById('impostor-players-list');
+        container.innerHTML = '';
+        this.players.forEach((name, idx) => {
+          const row = document.createElement('div');
+          row.className = 'player-row';
+          row.innerHTML = `
+            <input type="text" class="player-input" value="${name}" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
+            ${this.players.length > 3 ? `<button class="player-remove" onclick="ImpostorEngine.removePlayer(${idx})">✕</button>` : ''}
+          `;
+          container.appendChild(row);
+        });
+        document.getElementById('impostor-player-count').innerText = this.players.length;
+        this.validateImpostors();
+      },
+
+      addPlayer() {
+        if (this.players.length >= 14) return;
+        this.players.push(`Gracz ${this.players.length + 1}`);
+        this.renderPlayersList();
+      },
+
+      removePlayer(idx) {
+        this.players.splice(idx, 1);
+        this.renderPlayersList();
+      },
+
+      updateName(idx, val) {
+        this.players[idx] = val.trim() || `Gracz ${idx + 1}`;
+      },
+
+      adjustImpostors(delta) {
+        this.impostorsCount = Math.max(1, Math.min(Math.floor(this.players.length / 2), this.impostorsCount + delta));
+        document.getElementById('val-impostors').innerText = this.impostorsCount;
+      },
+
+      validateImpostors() {
+        if (this.impostorsCount >= this.players.length) {
+          this.impostorsCount = Math.max(1, this.players.length - 1);
+        }
+        document.getElementById('val-impostors').innerText = this.impostorsCount;
+      },
+
+      getRandomWord() {
+        if (!this.usedWords[this.category]) this.usedWords[this.category] = [];
+        const fullPool = Database.impostor[this.category] || Database.impostor.fortnite;
+        
+        let available = fullPool.filter(w => !this.usedWords[this.category].includes(w.word));
+        if (available.length === 0) {
+          this.usedWords[this.category] = [];
+          available = fullPool;
+        }
+
+        const picked = available[Math.floor(Math.random() * available.length)];
+        this.usedWords[this.category].push(picked.word);
+        return picked;
+      },
+
+      start() {
+        this.currentWordData = this.getRandomWord();
+        this.currentIndex = 0;
+
+        const impIndexes = [];
+        while (impIndexes.length < this.impostorsCount) {
+          const rand = Math.floor(Math.random() * this.players.length);
+          if (!impIndexes.includes(rand)) impIndexes.push(rand);
+        }
+
+        this.assignedRoles = this.players.map((name, idx) => ({
+          name,
+          isImpostor: impIndexes.includes(idx)
+        }));
+
+        this.renderCurrentTurn();
+        App.showScreen('screen-game-impostor');
+        this.bindEvents();
+      },
+
+      renderCurrentTurn() {
+        const player = this.assignedRoles[this.currentIndex];
+        document.getElementById('impostor-player-title').innerText = player.name;
+        document.getElementById('impostor-progress').innerText = `${this.currentIndex + 1} / ${this.players.length}`;
+
+        const wordEl = document.getElementById('secret-word');
+        const subEl = document.getElementById('secret-sub');
+        const hintEl = document.getElementById('secret-hint-direct');
+
+        if (player.isImpostor) {
+          subEl.innerText = `Kategoria: ${this.currentWordData.category}`;
+          wordEl.innerText = "JESTEŚ IMPOSTOREM!";
+          wordEl.style.color = "var(--accent-bomb)";
+          
+          if (this.hintsEnabled && this.currentWordData.hint) {
+            hintEl.innerText = `Wskazówka: ${this.currentWordData.hint}`;
+            hintEl.style.display = 'block';
+          } else {
+            hintEl.innerText = '';
+            hintEl.style.display = 'none';
+          }
+        } else {
+          subEl.innerText = `Kategoria: ${this.currentWordData.category}`;
+          wordEl.innerText = this.currentWordData.word;
+          wordEl.style.color = "#fff";
+          hintEl.innerText = '';
+          hintEl.style.display = 'none';
+        }
+
+        this.hideCard();
+      },
+
+      bindEvents() {
+        const card = document.getElementById('impostor-touch-card');
+        const reveal = () => {
+          card.classList.add('revealed');
+          document.getElementById('hold-prompt').style.display = 'none';
+          document.getElementById('secret-sub').style.display = 'block';
+          document.getElementById('secret-word').style.display = 'block';
+          const player = this.assignedRoles[this.currentIndex];
+          if (player.isImpostor && this.hintsEnabled && this.currentWordData.hint) {
+            document.getElementById('secret-hint-direct').style.display = 'block';
+          }
+          if (navigator.vibrate) navigator.vibrate(35);
+        };
+        const hide = () => {
+          this.hideCard();
+          document.getElementById('impostor-next-btn').style.opacity = '1';
+          document.getElementById('impostor-next-btn').style.pointerEvents = 'auto';
+        };
+
+        card.onpointerdown = reveal;
+        card.onpointerup = hide;
+      },
+
+      hideCard() {
+        const card = document.getElementById('impostor-touch-card');
+        card.classList.remove('revealed');
+        document.getElementById('hold-prompt').style.display = 'block';
+        document.getElementById('secret-sub').style.display = 'none';
+        document.getElementById('secret-word').style.display = 'none';
+        document.getElementById('secret-hint-direct').style.display = 'none';
+      },
+
+      nextPlayer() {
+        this.currentIndex++;
+        document.getElementById('impostor-next-btn').style.opacity = '0';
+        document.getElementById('impostor-next-btn').style.pointerEvents = 'none';
+
+        if (this.currentIndex < this.players.length) {
+          this.renderCurrentTurn();
+        } else {
+          App.showScreen('screen-impostor-end');
+        }
+      },
+
+      revealResult() {
+        document.getElementById('result-secret-word').innerText = this.currentWordData.word;
+        document.getElementById('result-secret-cat').innerText = `Kategoria: ${this.currentWordData.category}`;
+
+        const list = document.getElementById('result-players-list');
+        list.innerHTML = '';
+
+        this.assignedRoles.forEach(p => {
+          const item = document.createElement('div');
+          item.className = `result-item ${p.isImpostor ? 'is-imp' : ''}`;
+          item.innerHTML = `
+            <span>${p.name}</span>
+            <span>${p.isImpostor ? '🎭 IMPOSTOR' : '✅ Zwykły gracz'}</span>
+          `;
+          list.appendChild(item);
+        });
+
+        App.showScreen('screen-impostor-results');
+      }
+    };
+
+    /* SILNIK BOMBY */
+    const BombEngine = {
+      playersCount: 4,
+      category: 'gaming',
+      timer: null,
+      duration: 0,
+      elapsed: 0,
+
+      setCategory(cat, el) {
+        this.category = cat;
+        el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+      },
+
+      adjustPlayers(delta) {
+        this.playersCount = Math.max(2, Math.min(15, this.playersCount + delta));
+        document.getElementById('val-bomb-players').innerText = this.playersCount;
+        
+        const minS = this.playersCount * 9;
+        const maxS = this.playersCount * 13;
+        document.getElementById('bomb-time-estimate').innerText = `Czas: ok. ${minS}-${maxS} sek`;
+      },
+
+      start() {
+        App.showScreen('screen-game-bomb');
+        document.getElementById('bomb-icon').classList.remove('exploding');
+        document.getElementById('bomb-icon').innerText = '💣';
+
+        const pool = Database.bomb[this.category] || Database.bomb.gaming;
+        const cat = pool[Math.floor(Math.random() * pool.length)];
+        document.getElementById('bomb-category-text').innerText = cat;
+
+        const baseTimePerPlayer = 10.5;
+        const randomVariation = (Math.random() * 6 - 3) * this.playersCount;
+        this.duration = Math.max(14, (this.playersCount * baseTimePerPlayer) + randomVariation);
+        this.elapsed = 0;
+
+        this.scheduleNextTick(650);
+      },
+
+      scheduleNextTick(delay) {
+        this.timer = setTimeout(() => {
+          this.elapsed += delay / 1000;
+          SoundFX.tick();
+
+          if (this.elapsed >= this.duration) {
+            this.explode();
+          } else {
+            const progress = this.elapsed / this.duration;
+            const nextDelay = Math.max(85, 650 * (1 - progress * 0.88));
+            this.scheduleNextTick(nextDelay);
+          }
+        }, delay);
+      },
+
+      explode() {
+        clearTimeout(this.timer);
+        SoundFX.boom();
+        if (navigator.vibrate) navigator.vibrate([300, 150, 400, 150, 600]);
+        
+        document.getElementById('bomb-icon').innerText = '💥';
+        document.getElementById('bomb-icon').classList.add('exploding');
+        document.getElementById('bomb-category-text').innerText = 'BUM! PRZEGRYWASZ!';
+      },
+
+      stop() {
+        clearTimeout(this.timer);
+        App.showScreen('screen-menu');
+      }
+    };
+
+    /* SILNIK KTO Z NAS */
+    const WhoEngine = {
+      category: 'party',
+
+      setCategory(cat, el) {
+        this.category = cat;
+        el.parentElement.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+      },
+
+      start() {
+        App.showScreen('screen-game-who');
+        document.getElementById('who-cat-badge').innerText = this.category.toUpperCase();
+        this.next();
+      },
+
+      next() {
+        const pool = Database.who[this.category] || Database.who.party;
+        const q = pool[Math.floor(Math.random() * pool.length)];
+        document.getElementById('who-question-text').innerText = q;
+        if (navigator.vibrate) navigator.vibrate(25);
+      }
+    };
+
+    // Inicjalizacja domyślna
+    ImpostorEngine.init();
+    BombEngine.adjustPlayers(0);
+  </script>
+</body>
+</html>
