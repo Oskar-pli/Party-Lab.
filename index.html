@@ -23,7 +23,7 @@
   <style>
     :root {
       --bg: #090a0f;
-      --card-bg: rgba(22, 26, 38, 0.8);
+      --card-bg: rgba(22, 26, 38, 0.85);
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
@@ -48,16 +48,21 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    body {
+    html, body {
       background-color: var(--bg);
       color: var(--text-main);
+      width: 100%;
+      height: 100%;
       min-height: 100vh;
       min-height: 100dvh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
-      position: relative;
     }
 
     .bg-blobs {
@@ -79,6 +84,7 @@
     .blob-1 { top: -60px; left: -60px; background: var(--accent-impostor); }
     .blob-2 { bottom: -60px; right: -60px; background: var(--accent-bomb); }
 
+    /* Dopasowanie do Safe Area - likwidacja plam na dole i górze */
     #app-container {
       position: relative;
       z-index: 1;
@@ -86,10 +92,10 @@
       max-width: 440px;
       height: 100vh;
       height: 100dvh;
-      padding-top: max(20px, env(safe-area-inset-top, 20px));
-      padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
-      padding-left: max(18px, env(safe-area-inset-left, 18px));
-      padding-right: max(18px, env(safe-area-inset-right, 18px));
+      padding-top: max(16px, env(safe-area-inset-top));
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      padding-left: max(18px, env(safe-area-inset-left));
+      padding-right: max(18px, env(safe-area-inset-right));
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -125,9 +131,9 @@
       gap: 10px;
     }
     .brand-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
       object-fit: cover;
       border: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
@@ -143,8 +149,8 @@
     }
 
     .back-btn {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--card-border);
@@ -185,26 +191,26 @@
     .game-card:active { transform: scale(0.97); }
 
     .game-icon {
-      width: 54px;
-      height: 54px;
+      width: 56px;
+      height: 56px;
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.7rem;
+      font-size: 1.75rem;
       flex-shrink: 0;
     }
     .impostor .game-icon { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); }
     .bomb .game-icon { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); }
     .who .game-icon { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
 
-    .game-info h3 { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.3px; }
+    .game-info h3 { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.3px; }
 
     .btn {
       width: 100%;
-      padding: 17px;
+      padding: 18px;
       border-radius: var(--radius-md);
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 800;
       border: none;
       outline: none;
@@ -225,7 +231,7 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
-      padding: 18px;
+      padding: 20px 18px;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       margin-bottom: 12px;
@@ -235,17 +241,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .section-title {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.8px;
       font-weight: 800;
       color: var(--text-muted);
     }
     .section-subtitle-counter {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       font-weight: 700;
     }
@@ -424,58 +430,108 @@
       color: #38bdf8;
     }
 
-    /* Lista graczy */
+    /* POWIĘKSZONA LISTA GRACZY I SWIPE-TO-DELETE */
     .players-container {
-      max-height: 120px;
+      max-height: 240px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      padding-right: 4px;
-      margin-bottom: 8px;
+      gap: 10px;
+      padding: 4px 2px;
+      margin-bottom: 12px;
     }
-    .player-row {
+
+    .player-swipe-wrapper {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      touch-action: pan-y;
+      background: #dc2626;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: flex-end;
     }
+
+    .player-swipe-delete-bg {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 900;
+    }
+
+    .player-swipe-card {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      background: #141724;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 8px 4px 14px;
+      transform: translateX(0px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+
+    .player-index-badge {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent-impostor);
+      min-width: 24px;
+    }
+
     .player-input {
       flex: 1;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--card-border);
-      padding: 10px 14px;
-      border-radius: 12px;
+      background: transparent;
+      border: none;
+      padding: 12px 6px;
       color: #fff;
-      font-size: 0.9rem;
-      font-weight: 700;
+      font-size: 1.05rem;
+      font-weight: 800;
       outline: none;
     }
-    .player-remove {
+
+    .player-remove-btn {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
       color: var(--text-muted);
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.1rem;
       font-weight: 800;
+      flex-shrink: 0;
+    }
+    .player-remove-btn:active {
+      background: rgba(244, 63, 94, 0.2);
+      color: #ff4b72;
     }
 
     .setting-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 10px;
+      margin-top: 14px;
     }
     .stepper {
       display: flex;
       align-items: center;
-      gap: 12px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 4px 10px;
+      gap: 14px;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 6px 12px;
       border-radius: 99px;
       border: 1px solid var(--card-border);
     }
@@ -483,20 +539,20 @@
       background: none;
       border: none;
       color: var(--text-main);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 800;
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       cursor: pointer;
     }
-    .step-val { font-weight: 800; font-size: 0.95rem; min-width: 20px; text-align: center; }
+    .step-val { font-weight: 800; font-size: 1.05rem; min-width: 22px; text-align: center; }
 
     .toggle-btn {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--card-border);
-      padding: 6px 14px;
+      padding: 8px 16px;
       border-radius: 99px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: var(--text-muted);
       cursor: pointer;
@@ -754,7 +810,7 @@
     <div class="blob blob-2"></div>
   </div>
 
-  <!-- MODAL INSTRUKCJI PWA W STYLU XBOX CLOUD GAMING Z PRAWDZIWYM LOGO -->
+  <!-- MODAL INSTRUKCJI PWA W STYLU XBOX CLOUD GAMING -->
   <div class="modal-overlay" id="install-modal">
     <div class="modal-box">
       <img src="./icon-192.png" alt="Party Lab Logo" class="install-app-logo" onerror="this.onerror=null; this.src='./icon.svg';">
@@ -846,14 +902,14 @@
         <div class="carousel-container" id="impostor-carousel"></div>
 
         <div class="glass-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
-            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.1); border:none; padding:4px 10px; border-radius:8px; color:#fff;" onclick="ImpostorEngine.addPlayer()">+ Dodaj</button>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.1); border:none; padding:6px 14px; border-radius:10px; color:#fff; font-size:0.85rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj gracza</button>
           </div>
           <div class="players-container" id="impostor-players-list"></div>
 
           <div class="setting-row">
-            <span style="font-weight:700; font-size:0.9rem;">Impostorzy</span>
+            <span style="font-weight:800; font-size:0.95rem;">Impostorzy</span>
             <div class="stepper">
               <button class="step-btn" onclick="ImpostorEngine.adjustImpostors(-1)">−</button>
               <span class="step-val" id="val-impostors">1</span>
@@ -862,7 +918,7 @@
           </div>
 
           <div class="setting-row" style="margin-top:14px; padding-top:10px; border-top:1px solid var(--card-border);">
-            <span style="font-weight:700; font-size:0.88rem;">Podpowiedzi dla Impostora</span>
+            <span style="font-weight:800; font-size:0.9rem;">Podpowiedzi dla Impostora</span>
             <button class="toggle-btn active" id="btn-toggle-hints" onclick="ImpostorEngine.toggleHints()">WŁĄCZONE</button>
           </div>
         </div>
@@ -1449,7 +1505,7 @@
       }
     };
 
-    /* INSTALATOR PWA (TABY iOS / ANDROID W STYLU XBOX CLOUD GAMING) */
+    /* INSTALATOR PWA */
     const PwaInstaller = {
       deferredPrompt: null,
       activePlatform: 'ios',
@@ -1643,7 +1699,7 @@
       }
     };
 
-    /* SILNIK IMPOSTORA */
+    /* SILNIK IMPOSTORA Z POWIĘKSZONĄ LISTĄ ORAZ SWIPE-TO-DELETE */
     const ImpostorEngine = {
       players: [],
       impostorsCount: 1,
@@ -1690,15 +1746,67 @@
       renderPlayersList() {
         const container = document.getElementById('impostor-players-list');
         container.innerHTML = '';
+        
         this.players.forEach((name, idx) => {
-          const row = document.createElement('div');
-          row.className = 'player-row';
-          row.innerHTML = `
-            <input type="text" class="player-input" value="${name}" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
-            ${this.players.length > 3 ? `<button class="player-remove" onclick="ImpostorEngine.removePlayer(${idx})">✕</button>` : ''}
+          const wrapper = document.createElement('div');
+          wrapper.className = 'player-swipe-wrapper';
+
+          wrapper.innerHTML = `
+            <div class="player-swipe-delete-bg">🗑️</div>
+            <div class="player-swipe-card" id="player-card-${idx}">
+              <span class="player-index-badge">#${idx + 1}</span>
+              <input type="text" class="player-input" value="${name}" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
+              ${this.players.length > 3 ? `<button class="player-remove-btn" onclick="ImpostorEngine.removePlayer(${idx})">✕</button>` : ''}
+            </div>
           `;
-          container.appendChild(row);
+
+          // Obsługa Swipe-to-Delete
+          const card = wrapper.querySelector('.player-swipe-card');
+          let startX = 0;
+          let currentX = 0;
+          let isDragging = false;
+
+          const onTouchStart = (e) => {
+            if (this.players.length <= 3) return;
+            startX = e.touches ? e.touches[0].clientX : e.clientX;
+            isDragging = true;
+            card.style.transition = 'none';
+          };
+
+          const onTouchMove = (e) => {
+            if (!isDragging) return;
+            currentX = e.touches ? e.touches[0].clientX : e.clientX;
+            const deltaX = currentX - startX;
+            if (deltaX < 0) {
+              card.style.transform = `translateX(${Math.max(deltaX, -100)}px)`;
+            }
+          };
+
+          const onTouchEnd = (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            card.style.transition = 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+            const deltaX = currentX - startX;
+
+            if (deltaX < -70) {
+              // Usunięcie gestem swipe
+              card.style.transform = 'translateX(-100%)';
+              if (navigator.vibrate) navigator.vibrate(35);
+              setTimeout(() => {
+                this.removePlayer(idx);
+              }, 200);
+            } else {
+              card.style.transform = 'translateX(0px)';
+            }
+          };
+
+          card.addEventListener('touchstart', onTouchStart, { passive: true });
+          card.addEventListener('touchmove', onTouchMove, { passive: true });
+          card.addEventListener('touchend', onTouchEnd, { passive: true });
+
+          container.appendChild(wrapper);
         });
+
         document.getElementById('impostor-player-count').innerText = this.players.length;
         this.validateImpostors();
       },
@@ -1711,6 +1819,7 @@
       },
 
       removePlayer(idx) {
+        if (this.players.length <= 3) return;
         this.players.splice(idx, 1);
         this.savePlayers();
         this.renderPlayersList();
