@@ -23,7 +23,7 @@
   <style>
     :root {
       --bg: #090a0f;
-      --card-bg: rgba(22, 26, 38, 0.85);
+      --card-bg: rgba(22, 26, 38, 0.88);
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
@@ -48,36 +48,46 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    html, body {
+    html {
+      background-color: var(--bg);
+      height: -webkit-fill-available;
+    }
+
+    body {
       background-color: var(--bg);
       color: var(--text-main);
       width: 100vw;
       height: 100vh;
       height: 100dvh;
+      min-height: -webkit-fill-available;
       overflow: hidden;
       position: fixed;
       inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .bg-blobs {
-      position: absolute;
-      inset: 0;
+      position: fixed;
+      inset: -100px;
       overflow: hidden;
       z-index: 0;
       pointer-events: none;
+      background-color: var(--bg);
     }
     .blob {
       position: absolute;
-      width: 340px;
-      height: 340px;
+      width: 360px;
+      height: 360px;
       border-radius: 50%;
-      filter: blur(95px);
-      opacity: 0.22;
+      filter: blur(100px);
+      opacity: 0.24;
     }
-    .blob-1 { top: -60px; left: -60px; background: var(--accent-impostor); }
-    .blob-2 { bottom: -60px; right: -60px; background: var(--accent-bomb); }
+    .blob-1 { top: -40px; left: -40px; background: var(--accent-impostor); }
+    .blob-2 { bottom: -40px; right: -40px; background: var(--accent-bomb); }
 
-    /* Pełny ekran od samej krawędzi po krawędź */
+    /* Bezszwowy układ Safe Area */
     #app-container {
       position: relative;
       z-index: 1;
@@ -111,7 +121,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Nagłówek i Logo */
+    /* Nagłówek */
     .header {
       display: flex;
       align-items: center;
@@ -222,7 +232,7 @@
     .btn-ghost { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--card-border); }
     .btn-danger { background: var(--accent-bomb); color: #fff; box-shadow: 0 8px 24px var(--accent-bomb-glow); }
 
-    /* Skalowalny layout konfiguracji */
+    /* Obszar konfiguracji ze scrollem */
     .config-scroll-area {
       flex: 1;
       display: flex;
@@ -332,12 +342,12 @@
     .carousel-emoji { font-size: 2.2rem; line-height: 1; }
     .carousel-name { font-size: 0.88rem; font-weight: 800; line-height: 1.25; color: #fff; }
 
-    /* DUŻA, PŁYNNA LISTA GRACZY (SWIPE-TO-DELETE) */
+    /* LISTA GRACZY (SWIPE-TO-DELETE BEZ X-A) */
     .players-container {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .player-swipe-wrapper {
@@ -350,12 +360,13 @@
       align-items: center;
       justify-content: flex-end;
       height: 56px;
-      transition: height 0.25s ease, margin 0.25s ease, opacity 0.25s ease;
+      transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1), margin 0.25s ease, opacity 0.2s ease;
     }
     .player-swipe-wrapper.deleting {
       height: 0;
       margin: 0;
       opacity: 0;
+      padding: 0;
     }
 
     .player-swipe-delete-bg {
@@ -363,14 +374,16 @@
       right: 0;
       top: 0;
       bottom: 0;
-      width: 85px;
+      width: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
       color: #fff;
-      font-size: 1.35rem;
-      font-weight: 900;
+      font-size: 1.2rem;
+      font-weight: 800;
       background: #dc2626;
+      padding-right: 14px;
     }
 
     .player-swipe-card {
@@ -384,17 +397,18 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 0 12px 0 16px;
+      padding: 0 16px;
       transform: translateX(0px);
       transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
+      cursor: grab;
     }
 
     .player-index-badge {
       font-size: 0.95rem;
       font-weight: 800;
       color: var(--accent-impostor);
-      min-width: 26px;
+      min-width: 24px;
     }
 
     .player-input {
@@ -408,24 +422,11 @@
       height: 100%;
     }
 
-    .player-remove-btn {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--card-border);
+    .player-swipe-hint {
+      font-size: 0.72rem;
       color: var(--text-muted);
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
-    .player-remove-btn:active {
-      background: rgba(244, 63, 94, 0.25);
-      color: #ff4b72;
+      font-weight: 600;
+      opacity: 0.6;
     }
 
     .setting-row {
@@ -628,6 +629,86 @@
       font-weight: 600;
     }
 
+    /* PRZEPROJEKTOWANE PODSUMOWANIE & WYNIKI */
+    .results-scroll-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 10px 0 16px;
+      gap: 12px;
+      padding-right: 2px;
+    }
+    .results-scroll-area::-webkit-scrollbar { display: none; }
+
+    .secret-reveal-card {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(244, 63, 94, 0.12));
+      border: 2px solid var(--accent-impostor);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 0 30px var(--accent-impostor-glow);
+    }
+    .secret-reveal-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .secret-reveal-word {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .secret-reveal-cat {
+      font-size: 0.85rem;
+      color: var(--accent-impostor);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .result-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .result-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+    }
+    .result-item.is-imp {
+      background: linear-gradient(135deg, rgba(244, 63, 94, 0.22), rgba(244, 63, 94, 0.08));
+      border-color: rgba(244, 63, 94, 0.45);
+      box-shadow: 0 0 20px rgba(244, 63, 94, 0.25);
+    }
+    .result-badge-imp {
+      background: var(--accent-bomb);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    .result-badge-crew {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
     /* Modale */
     .modal-overlay {
       display: none;
@@ -725,31 +806,6 @@
       vertical-align: -3px;
       margin: 0 3px;
       color: #38bdf8;
-    }
-
-    /* Results */
-    .result-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin: 14px 0;
-      max-height: 240px;
-      overflow-y: auto;
-    }
-    .result-item {
-      padding: 12px 16px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--card-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 700;
-    }
-    .result-item.is-imp {
-      background: rgba(244, 63, 94, 0.15);
-      border-color: rgba(244, 63, 94, 0.4);
-      color: #ff6b87;
     }
 
     /* UI Bomba */
@@ -892,7 +948,7 @@
       <div></div>
     </section>
 
-    <!-- 2. KONFIGURACJA IMPOSTORA (SKALOWALNA POD 15+ GRACZY) -->
+    <!-- 2. KONFIGURACJA IMPOSTORA -->
     <section class="screen" id="screen-config-impostor">
       <header class="header">
         <button class="back-btn" onclick="App.showScreen('screen-menu')">←</button>
@@ -926,8 +982,11 @@
 
         <div class="glass-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-            <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
-            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:7px 14px; border-radius:10px; color:#fff; font-size:0.85rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj gracza</button>
+            <div>
+              <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
+              <span class="player-swipe-hint">Przesuń w lewo, aby usunąć</span>
+            </div>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:7px 14px; border-radius:10px; color:#fff; font-size:0.85rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj</button>
           </div>
           <div class="players-container" id="impostor-players-list"></div>
         </div>
@@ -942,6 +1001,7 @@
         <button class="back-btn" onclick="App.showScreen('screen-config-impostor')">←</button>
       </header>
 
+      <!-- Centralny Banner Gracza -->
       <div class="player-focus-badge">
         <span class="player-focus-label">Teraz kolej gracza</span>
         <h2 class="player-focus-name" id="impostor-player-title">Kuba</h2>
@@ -974,31 +1034,33 @@
         <h2 class="brand-title">Dyskusja</h2>
       </header>
 
-      <div class="glass-box" style="text-align: center; margin: auto 0;">
-        <div style="font-size:3rem; margin-bottom:10px;">🗣️</div>
-        <h3 style="font-size: 1.3rem; font-weight:800; margin-bottom: 8px;">Telefon ląduje na stole</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.4;">Każdy mówi po jednym skojarzeniu. Przedyskutujcie sytuację i wytypujcie Impostora!</p>
+      <div class="glass-box" style="text-align: center; margin: auto 0; padding: 28px 20px;">
+        <div style="font-size:3.5rem; margin-bottom:12px;">🗣️</div>
+        <h3 style="font-size: 1.4rem; font-weight:900; margin-bottom: 8px;">Telefon ląduje na stole</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.45;">Każdy mówi po jednym skojarzeniu. Przedyskutujcie podejrzenia i wskażcie Impostora!</p>
       </div>
 
       <button class="btn btn-primary" onclick="ImpostorEngine.revealResult()">Pokaż odpowiedzi i Impostorów</button>
     </section>
 
-    <!-- 5. WYNIKI IMPOSTORA -->
+    <!-- 5. PRZEPROJEKTOWANE WYNIKI IMPOSTORA -->
     <section class="screen" id="screen-impostor-results">
       <header class="header">
         <button class="back-btn" onclick="App.showScreen('screen-menu')">←</button>
         <h2 class="brand-title">Rozwiązanie</h2>
       </header>
 
-      <div class="glass-box" style="text-align:center; padding: 14px;">
-        <p class="section-title" style="margin:0;">Tajne hasło</p>
-        <h3 style="font-size: 1.6rem; font-weight:900; color:#fff;" id="result-secret-word">Hasło</h3>
-        <p style="font-size:0.8rem; color:var(--accent-impostor); font-weight:700;" id="result-secret-cat">Kategoria</p>
-      </div>
+      <div class="results-scroll-area">
+        <div class="secret-reveal-card">
+          <div class="secret-reveal-label">Tajne hasło rundy</div>
+          <div class="secret-reveal-word" id="result-secret-word">Hasło</div>
+          <div class="secret-reveal-cat" id="result-secret-cat">Kategoria</div>
+        </div>
 
-      <div class="glass-box" style="flex:1; display:flex; flex-direction:column; justify-content:flex-start; overflow-y:auto;">
-        <p class="section-title">Role graczy</p>
-        <div class="result-list" id="result-players-list"></div>
+        <div class="glass-box">
+          <p class="section-title" style="margin-bottom:12px;">Podział ról</p>
+          <div class="result-list" id="result-players-list"></div>
+        </div>
       </div>
 
       <button class="btn btn-primary" onclick="ImpostorEngine.start()">Kolejna runda</button>
@@ -1690,7 +1752,7 @@
       }
     };
 
-    /* SILNIK IMPOSTORA Z PŁYNNYM SWIPE-TO-DELETE */
+    /* SILNIK IMPOSTORA Z PŁYNNYM SWIPE-TO-DELETE ORAZ AUTO-SELECT */
     const ImpostorEngine = {
       players: [],
       impostorsCount: 1,
@@ -1743,15 +1805,16 @@
           wrapper.className = 'player-swipe-wrapper';
 
           wrapper.innerHTML = `
-            <div class="player-swipe-delete-bg">🗑️</div>
+            <div class="player-swipe-delete-bg">
+              <span>Usuń</span> 🗑️
+            </div>
             <div class="player-swipe-card" id="player-card-${idx}">
               <span class="player-index-badge">#${idx + 1}</span>
-              <input type="text" class="player-input" value="${name}" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
-              ${this.players.length > 3 ? `<button class="player-remove-btn" onclick="ImpostorEngine.triggerRemove(${idx}, this)">✕</button>` : ''}
+              <input type="text" class="player-input" value="${name}" onfocus="this.select()" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
             </div>
           `;
 
-          // Usprawniony gest Swipe-to-Delete z PointerEvents (120 FPS)
+          // Czysty, sprężysty gest Swipe-to-Delete
           const card = wrapper.querySelector('.player-swipe-card');
           let startX = 0;
           let currentDeltaX = 0;
@@ -1759,7 +1822,7 @@
 
           const onPointerDown = (e) => {
             if (this.players.length <= 3) return;
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+            if (e.target.tagName === 'INPUT') return;
             startX = e.clientX;
             isDragging = true;
             card.style.transition = 'none';
@@ -1771,23 +1834,22 @@
             const deltaX = e.clientX - startX;
             if (deltaX < 0) {
               currentDeltaX = deltaX;
-              card.style.transform = `translateX(${Math.max(deltaX, -110)}px)`;
+              card.style.transform = `translateX(${Math.max(deltaX, -120)}px)`;
             }
           };
 
           const onPointerUp = (e) => {
             if (!isDragging) return;
             isDragging = false;
-            card.style.transition = 'transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)';
+            card.style.transition = 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
 
-            if (currentDeltaX < -75) {
-              // Usunięcie
+            if (currentDeltaX < -70) {
               card.style.transform = 'translateX(-100%)';
-              if (navigator.vibrate) navigator.vibrate(35);
+              if (navigator.vibrate) navigator.vibrate(30);
               wrapper.classList.add('deleting');
               setTimeout(() => {
                 this.removePlayer(idx);
-              }, 250);
+              }, 220);
             } else {
               card.style.transform = 'translateX(0px)';
             }
@@ -1807,22 +1869,10 @@
       },
 
       addPlayer() {
-        if (this.players.length >= 16) return;
+        if (this.players.length >= 20) return;
         this.players.push(`Gracz ${this.players.length + 1}`);
         this.savePlayers();
         this.renderPlayersList();
-      },
-
-      triggerRemove(idx, btn) {
-        if (this.players.length <= 3) return;
-        const wrapper = btn.closest('.player-swipe-wrapper');
-        const card = wrapper.querySelector('.player-swipe-card');
-        card.style.transform = 'translateX(-100%)';
-        wrapper.classList.add('deleting');
-        if (navigator.vibrate) navigator.vibrate(30);
-        setTimeout(() => {
-          this.removePlayer(idx);
-        }, 250);
       },
 
       removePlayer(idx) {
@@ -2029,7 +2079,9 @@
           item.className = `result-item ${p.isImpostor ? 'is-imp' : ''}`;
           item.innerHTML = `
             <span>${p.name}</span>
-            <span>${p.isImpostor ? '🎭 IMPOSTOR' : '✅ Zwykły gracz'}</span>
+            <span class="${p.isImpostor ? 'result-badge-imp' : 'result-badge-crew'}">
+              ${p.isImpostor ? '🎭 IMPOSTOR' : 'Zwykły gracz'}
+            </span>
           `;
           list.appendChild(item);
         });
@@ -2048,7 +2100,7 @@
       usedBombWords: [],
 
       adjustPlayers(delta) {
-        this.playersCount = Math.max(2, Math.min(16, this.playersCount + delta));
+        this.playersCount = Math.max(2, Math.min(20, this.playersCount + delta));
         document.getElementById('val-bomb-players').innerText = this.playersCount;
         
         const minS = this.playersCount * 9;
