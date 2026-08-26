@@ -81,7 +81,10 @@
       max-width: 440px;
       height: 100vh;
       height: 100dvh;
-      padding: 20px 18px;
+      padding-top: max(20px, env(safe-area-inset-top, 20px));
+      padding-bottom: max(20px, env(safe-area-inset-bottom, 20px));
+      padding-left: max(18px, env(safe-area-inset-left, 18px));
+      padding-right: max(18px, env(safe-area-inset-right, 18px));
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -104,7 +107,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Nagłówek ze strzałką powrotu */
     .header {
       display: flex;
       align-items: center;
@@ -140,7 +142,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* Kafelki menu głównego */
     .menu-grid {
       display: flex;
       flex-direction: column;
@@ -151,7 +152,7 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
-      padding: 20px;
+      padding: 22px 20px;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -177,8 +178,7 @@
     .bomb .game-icon { background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); }
     .who .game-icon { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); }
 
-    .game-info h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
-    .game-info p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.3; }
+    .game-info h3 { font-size: 1.3rem; font-weight: 900; letter-spacing: -0.3px; }
 
     .btn {
       width: 100%;
@@ -246,18 +246,18 @@
     }
 
     .carousel-card {
-      flex: 0 0 142px;
+      flex: 0 0 135px;
       scroll-snap-align: start;
       background: rgba(255, 255, 255, 0.03);
       border: 2px solid var(--card-border);
       border-radius: var(--radius-lg);
-      padding: 18px 10px;
+      padding: 22px 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 8px;
+      gap: 10px;
       cursor: pointer;
       position: relative;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -302,9 +302,108 @@
       background: var(--accent-18);
     }
 
-    .carousel-emoji { font-size: 2.2rem; line-height: 1; }
-    .carousel-name { font-size: 0.88rem; font-weight: 800; line-height: 1.25; color: #fff; }
-    .carousel-count { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); }
+    .carousel-emoji { font-size: 2.4rem; line-height: 1; }
+    .carousel-name { font-size: 0.9rem; font-weight: 800; line-height: 1.25; color: #fff; }
+
+    /* Modale */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-box {
+      background: #141724;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      max-width: 370px;
+      width: 100%;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Prawdziwe Logo Aplikacji w oknie instalacji */
+    .install-app-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      margin: 0 auto 12px;
+      display: block;
+      object-fit: cover;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #090a0f;
+    }
+    .install-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 4px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+    }
+    .install-tab {
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .install-tab.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    .install-step-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      text-align: left;
+    }
+    .install-step-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+    .install-step-desc {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+    .inline-icon {
+      display: inline-flex;
+      vertical-align: -3px;
+      margin: 0 3px;
+      color: #38bdf8;
+    }
 
     /* Lista graczy */
     .players-container {
@@ -390,53 +489,161 @@
       color: #fff;
     }
 
-    /* Touch Card */
-    .reveal-card {
-      flex: 1;
-      margin: 14px 0;
+    /* Centralny Banner Gracza */
+    .player-focus-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
-      border: 2px dashed rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.02);
+      margin-bottom: 12px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+    }
+    .player-focus-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--accent-impostor);
+    }
+    .player-focus-name {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      margin-top: 4px;
+      letter-spacing: -0.6px;
+    }
+
+    /* Scena Swipe Up */
+    .swipe-stage {
+      flex: 1;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0 16px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid var(--card-border);
+      touch-action: none;
+    }
+
+    .particles-field {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background-image: radial-gradient(rgba(139, 92, 246, 0.35) 1.5px, transparent 1.5px), radial-gradient(rgba(244, 63, 94, 0.35) 1.5px, transparent 1.5px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+    }
+
+    .secret-layer {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 20px;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
-      touch-action: none;
+      padding: 24px;
+      transform: scale(0.85);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+      z-index: 1;
+      will-change: transform, opacity;
     }
-    .reveal-card.revealed {
-      background: rgba(139, 92, 246, 0.12);
-      border-color: var(--accent-impostor);
-      border-style: solid;
-      box-shadow: inset 0 0 30px var(--accent-impostor-glow);
+    .secret-layer.revealed {
+      transform: scale(1);
+      opacity: 1;
     }
+
     .secret-word {
-      font-size: 1.85rem;
+      font-size: 2.2rem;
       font-weight: 900;
       color: #fff;
-      display: none;
-      margin-top: 6px;
+      margin: 8px 0;
       line-height: 1.2;
+      -webkit-font-smoothing: antialiased;
     }
     .secret-sub {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: var(--accent-impostor);
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 800;
-      display: none;
     }
     .secret-hint-direct {
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       color: #fca5a5;
       font-weight: 700;
-      margin-top: 8px;
-      display: none;
+      margin-top: 10px;
     }
-    .hold-prompt { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); }
+
+    .swipe-cover {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #161a26 0%, #0d0f17 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-lg);
+      z-index: 2;
+      cursor: grab;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transform: translateY(0%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+    .swipe-cover:active { cursor: grabbing; }
+
+    .swipe-handle-bar {
+      width: 44px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 99px;
+      margin-bottom: 20px;
+    }
+
+    .swipe-arrow-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--accent-impostor);
+      margin-bottom: 14px;
+      animation: bounceArrow 1.5s infinite ease-in-out;
+    }
+    @keyframes bounceArrow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .swipe-text {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: 0.3px;
+    }
+    .swipe-subtext {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 600;
+    }
 
     /* Results */
     .result-list {
@@ -528,6 +735,44 @@
     <div class="blob blob-2"></div>
   </div>
 
+  <!-- MODAL INSTRUKCJI PWA W STYLU XBOX CLOUD GAMING Z PRAWDZIWYM LOGO -->
+  <div class="modal-overlay" id="install-modal">
+    <div class="modal-box">
+      <img src="./icon-192.png" alt="Party Lab Logo" class="install-app-logo" onerror="this.onerror=null; this.src='./icon.svg';">
+      <h3 style="font-size: 1.25rem; font-weight: 900; margin-bottom: 2px; color: #fff;">Zainstaluj Party Lab</h3>
+      <p style="color: var(--text-muted); font-size: 0.78rem; line-height: 1.35; margin-bottom: 14px;">
+        Graj na pełnym ekranie bez pasków przeglądarki!
+      </p>
+
+      <div class="install-tabs">
+        <div class="install-tab active" id="tab-ios" onclick="PwaInstaller.switchPlatform('ios')">iPhone (Safari)</div>
+        <div class="install-tab" id="tab-android" onclick="PwaInstaller.switchPlatform('android')">Android (Chrome)</div>
+      </div>
+
+      <div id="install-steps-container"></div>
+
+      <div style="display:flex; flex-direction:column; gap:8px; margin-top:14px;">
+        <button class="btn btn-primary" id="btn-native-install" style="display:none;" onclick="PwaInstaller.triggerNative()">Zainstaluj aplikację</button>
+        <button class="btn btn-ghost" onclick="PwaInstaller.dismiss()">Graj w przeglądarce</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL OSTRZEŻENIA 18+ -->
+  <div class="modal-overlay" id="age-modal">
+    <div class="modal-box">
+      <div style="font-size: 3rem; margin-bottom: 8px;">🔞</div>
+      <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; color: #fff;">Treści dla dorosłych</h3>
+      <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4; margin-bottom: 20px;">
+        Wybrana kategoria zawiera hasła pikantne i bez cenzury (+18). Czy masz ukończone 18 lat?
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button class="btn btn-danger" onclick="CategoryCarousel.confirm18()">Tak, mam 18 lat</button>
+        <button class="btn btn-ghost" onclick="CategoryCarousel.cancel18()">Anuluj</button>
+      </div>
+    </div>
+  </div>
+
   <main id="app-container">
 
     <!-- 1. MENU GŁÓWNE -->
@@ -541,7 +786,6 @@
           <div class="game-icon">🎭</div>
           <div class="game-info">
             <h3>Impostor</h3>
-            <p>Trudne podpowiedzi, blef i dedukcja.</p>
           </div>
         </div>
 
@@ -549,7 +793,6 @@
           <div class="game-icon">💣</div>
           <div class="game-info">
             <h3>Tykająca Bomba</h3>
-            <p>W tym dedykowana kategoria Makaroniarze 🇮🇹.</p>
           </div>
         </div>
 
@@ -557,7 +800,6 @@
           <div class="game-icon">🎯</div>
           <div class="game-info">
             <h3>Kto z Nas?</h3>
-            <p>Pytania imprezowe i relacyjne.</p>
           </div>
         </div>
       </div>
@@ -605,21 +847,36 @@
       <button class="btn btn-primary" onclick="ImpostorEngine.start()">Rozpocznij grę</button>
     </section>
 
-    <!-- 3. ROZGRYWKA IMPOSTOR -->
+    <!-- 3. ROZGRYWKA IMPOSTOR (SWIPE UP) -->
     <section class="screen" id="screen-game-impostor">
-      <header class="header">
+      <header class="header" style="justify-content: flex-start; margin-bottom: 2px;">
         <button class="back-btn" onclick="App.showScreen('screen-config-impostor')">←</button>
-        <h2 class="brand-title" id="impostor-player-title">Gracz</h2>
       </header>
 
-      <div class="reveal-card" id="impostor-touch-card">
-        <div class="hold-prompt" id="hold-prompt">👇 Przytrzymaj palec na karcie</div>
-        <div class="secret-sub" id="secret-sub">Kategoria</div>
-        <div class="secret-word" id="secret-word">Hasło</div>
-        <div class="secret-hint-direct" id="secret-hint-direct">Wskazówka: ...</div>
+      <!-- Centralny Banner Gracza -->
+      <div class="player-focus-badge">
+        <span class="player-focus-label">Teraz kolej gracza</span>
+        <h2 class="player-focus-name" id="impostor-player-title">Kuba</h2>
       </div>
 
-      <button class="btn btn-primary" id="impostor-next-btn" style="opacity:0; pointer-events:none;" onclick="ImpostorEngine.nextPlayer()">Następny gracz →</button>
+      <div class="swipe-stage" id="impostor-swipe-stage">
+        <div class="particles-field" id="particles-bg"></div>
+
+        <div class="secret-layer" id="secret-layer">
+          <div class="secret-sub" id="secret-sub">Kategoria</div>
+          <div class="secret-word" id="secret-word">Hasło</div>
+          <div class="secret-hint-direct" id="secret-hint-direct">Wskazówka: ...</div>
+        </div>
+
+        <div class="swipe-cover" id="swipe-cover">
+          <div class="swipe-handle-bar"></div>
+          <div class="swipe-arrow-box">⇡</div>
+          <div class="swipe-text">Przesuń w górę</div>
+          <div class="swipe-subtext">aby podejrzeć swoją rolę</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="impostor-next-btn" style="opacity:0; pointer-events:none;" onclick="ImpostorEngine.nextPlayer()">Zasłoń i przekaż dalej →</button>
     </section>
 
     <!-- 4. DEBATA IMPOSTOR -->
@@ -1168,13 +1425,124 @@
       }
     };
 
-    /* KARUZELA SWIPE Z MULTI-SELECT */
+    /* INSTALATOR PWA (TABY iOS / ANDROID W STYLU XBOX CLOUD GAMING) */
+    const PwaInstaller = {
+      deferredPrompt: null,
+      activePlatform: 'ios',
+
+      init() {
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this.deferredPrompt = e;
+          const nativeBtn = document.getElementById('btn-native-install');
+          if (nativeBtn) nativeBtn.style.display = 'flex';
+        });
+
+        const userAgent = window.navigator.userAgent.toLowerCase();
+        this.activePlatform = /iphone|ipad|ipod/.test(userAgent) ? 'ios' : 'android';
+        this.check();
+      },
+
+      check() {
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        const alreadyDismissed = localStorage.getItem('partylab_installed_dismissed');
+
+        if (!isStandalone && !alreadyDismissed) {
+          this.showGuide();
+        }
+      },
+
+      switchPlatform(platform) {
+        this.activePlatform = platform;
+        document.getElementById('tab-ios').classList.toggle('active', platform === 'ios');
+        document.getElementById('tab-android').classList.toggle('active', platform === 'android');
+        this.renderSteps();
+      },
+
+      showGuide() {
+        this.switchPlatform(this.activePlatform);
+        document.getElementById('install-modal').classList.add('active');
+      },
+
+      renderSteps() {
+        const container = document.getElementById('install-steps-container');
+
+        if (this.activePlatform === 'ios') {
+          container.innerHTML = `
+            <div class="install-step-row">
+              <div class="install-step-badge">1</div>
+              <div class="install-step-desc">
+                W Safari kliknij ikonę <b>Udostępnij</b>
+                <svg class="inline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                  <polyline points="16 6 12 2 8 6"></polyline>
+                  <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+                (kwadrat ze strzałką w górę).
+              </div>
+            </div>
+            <div class="install-step-row">
+              <div class="install-step-badge">2</div>
+              <div class="install-step-desc">
+                Przewiń w dół i wybierz <b>„Do ekranu początkowego”</b>
+                <svg class="inline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="12" y1="8" x2="12" y2="16"></line>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>.
+              </div>
+            </div>
+          `;
+        } else {
+          container.innerHTML = `
+            <div class="install-step-row">
+              <div class="install-step-badge">1</div>
+              <div class="install-step-desc">
+                W Chrome dotknij ikony menu <b>Trzy kropki</b>
+                <svg class="inline-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="12" cy="5" r="2"></circle>
+                  <circle cx="12" cy="12" r="2"></circle>
+                  <circle cx="12" cy="19" r="2"></circle>
+                </svg>
+                w prawym górnym rogu.
+              </div>
+            </div>
+            <div class="install-step-row">
+              <div class="install-step-badge">2</div>
+              <div class="install-step-desc">
+                Wybierz <b>„Zainstaluj aplikację”</b> lub <b>„Dodaj do ekranu głównego”</b>.
+              </div>
+            </div>
+          `;
+        }
+      },
+
+      triggerNative() {
+        if (this.deferredPrompt) {
+          this.deferredPrompt.prompt();
+          this.deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              this.dismiss();
+            }
+            this.deferredPrompt = null;
+          });
+        }
+      },
+
+      dismiss() {
+        localStorage.setItem('partylab_installed_dismissed', 'true');
+        document.getElementById('install-modal').classList.remove('active');
+      }
+    };
+
+    /* KARUZELA SWIPE Z WERYFIKACJĄ 18+ */
     const CategoryCarousel = {
       selected: {
         impostor: ["Codzienne życie"],
         bomba: ["Makaroniarze"],
         ktoZNas: ["Impreza"]
       },
+      pending18: null,
 
       render(containerId, counterId, mode, onSelect) {
         const container = document.getElementById(containerId);
@@ -1191,33 +1559,30 @@
           const isSpicy = cat.includes('18+') || cat.includes('Spicy');
           const emoji = categoryEmojis[cat] || "🎲";
 
-          let count = 0;
-          if (mode === 'impostor') {
-            partyLabDatabase.impostor.filter(i => i.category === cat).forEach(p => count += p.words.length);
-          } else if (mode === 'bomba') {
-            partyLabDatabase.bomba.filter(i => i.category === cat).forEach(p => count += p.words.length);
-          } else {
-            partyLabDatabase.ktoZNas.filter(i => i.category === cat).forEach(p => count += p.questions.length);
-          }
-
           const card = document.createElement('div');
           card.className = `carousel-card ${isSelected ? 'active' : ''} ${isSpicy ? 'is-18' : ''}`;
           card.innerHTML = `
             <div class="carousel-check">✓</div>
             <div class="carousel-emoji">${emoji}</div>
             <div class="carousel-name">${cat}</div>
-            <div class="carousel-count">${count} pozycji</div>
           `;
 
           card.onclick = () => {
             if (this.selected[mode].includes(cat)) {
               if (this.selected[mode].length > 1) {
                 this.selected[mode] = this.selected[mode].filter(c => c !== cat);
+                this.render(containerId, counterId, mode, onSelect);
               }
             } else {
+              if (isSpicy && !sessionStorage.getItem('partylab_18_confirmed')) {
+                this.pending18 = { containerId, counterId, mode, onSelect, cat };
+                document.getElementById('age-modal').classList.add('active');
+                return;
+              }
+
               this.selected[mode].push(cat);
+              this.render(containerId, counterId, mode, onSelect);
             }
-            this.render(containerId, counterId, mode, onSelect);
             if (onSelect) onSelect(this.selected[mode]);
           };
 
@@ -1234,6 +1599,23 @@
         }
 
         if (onSelect) onSelect(this.selected[mode]);
+      },
+
+      confirm18() {
+        sessionStorage.setItem('partylab_18_confirmed', 'true');
+        document.getElementById('age-modal').classList.remove('active');
+        if (this.pending18) {
+          const { containerId, counterId, mode, onSelect, cat } = this.pending18;
+          this.selected[mode].push(cat);
+          this.render(containerId, counterId, mode, onSelect);
+          if (onSelect) onSelect(this.selected[mode]);
+          this.pending18 = null;
+        }
+      },
+
+      cancel18() {
+        document.getElementById('age-modal').classList.remove('active');
+        this.pending18 = null;
       }
     };
 
@@ -1248,16 +1630,19 @@
       currentWordData: null,
       usedWords: [],
 
+      touchStartY: 0,
+      isRevealed: false,
+
       init() {
         const saved = localStorage.getItem('partylab_players');
         if (saved) {
           try {
             this.players = JSON.parse(saved);
           } catch(e) {
-            this.players = ["Gracz 1", "Gracz 2", "Gracz 3", "Gracz 4"];
+            this.players = ["Kuba", "Marek", "Kasia", "Piotr"];
           }
         } else {
-          this.players = ["Gracz 1", "Gracz 2", "Gracz 3", "Gracz 4"];
+          this.players = ["Kuba", "Marek", "Kasia", "Piotr"];
         }
         this.renderPlayersList();
       },
@@ -1397,51 +1782,94 @@
           hintEl.style.display = 'none';
         }
 
-        this.hideCard();
+        this.resetSwipeCover();
       },
 
       bindEvents() {
-        const card = document.getElementById('impostor-touch-card');
-        
-        const reveal = (e) => {
-          e.preventDefault();
-          card.classList.add('revealed');
-          document.getElementById('hold-prompt').style.display = 'none';
-          document.getElementById('secret-sub').style.display = 'block';
-          document.getElementById('secret-word').style.display = 'block';
-          const player = this.assignedRoles[this.currentIndex];
-          if (player.isImpostor && this.hintsEnabled && this.currentWordData.hint) {
-            document.getElementById('secret-hint-direct').style.display = 'block';
+        const stage = document.getElementById('impostor-swipe-stage');
+        const cover = document.getElementById('swipe-cover');
+        const secret = document.getElementById('secret-layer');
+        const particles = document.getElementById('particles-bg');
+
+        let isDragging = false;
+        let startY = 0;
+
+        const onStart = (e) => {
+          if (this.isRevealed) return;
+          isDragging = true;
+          startY = e.clientY || (e.touches && e.touches[0].clientY);
+          cover.style.transition = 'none';
+        };
+
+        const onMove = (e) => {
+          if (!isDragging || this.isRevealed) return;
+          const currentY = e.clientY || (e.touches && e.touches[0].clientY);
+          const deltaY = currentY - startY;
+
+          if (deltaY < 0) {
+            const stageHeight = stage.offsetHeight;
+            const progress = Math.min(1, Math.abs(deltaY) / (stageHeight * 0.65));
+            
+            cover.style.transform = `translateY(${deltaY}px)`;
+            secret.style.transform = `scale(${0.85 + progress * 0.15})`;
+            secret.style.opacity = progress;
+            particles.style.opacity = progress * 0.8;
           }
-          if (navigator.vibrate) navigator.vibrate(35);
         };
 
-        const hide = (e) => {
-          e.preventDefault();
-          this.hideCard();
-          document.getElementById('impostor-next-btn').style.opacity = '1';
-          document.getElementById('impostor-next-btn').style.pointerEvents = 'auto';
+        const onEnd = (e) => {
+          if (!isDragging || this.isRevealed) return;
+          isDragging = false;
+          cover.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+
+          const endY = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
+          const deltaY = endY - startY;
+          const threshold = stage.offsetHeight * 0.4;
+
+          if (deltaY < -threshold) {
+            this.isRevealed = true;
+            cover.style.transform = 'translateY(-110%)';
+            secret.classList.add('revealed');
+            particles.style.opacity = 1;
+
+            if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
+
+            document.getElementById('impostor-next-btn').style.opacity = '1';
+            document.getElementById('impostor-next-btn').style.pointerEvents = 'auto';
+          } else {
+            cover.style.transform = 'translateY(0%)';
+            secret.style.transform = 'scale(0.85)';
+            secret.style.opacity = '0';
+            particles.style.opacity = '0';
+          }
         };
 
-        card.onpointerdown = reveal;
-        card.onpointerup = hide;
-        card.onpointercancel = hide;
+        stage.onpointerdown = onStart;
+        window.onpointermove = onMove;
+        window.onpointerup = onEnd;
+        window.onpointercancel = onEnd;
       },
 
-      hideCard() {
-        const card = document.getElementById('impostor-touch-card');
-        card.classList.remove('revealed');
-        document.getElementById('hold-prompt').style.display = 'block';
-        document.getElementById('secret-sub').style.display = 'none';
-        document.getElementById('secret-word').style.display = 'none';
-        document.getElementById('secret-hint-direct').style.display = 'none';
+      resetSwipeCover() {
+        this.isRevealed = false;
+        const cover = document.getElementById('swipe-cover');
+        const secret = document.getElementById('secret-layer');
+        const particles = document.getElementById('particles-bg');
+
+        cover.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
+        cover.style.transform = 'translateY(0%)';
+        
+        secret.classList.remove('revealed');
+        secret.style.transform = 'scale(0.85)';
+        secret.style.opacity = '0';
+        particles.style.opacity = '0';
+
+        document.getElementById('impostor-next-btn').style.opacity = '0';
+        document.getElementById('impostor-next-btn').style.pointerEvents = 'none';
       },
 
       nextPlayer() {
         this.currentIndex++;
-        document.getElementById('impostor-next-btn').style.opacity = '0';
-        document.getElementById('impostor-next-btn').style.pointerEvents = 'none';
-
         if (this.currentIndex < this.players.length) {
           this.renderCurrentTurn();
         } else {
@@ -1584,8 +2012,10 @@
       }
     };
 
+    // Inicjalizacja domyślna
     ImpostorEngine.init();
     BombEngine.adjustPlayers(0);
+    PwaInstaller.init();
   </script>
 </body>
 </html>
