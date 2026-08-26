@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Party Lab</title>
   
-  <!-- PWA & MANIFEST -->
+  <!-- FAVICON DLA KART PRZEGLĄDARKI -->
+  <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="shortcut icon" href="./icon-192.png">
+
+  <!-- PWA & MOBILE -->
   <link rel="manifest" href="./manifest.json">
   <link rel="apple-touch-icon" href="./icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -110,10 +115,33 @@
     .header {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       margin-bottom: 14px;
       flex-shrink: 0;
     }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+      background: #141724;
+    }
+    .brand-title {
+      font-size: 1.55rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 40%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     .back-btn {
       width: 42px;
       height: 42px;
@@ -132,14 +160,6 @@
     .back-btn:active {
       transform: scale(0.92);
       background: rgba(255, 255, 255, 0.12);
-    }
-    .brand-title {
-      font-size: 1.55rem;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #fff 40%, #9ca3af 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .menu-grid {
@@ -333,7 +353,6 @@
       box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
     }
 
-    /* Prawdziwe Logo Aplikacji w oknie instalacji */
     .install-app-logo {
       width: 72px;
       height: 72px;
@@ -778,7 +797,10 @@
     <!-- 1. MENU GŁÓWNE -->
     <section class="screen active" id="screen-menu">
       <header class="header">
-        <h1 class="brand-title">Party Lab.</h1>
+        <div class="brand-box">
+          <img src="./icon-192.png" alt="Party Lab Icon" class="brand-icon" onerror="this.onerror=null; this.src='./icon.svg';">
+          <h1 class="brand-title">Party Lab.</h1>
+        </div>
       </header>
 
       <div class="menu-grid">
@@ -792,7 +814,7 @@
         <div class="game-card bomb" onclick="App.openBombConfig()">
           <div class="game-icon">💣</div>
           <div class="game-info">
-            <h3>Bomba</h3>
+            <h3>Tykająca Bomba</h3>
           </div>
         </div>
 
@@ -812,7 +834,9 @@
       <div>
         <header class="header">
           <button class="back-btn" onclick="App.showScreen('screen-menu')">←</button>
-          <h2 class="brand-title">Impostor</h2>
+          <div class="brand-box">
+            <h2 class="brand-title">Impostor</h2>
+          </div>
         </header>
 
         <div class="section-title-bar">
