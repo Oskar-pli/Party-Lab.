@@ -50,27 +50,26 @@
 
     html {
       background-color: var(--bg);
-      height: -webkit-fill-available;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
     }
 
     body {
       background-color: var(--bg);
       color: var(--text-main);
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      min-height: -webkit-fill-available;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      position: fixed;
-      inset: 0;
       display: flex;
       justify-content: center;
       align-items: center;
+      overscroll-behavior: none;
     }
 
     .bg-blobs {
-      position: fixed;
-      inset: -100px;
+      position: absolute;
+      inset: 0;
       overflow: hidden;
       z-index: 0;
       pointer-events: none;
@@ -95,10 +94,10 @@
       max-width: 440px;
       height: 100%;
       margin: 0 auto;
-      padding-top: max(16px, env(safe-area-inset-top, 16px));
-      padding-bottom: max(14px, env(safe-area-inset-bottom, 14px));
-      padding-left: max(16px, env(safe-area-inset-left, 16px));
-      padding-right: max(16px, env(safe-area-inset-right, 16px));
+      padding-top: max(16px, env(safe-area-inset-top));
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -342,7 +341,7 @@
     .carousel-emoji { font-size: 2.2rem; line-height: 1; }
     .carousel-name { font-size: 0.88rem; font-weight: 800; line-height: 1.25; color: #fff; }
 
-    /* LISTA GRACZY (SWIPE-TO-DELETE BEZ X-A) */
+    /* LISTA GRACZY Z PRZYCISKAMI X */
     .players-container {
       display: flex;
       flex-direction: column;
@@ -350,58 +349,16 @@
       margin-top: 6px;
     }
 
-    .player-swipe-wrapper {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      touch-action: pan-y;
-      background: #dc2626;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      height: 56px;
-      transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1), margin 0.25s ease, opacity 0.2s ease;
-    }
-    .player-swipe-wrapper.deleting {
-      height: 0;
-      margin: 0;
-      opacity: 0;
-      padding: 0;
-    }
-
-    .player-swipe-delete-bg {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: 800;
-      background: #dc2626;
-      padding-right: 14px;
-    }
-
-    .player-swipe-card {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
+    .player-row-card {
       background: #141724;
       border: 1px solid var(--card-border);
       border-radius: 16px;
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 0 16px;
-      transform: translateX(0px);
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: transform;
-      cursor: grab;
+      padding: 0 12px 0 16px;
+      height: 54px;
+      transition: all 0.2s ease;
     }
 
     .player-index-badge {
@@ -422,11 +379,25 @@
       height: 100%;
     }
 
-    .player-swipe-hint {
-      font-size: 0.72rem;
+    .player-delete-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
       color: var(--text-muted);
-      font-weight: 600;
-      opacity: 0.6;
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      font-weight: 900;
+      flex-shrink: 0;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .player-delete-btn:active {
+      background: rgba(244, 63, 94, 0.25);
+      color: #ff4b72;
     }
 
     .setting-row {
@@ -629,7 +600,7 @@
       font-weight: 600;
     }
 
-    /* PRZEPROJEKTOWANE PODSUMOWANIE & WYNIKI */
+    /* Podsumowanie & Wyniki */
     .results-scroll-area {
       flex: 1;
       display: flex;
@@ -982,11 +953,8 @@
 
         <div class="glass-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-            <div>
-              <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
-              <span class="player-swipe-hint">Przesuń w lewo, aby usunąć</span>
-            </div>
-            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:7px 14px; border-radius:10px; color:#fff; font-size:0.85rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj</button>
+            <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:7px 14px; border-radius:10px; color:#fff; font-size:0.85rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj gracza</button>
           </div>
           <div class="players-container" id="impostor-players-list"></div>
         </div>
@@ -1043,7 +1011,7 @@
       <button class="btn btn-primary" onclick="ImpostorEngine.revealResult()">Pokaż odpowiedzi i Impostorów</button>
     </section>
 
-    <!-- 5. PRZEPROJEKTOWANE WYNIKI IMPOSTORA -->
+    <!-- 5. WYNIKI IMPOSTORA -->
     <section class="screen" id="screen-impostor-results">
       <header class="header">
         <button class="back-btn" onclick="App.showScreen('screen-menu')">←</button>
@@ -1749,10 +1717,27 @@
         }
 
         if (onSelect) onSelect(this.selected[mode]);
+      },
+
+      confirm18() {
+        sessionStorage.setItem('partylab_18_confirmed', 'true');
+        document.getElementById('age-modal').classList.remove('active');
+        if (this.pending18) {
+          const { containerId, counterId, mode, onSelect, cat } = this.pending18;
+          this.selected[mode].push(cat);
+          this.render(containerId, counterId, mode, onSelect);
+          if (onSelect) onSelect(this.selected[mode]);
+          this.pending18 = null;
+        }
+      },
+
+      cancel18() {
+        document.getElementById('age-modal').classList.remove('active');
+        this.pending18 = null;
       }
     };
 
-    /* SILNIK IMPOSTORA Z PŁYNNYM SWIPE-TO-DELETE ORAZ AUTO-SELECT */
+    /* SILNIK IMPOSTORA */
     const ImpostorEngine = {
       players: [],
       impostorsCount: 1,
@@ -1801,67 +1786,16 @@
         container.innerHTML = '';
         
         this.players.forEach((name, idx) => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'player-swipe-wrapper';
+          const row = document.createElement('div');
+          row.className = 'player-row-card';
 
-          wrapper.innerHTML = `
-            <div class="player-swipe-delete-bg">
-              <span>Usuń</span> 🗑️
-            </div>
-            <div class="player-swipe-card" id="player-card-${idx}">
-              <span class="player-index-badge">#${idx + 1}</span>
-              <input type="text" class="player-input" value="${name}" onfocus="this.select()" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
-            </div>
+          row.innerHTML = `
+            <span class="player-index-badge">#${idx + 1}</span>
+            <input type="text" class="player-input" value="${name}" onfocus="this.select()" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
+            ${this.players.length > 3 ? `<button class="player-delete-btn" onclick="ImpostorEngine.removePlayer(${idx})">✕</button>` : ''}
           `;
 
-          // Czysty, sprężysty gest Swipe-to-Delete
-          const card = wrapper.querySelector('.player-swipe-card');
-          let startX = 0;
-          let currentDeltaX = 0;
-          let isDragging = false;
-
-          const onPointerDown = (e) => {
-            if (this.players.length <= 3) return;
-            if (e.target.tagName === 'INPUT') return;
-            startX = e.clientX;
-            isDragging = true;
-            card.style.transition = 'none';
-            card.setPointerCapture(e.pointerId);
-          };
-
-          const onPointerMove = (e) => {
-            if (!isDragging) return;
-            const deltaX = e.clientX - startX;
-            if (deltaX < 0) {
-              currentDeltaX = deltaX;
-              card.style.transform = `translateX(${Math.max(deltaX, -120)}px)`;
-            }
-          };
-
-          const onPointerUp = (e) => {
-            if (!isDragging) return;
-            isDragging = false;
-            card.style.transition = 'transform 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
-
-            if (currentDeltaX < -70) {
-              card.style.transform = 'translateX(-100%)';
-              if (navigator.vibrate) navigator.vibrate(30);
-              wrapper.classList.add('deleting');
-              setTimeout(() => {
-                this.removePlayer(idx);
-              }, 220);
-            } else {
-              card.style.transform = 'translateX(0px)';
-            }
-            currentDeltaX = 0;
-          };
-
-          card.addEventListener('pointerdown', onPointerDown);
-          card.addEventListener('pointermove', onPointerMove);
-          card.addEventListener('pointerup', onPointerUp);
-          card.addEventListener('pointercancel', onPointerUp);
-
-          container.appendChild(wrapper);
+          container.appendChild(row);
         });
 
         document.getElementById('impostor-player-count').innerText = this.players.length;
@@ -1880,6 +1814,7 @@
         this.players.splice(idx, 1);
         this.savePlayers();
         this.renderPlayersList();
+        if (navigator.vibrate) navigator.vibrate(25);
       },
 
       updateName(idx, val) {
