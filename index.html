@@ -263,7 +263,6 @@
       font-weight: 700;
     }
 
-    /* NOWA SIATKA WYBORU KATEGORII DLA SMARTFONA */
     .cat-actions-bar {
       display: flex;
       gap: 6px;
@@ -331,7 +330,6 @@
       text-overflow: ellipsis;
     }
 
-    /* Lista graczy */
     .players-container {
       display: flex;
       flex-direction: column;
@@ -431,7 +429,6 @@
       color: #fff;
     }
 
-    /* Centralny Banner Gracza */
     .player-focus-badge {
       display: flex;
       flex-direction: column;
@@ -461,7 +458,6 @@
       letter-spacing: -0.6px;
     }
 
-    /* Scena Swipe Up */
     .swipe-stage {
       flex: 1;
       position: relative;
@@ -593,7 +589,6 @@
       font-weight: 600;
     }
 
-    /* Podsumowanie & Wyniki */
     .results-scroll-area {
       flex: 1;
       display: flex;
@@ -673,7 +668,6 @@
       font-weight: 800;
     }
 
-    /* Modale */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -701,7 +695,6 @@
       box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
     }
 
-    /* UI Bomba */
     .bomb-zone {
       flex: 1;
       display: flex;
@@ -742,7 +735,6 @@
       100% { transform: scale(0.9); opacity: 0.2; }
     }
 
-    /* UI Kto z Nas */
     .who-card {
       flex: 1;
       display: flex;
@@ -1031,7 +1023,7 @@
   </main>
 
   <script>
-    // BAZA DANYCH ZE SPICY 18+ DLA BOMBY I NATURALNYM POLSKIM JĘZYKIEM[cite: 1, 2]
+    // BAZA DANYCH ZE ZINTEGROWANYMI NOWYMI HASŁAMI DLA MAKARONIARZY[cite: 1, 2]
     const partyLabDatabase = {
       impostor: [
         { category: "Codzienne życie", words: ["budzik", "prysznic", "śniadanie", "pranie", "zakupy spożywcze", "parasol", "klucze do domu", "ładowarka do telefonu", "poczekalnia", "mycie naczyń", "wynoszenie śmieci", "wizyta u dentysty", "kolejka w urzędzie", "głośny sąsiad", "zapchana pralka", "pilot do telewizora", "zapomniane hasło", "pusta lodówka", "poranne korki", "spóźniony autobus", "przypalona kolacja", "drzemka w pracy", "spór o parking"] },
@@ -1054,7 +1046,20 @@
       ],
 
       bomba: [
-        { category: "Makaroniarze", words: ["rodzaj włoskiego makaronu", "dodatek do pizzy, za który Włoch by zabił", "włoskie miasto lub region", "marka włoskich luksusowych aut", "gest dłonią w stylu włoskim", "włoski deser lub kawa", "składnik prawdziwej carbonary", "rzecz kojarząca się z Sycylią"] },
+        { category: "Makaroniarze", words: [
+          "50 shonów z dobrej",
+          "napoje",
+          "rozjebane rzeczy w hotelu",
+          "obiady",
+          "rodzaj włoskiego makaronu",
+          "dodatek do pizzy, za który Włoch by zabił",
+          "włoskie miasto lub region",
+          "marka włoskich luksusowych aut",
+          "gest dłonią w stylu włoskim",
+          "włoski deser lub kawa",
+          "składnik prawdziwej carbonary",
+          "rzecz kojarząca się z Sycylią"
+        ]},
         { category: "Spicy 18+", words: ["rzecz, którą robisz w łóżku, ale wstydzisz się przyznać", "powód, żeby uciec z randki po pierwszej nocy", "nietypowe miejsce na szybki numerek", "część ciała, którą najchętniej całujesz u partnera", "najgorszy tekst na podryw, jaki można usłyszeć", "synonim do słowa orgazm lub seks", "fetysz, o którym ludzie boją się mówić głośno", "czerwona flaga zauważona w łóżku", "rzecz, którą znajdujesz pod łóżkiem u partnera", "wymówka, by nie uprawiać seksu"] },
         { category: "Impreza i Melanż", words: ["rzecz, którą gubisz po alkoholu", "najgorszy alkohol do picia na czysto", "piosenka, którą każdy krzyczy na karaoke", "wymówka, żeby nie iść na domówkę", "coś, co robisz w toalecie w klubie", "najgorszy objaw kaca rano", "rzecz znaleziona w kieszeni po imprezie", "kłamstwo powiedziane rodzicom po powrocie w nocy"] },
         { category: "Codzienne życie", words: ["wstydliwy zakup w aptece lub drogerii", "coś, co robisz tylko wtedy, gdy nikt nie patrzy", "najgorszy prezent, jaki można dostać", "powód spóźnienia do pracy lub szkoły", "rzecz, o której kłamiesz znajomym", "irytujący nawyk współlokatora lub partnera", "rzecz, którą zawsze odkładasz na później"] },
@@ -1077,7 +1082,6 @@
       "Makaroniarze": "🇮🇹", "Codzienne życie": "🏠", "Jedzenie": "🍕", "Polska": "🇵🇱", "Świat": "🌍", "Marki": "🏷️", "Technologia": "💻", "Gry wideo": "🎮", "Filmy i Kino": "🍿", "Seriale": "📺", "Muzyka": "🎵", "Sport i Siłownia": "🏆", "Szkoła i Uczelnia": "🎒", "Imprezowe": "🍻", "Impreza i Melanż": "🍻", "Impreza": "🍻", "Podróże": "✈️", "Spicy": "🌶️", "Spicy 18+": "🔥", "Absurd i Humor": "🤡", "Śmieszne": "😂", "Popkultura i Gry": "👾", "Przedmioty i Miejsca": "📦", "Normalne": "🙂", "Relacje": "❤️"
     };
 
-    // GENERATOR SPALONYCH I SPRYTNYCH PODPOWIEDZI
     const customHints = {
       "budzik": "Poranny wróg spokojnego snu", "prysznic": "Woda, piana i szybkie odświeżenie", "śniadanie": "Pierwszy posiłek na start dnia", "pranie": "Czynność, gdy kończą się czyste ubrania", "zakupy spożywcze": "Wyprawa z listą między półkami", "parasol": "Ochrona przed deszczem nad głową", "klucze do domu": "Metalowy przedmiot otwierający zamek", "ładowarka do telefonu": "Kabel ratujący rozładowany ekran", "poczekalnia": "Miejsce siedzenia przed wizytą", "mycie naczyń": "Zmagania z gąbką w zlewie", "wynoszenie śmieci": "Spacer z workiem do kontenera", "wizyta u dentysty": "Stresujący fotel i dźwięk wiertła", "kolejka w urzędzie": "Czekanie na swój numerek", "głośny sąsiad": "Uciążliwe dźwięki zza ściany", "zapchana pralka": "Awaria zalanego sprzętu AGD", "pilot do telewizora": "Przełączanie kanałów z kanapy", "zapomniane hasło": "Blokada przy próbie logowania", "pusta lodówka": "Przeciąg i światło po otwarciu drzwiczek", "poranne korki": "Stanie w sznurze aut przed pracą", "spóźniony autobus": "Rozkład jazdy mijający się z prawdą", "przypalona kolacja": "Swąd dymu z patelni w kuchni", "drzemka w pracy": "Chwila słabości z głową na biurku", "spór o parking": "Awantura o wolne miejsce pod blokiem",
       "pizza": "Włoski okrągły klasyk z pieca", "burger": "Bułka z soczystym kotletem i sosem", "frytki": "Chrupiące ziemniaczane słupki", "kebab": "Mięso cięte z pionowego rożna", "lody": "Zimny deser na upalne dni", "kanapka": "Szybka przekąska z kromki chleba", "makaron": "Węglowodanowa baza włoskich dań", "sushi": "Rolki z ryżem i surową rybą", "Coca-Cola": "Ciemny gazowany napój z bąbelkami", "gofry": "Kratkowane ciasto z bitą śmietaną", "McDonald's": "Złote łuki i szybkie jedzenie", "KFC": "Panierowane kawałki kurczaka w kubełku", "bar mleczny": "Tani tradycyjny polski obiad", "zapiekanka": "Długa bułka z pieczarkami i serem", "pierogi": "Lepione ciasto z tradycyjnym farszem", "napój energetyczny": "Puszka dająca szybkiego kopa", "sos czosnkowy": "Kultowy biały dodatek do potraw", "kawa na wynos": "Gorący napar w papierowym kubku", "kebab po imprezie": "Nocny ratunek o 3 nad ranem", "niedzielny rosół": "Gorąca zupa z makaronem u babci", "dieta pudełkowa": "Zestaw posiłków pod drzwiami rano", "ramen": "Głęboki japoński bulion z makaronem",
