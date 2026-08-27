@@ -86,7 +86,6 @@
     .blob-1 { top: -40px; left: -40px; background: var(--accent-impostor); }
     .blob-2 { bottom: -40px; right: -40px; background: var(--accent-bomb); }
 
-    /* Bezszwowy układ Safe Area */
     #app-container {
       position: relative;
       z-index: 1;
@@ -120,7 +119,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Nagłówek */
     .header {
       display: flex;
       align-items: center;
@@ -171,7 +169,6 @@
       background: rgba(255, 255, 255, 0.12);
     }
 
-    /* Menu Główne */
     .menu-grid {
       display: flex;
       flex-direction: column;
@@ -236,7 +233,6 @@
     .btn-ghost { background: rgba(255, 255, 255, 0.05); color: var(--text-muted); border: 1px solid var(--card-border); }
     .btn-danger { background: var(--accent-bomb); color: #fff; box-shadow: 0 8px 24px var(--accent-bomb-glow); }
 
-    /* Obszar konfiguracji ze scrollem */
     .config-scroll-area {
       flex: 1;
       display: flex;
@@ -277,7 +273,6 @@
       font-weight: 700;
     }
 
-    /* Karuzela Swipe Multi-Select */
     .carousel-container {
       display: flex;
       gap: 10px;
@@ -364,7 +359,6 @@
     }
     .btn-show-more-cats:active { background: rgba(255, 255, 255, 0.08); }
 
-    /* Modal Wszystkich Kategorii (Grupowany) */
     .cats-modal-scroll {
       flex: 1;
       overflow-y: auto;
@@ -419,7 +413,6 @@
       text-overflow: ellipsis;
     }
 
-    /* Lista graczy z przyciskami X */
     .players-container {
       display: flex;
       flex-direction: column;
@@ -521,7 +514,6 @@
       color: #fff;
     }
 
-    /* Centralny Banner Gracza */
     .player-focus-badge {
       display: flex;
       flex-direction: column;
@@ -551,7 +543,6 @@
       letter-spacing: -0.6px;
     }
 
-    /* Scena Swipe Up */
     .swipe-stage {
       flex: 1;
       position: relative;
@@ -614,10 +605,14 @@
       font-weight: 800;
     }
     .secret-hint-direct {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: #fca5a5;
       font-weight: 700;
       margin-top: 10px;
+      background: rgba(244, 63, 94, 0.12);
+      border: 1px solid rgba(244, 63, 94, 0.25);
+      padding: 6px 14px;
+      border-radius: 99px;
     }
 
     .swipe-cover {
@@ -678,7 +673,6 @@
       font-weight: 600;
     }
 
-    /* Podsumowanie & Wyniki */
     .results-scroll-area {
       flex: 1;
       display: flex;
@@ -1349,6 +1343,34 @@
       "Makaroniarze": "🇮🇹", "Codzienne życie": "🏠", "Jedzenie": "🍕", "Polska": "🇵🇱", "Świat": "🌍", "Marki": "🏷️", "Technologia": "💻", "Gry: Minecraft": "⛏️", "Gry: GTA": "🚗", "Gry: Fortnite": "🪂", "Gry: Roblox": "🧱", "Gry: FIFA": "⚽", "Gry: Call of Duty": "🪖", "Gry: Counter Strike": "🎯", "Gry: Valorant": "🗡️", "Gry: League of Legends": "🧙", "Gry: Inne": "🕹️", "Gry": "🎮", "Filmy: Marvel": "🦸", "Filmy: DC": "🦇", "Filmy: Harry Potter": "🧙‍♂️", "Filmy: Disney & Pixar": "🏰", "Filmy: Horrory": "👻", "Filmy: Hity kinowe": "🍿", "Filmy: Polskie": "🎬", "Filmy": "🎥", "Seriale: Hity": "📺", "Seriale": "📺", "Muzyka": "🎵", "Sport": "🏆", "Wiedza ogólna": "🧠", "Internet i social media": "📱", "Internet": "🌐", "Szkoła": "🎒", "Imprezowe": "🍻", "Impreza": "🍻", "Podróże": "✈️", "Samochody": "🏎️", "Siłownia i lifestyle": "💪", "Spicy": "🌶️", "Spicy 18+": "🔥", "Absurdalne / Śmieszne": "🤡", "Śmieszne": "😂", "Luksus i pieniądze": "💎", "Pieniądze": "💸", "Celebryci": "⭐", "Random": "🎲", "Przedmioty": "📦", "Zwierzęta": "🐾", "Miejsca": "📍", "Miasta": "🏙️", "Kraje": "🗺️", "Zawody": "👔", "Trudne": "🧩", "Temat: Minecraft": "⛏️", "Temat: Harry Potter": "⚡", "Temat: Star Wars": "⚔️", "Temat: Stranger Things": "🚲", "Temat: GTA": "🔫", "Normalne": "🙂", "Relacje": "❤️", "Przyjaźń": "🤝", "Wakacje": "🏖️", "Charakter": "🎭", "Przyszłość": "🔮"
     };
 
+    // DYNAMICZNY GENERATOR PODPOWIEDZI DLA IMPOSTORA
+    const customHints = {
+      // Codzienne życie
+      "budzik": "Brutalny powrót do rzeczywistości", "prysznic": "Codzienne odświeżenie ciała", "śniadanie": "Pierwszy posiłek dnia", "pranie": "Czynność po zapełnieniu kosza", "zakupy spożywcze": "Uzupełnianie zapasów w lodówce", "parasol": "Ochrona przed deszczem", "klucze do domu": "Przedmiot otwierający drzwi", "ładowarka do telefonu": "Ratunek przed rozładowaniem", "poczekalnia": "Miejsce cierpliwości przed wizytą", "mycie naczyń": "Czynność odkładana w zlewie", "wynoszenie śmieci": "Obowiązek domowy z workiem", "wizyta u dentysty": "Stresujący fotel lekarski", "kolejka w urzędzie": "Próba ludzkiej cierpliwości z numerkiem", "sąsiad, który gra głośno muzykę": "Uciążliwy lokator za ścianą", "zapchana pralka": "Awaria sprzętu AGD", "kot sąsiadów": "Czworonożny gość na klatce", "pilot do telewizora": "Władza nad ekranem w salonie", "wietrzenie mieszkania": "Wpuszczanie świeżego powietrza", "zapomniane hasło": "Problem przy logowaniu", "pusta lodówka": "Smutny widok po powrocie do domu", "poranne korki": "Utrudnienia na drodze w szczycie", "spóźniony autobus": "Niezgodność z rozkładem jazdy", "przypalona kolacja": "Kulinarna wpadka na patelni", "ostatnia bateria w pilocie": "Chwilowy ratunek elektroniki", "przymusowa drzemka w pracy": "Chwila słabości przy biurku", "sąsiedzki spór o parking": "Konflikt o miejsce pod blokiem", "reklamacja w sklepie": "Zwrot wadliwego towaru", "instrukcja obsługi mebli z IKEA": "Rysunkowy przewodnik z imbusem", "hałas z remontu u sąsiada": "Wiertarka udarowa o 7 rano",
+      // Jedzenie
+      "pizza": "Włoski placek z dodatkami", "burger": "Kotlet w bułce z sosem", "frytki": "Smażone słupki ziemniaczane", "kebab": "Mięso w cienkim cieście", "lody": "Zimny deser na upały", "kanapka": "Szybka przekąska z pieczywa", "makaron": "Węglowodanowa baza obiadu", "sushi": "Japońskie rolki z ryżem", "Coca-Cola": "Kultowy gazowany napój", "gofry": "Chrupiący przysmak z bitą śmietaną", "McDonald's": "Fast food pod złotymi łukami", "KFC": "Panierowany kurczak w kubełku", "bar mleczny": "Tradycyjne i tanie obiady domowe", "zapiekanka": "Podłużna bagietka z pieczarkami", "pierogi": "Polskie ciasto z farszem", "shake protein": "Napój po ciężkim treningu", "energy drink": "Puszka z kofeiną i tauryną", "food truck": "Mobilna gastronomia na kółkach", "bufet szwedzki": "Jesz ile chcesz za stałą cenę", "sos czosnkowy": "Kultowy biały dodatek do dań", "chińszczyzna na wynos": "Szybki obiad w tekturowym pudełku", "kawa na wynos": "Napar w papierowym kubku", "kebab pod klubem": "Nocny ratunek po imprezie", "kolacja rodzinna w niedzielę": "Wspólny posiłek przy stole", "dieta pudełkowa": "Dostawa posiłków pod drzwi rano", "ramen": "Głęboki japoński bulion z makaronem", "poke bowl": "Hawajska miska pełna składników", "tapas": "Hiszpańskie małe przekąski", "fine dining": "Ekskluzywna kolacja degustacyjna", "degustacja win": "Ocenianie trunków w kieliszkach",
+      // Polska
+      "Kraków": "Dawna stolica z Wawelem", "Wisła": "Najdłuższa rzeka w kraju", "Biedronka": "Popularny dyskont z owadem w logo", "Żabka": "Zielony sklep na każdym rogu", "Orlen": "Narodowa stacja paliw", "polski hip-hop": "Nawijanie do mikrofonu na blokach", "kiełbasa": "Tradycyjny wyrób mięsny", "majówka": "Wiosenny długi weekend przy grillu", "Wielkanoc": "Wiosenne święta z jajkiem", "wigilia": "Grudniowa wieczerza z opłatkiem", "PKP Intercity": "Podróż koleją po szynach", "Allegro": "Polska platforma zakupowa", "zakręcona nakrętka od piwa": "Zabezpieczenie butelki z kapslem", "urząd skarbowy": "Instytucja rozliczająca podatki", "dzień dziecka w szkole": "Dzień bez pytania przy tablicy", "TVP": "Publiczny nadawca telewizyjny", "Wiadomości o 19:30": "Wieczorne wydanie faktów", "polski disco polo": "Skoczna muzyka na wiejskie wesela", "ognisko z pieczeniem kiełbasek": "Spotkanie przy żywym ogniu z kijem", "działka rodzinna": "Kawałek zieleni w ROD", "zbieranie grzybów": "Poranny spacer z nożykiem po lesie", "reklama Biedronki": "Spot promocyjny z niskimi cenami", "Pyszne.pl": "Zamawianie jedzenia przez telefon", "InPost paczkomat": "Żółty automat do odbioru paczek", "kartka na Dzień Babci": "Laurka z życzeniami w styczniu", "PESEL": "Jedenastocyfrowy numer obywatela", "Mazurkas Travel": "Biuro podróży", "Gadżet z Biedronki": "Drobiazg z kosza promocyjnego", "spis z natury w firmie": "Roczne liczenie całego magazynu",
+      // Gry
+      "Creeper": "Zielony cichy wybuchowiec", "diament": "Najcenniejszy minerał pod ziemią", "Steve": "Podstawowa postać gracza", "kilof": "Narzędzie do wydobywania surowców", "wioska": "Osada z osadnikami do handlu", "Ender Dragon": "Finałowy boss w wymiarze Kresu", "Nether": "Piekielny gorący wymiar", "Redstone": "Czerwony proszek do mechanizmów", "Enderman": "Wysoka postać nieznosząca wzroku", "portal": "Przejście między wymiarami", "GTA V": "Kultowa gra akcji w Los Santos", "Los Santos": "Wirtualne miasto zbrodni i gangsterów", "policyjny pościg": "Ucieczka przed syrenami radiowozów", "kradzież auta": "Bezprawne przejęcie cudzego pojazdu", "Grand Theft Auto Online": "Wieloosobowy tryb gry gangsterów", "misja skoku na bank": "Zorganizowany napad na gruby łup", "CJ": "Bohater powracający na Grove Street", "Trevor": "Szalony i nieprzewidywalny protagonista", "gwiazdki poszukiwania": "Wskaźnik zainteresowania policji", "Vice City": "Neonowe miasto z lat 80.", "Fortnite": "Gra Battle Royale z budowaniem", "Battle Bus": "Niebieski latający autobus zrzutowy", "budowanie": "Stawianie drewnianych ścian i schodów", "loot llama": "Fioletowa piniata z zasobami", "Victory Royale": "Wygrana na 100 graczy na mapie", "Roblox": "Platforma z milionami minigier", "Robuxy": "Wirtualna waluta w grze", "EA Sports FC": "Wirtualna symulacja meczów piłkarskich", "Ultimate Team": "Kolekcjonowanie kart i zgranie składu", "Warzone": "Darmowy tryb Battle Royale z bronią palną", "CS2": "Starcie terrorystów z antyterrorystami", "bomba do podłożenia": "Ładunek C4 na strefie A lub B", "Valorant": "Taktyczny shooter 5 na 5 z mocami", "League of Legends": "Rywalizacja na mapie Summoner's Rift",
+      // Filmy & Seriale
+      "Iron Man": "Geniusz i miliarder w pancerzu", "Spider-Man": "Chłopak z sąsiedztwa w masce pająka", "Avengers": "Najpotężniejsza drużyna herosów", "Batman": "Mroczny rycerz strzegący Gotham", "Joker": "Szalony klaun i arcywróg", "Harry Potter": "Czarodziej z blizną w kształcie błyskawicy", "Hogwart": "Szkoła magii i czarodziejstwa", "Kraina Lodu": "Animacja z królową śniegu i bałwanem", "Stranger Things": "Dziwne zjawiska i potwory w Hawkins", "Wednesday": "Mroczna córka Addamsów w akademii", "Squid Game": "Śmiertelne gry dziecięce o miliony", "Breaking Bad": "Nauczyciel chemii wchodzący w narkobiznes", "The Boys": "Brutalna prawda o skorumpowanych herosach", "The Last of Us": "Podróż przez świat opanowany przez grzyb", "Euphoria": "Trudne dorastanie i imprezy nastolatków", "The Office": "Komediowe absurdy w biurze papierniczym", "Friends": "Szóstka przyjaciół spotykająca się w kawiarni"
+    };
+
+    function getHintForWord(word, category) {
+      if (customHints[word]) return customHints[word];
+      const lowerCat = (category || "").toLowerCase();
+      if (lowerCat.includes("film") || lowerCat.includes("serial")) return "Tytuł lub motyw znany z ekranu";
+      if (lowerCat.includes("gry") || lowerCat.includes("gra")) return "Rzecz lub postać z wirtualnego świata";
+      if (lowerCat.includes("jedzenie") || lowerCat.includes("makaron")) return "Coś, co ląduje na talerzu lub w żołądku";
+      if (lowerCat.includes("marki")) return "Rozpoznawalne logo i produkt znany na świecie";
+      if (lowerCat.includes("technologia") || lowerCat.includes("internet")) return "Związane z urządzeniami lub siecią";
+      if (lowerCat.includes("spicy") || lowerCat.includes("18+")) return "Temat intymny lub z podtekstem";
+      if (lowerCat.includes("sport") || lowerCat.includes("siłownia")) return "Związane z aktywnością fizyczną i formą";
+      if (lowerCat.includes("polska")) return "Rzecz lub miejsce typowe dla naszego kraju";
+      return "Pojęcie pasujące do klimatu kategorii";
+    }
+
     const SoundFX = {
       ctx: null,
       init() {
@@ -1819,7 +1841,8 @@
         const picked = available[Math.floor(Math.random() * available.length)];
         this.usedWords.push(picked.word);
         
-        return picked;
+        const hint = getHintForWord(picked.word, picked.category);
+        return { ...picked, hint };
       },
 
       start() {
@@ -1865,8 +1888,14 @@
           subEl.innerText = `Kategoria: ${this.currentWordData.category}`;
           wordEl.innerText = "JESTEŚ IMPOSTOREM!";
           wordEl.style.color = "var(--accent-bomb)";
-          hintEl.innerText = '';
-          hintEl.style.display = 'none';
+          
+          if (this.hintsEnabled && this.currentWordData.hint) {
+            hintEl.innerText = `Wskazówka: ${this.currentWordData.hint}`;
+            hintEl.style.display = 'inline-block';
+          } else {
+            hintEl.innerText = '';
+            hintEl.style.display = 'none';
+          }
         } else {
           subEl.innerText = `Kategoria: ${this.currentWordData.category}`;
           wordEl.innerText = this.currentWordData.word;
