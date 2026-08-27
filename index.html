@@ -607,12 +607,13 @@
     .secret-hint-direct {
       font-size: 0.9rem;
       color: #fca5a5;
-      font-weight: 700;
-      margin-top: 10px;
-      background: rgba(244, 63, 94, 0.12);
-      border: 1px solid rgba(244, 63, 94, 0.25);
-      padding: 6px 14px;
+      font-weight: 800;
+      margin-top: 12px;
+      background: rgba(244, 63, 94, 0.16);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      padding: 8px 16px;
       border-radius: 99px;
+      display: none;
     }
 
     .swipe-cover {
@@ -1219,7 +1220,7 @@
   </main>
 
   <script>
-    // BAZA DANYCH ZE ZINTEGROWANYMI KATEGORIAMI I HASŁAMI
+    // BAZA DANYCH ZE ZINTEGROWANYMI KATEGORIAMI I HASŁAMI[cite: 1, 2]
     const partyLabDatabase = {
       impostor: [
         { category: "Codzienne życie", difficulty: "easy", words: ["budzik", "prysznic", "śniadanie", "pranie", "zakupy spożywcze", "parasol", "klucze do domu", "ładowarka do telefonu", "poczekalnia"] },
@@ -1343,17 +1344,17 @@
       "Makaroniarze": "🇮🇹", "Codzienne życie": "🏠", "Jedzenie": "🍕", "Polska": "🇵🇱", "Świat": "🌍", "Marki": "🏷️", "Technologia": "💻", "Gry: Minecraft": "⛏️", "Gry: GTA": "🚗", "Gry: Fortnite": "🪂", "Gry: Roblox": "🧱", "Gry: FIFA": "⚽", "Gry: Call of Duty": "🪖", "Gry: Counter Strike": "🎯", "Gry: Valorant": "🗡️", "Gry: League of Legends": "🧙", "Gry: Inne": "🕹️", "Gry": "🎮", "Filmy: Marvel": "🦸", "Filmy: DC": "🦇", "Filmy: Harry Potter": "🧙‍♂️", "Filmy: Disney & Pixar": "🏰", "Filmy: Horrory": "👻", "Filmy: Hity kinowe": "🍿", "Filmy: Polskie": "🎬", "Filmy": "🎥", "Seriale: Hity": "📺", "Seriale": "📺", "Muzyka": "🎵", "Sport": "🏆", "Wiedza ogólna": "🧠", "Internet i social media": "📱", "Internet": "🌐", "Szkoła": "🎒", "Imprezowe": "🍻", "Impreza": "🍻", "Podróże": "✈️", "Samochody": "🏎️", "Siłownia i lifestyle": "💪", "Spicy": "🌶️", "Spicy 18+": "🔥", "Absurdalne / Śmieszne": "🤡", "Śmieszne": "😂", "Luksus i pieniądze": "💎", "Pieniądze": "💸", "Celebryci": "⭐", "Random": "🎲", "Przedmioty": "📦", "Zwierzęta": "🐾", "Miejsca": "📍", "Miasta": "🏙️", "Kraje": "🗺️", "Zawody": "👔", "Trudne": "🧩", "Temat: Minecraft": "⛏️", "Temat: Harry Potter": "⚡", "Temat: Star Wars": "⚔️", "Temat: Stranger Things": "🚲", "Temat: GTA": "🔫", "Normalne": "🙂", "Relacje": "❤️", "Przyjaźń": "🤝", "Wakacje": "🏖️", "Charakter": "🎭", "Przyszłość": "🔮"
     };
 
-    // DYNAMICZNY GENERATOR PODPOWIEDZI DLA IMPOSTORA
+    // BOGATA BAZA PODPOWIEDZI DLA IMPOSTORA
     const customHints = {
-      // Codzienne życie
+      // Codzienne życie[cite: 1, 2]
       "budzik": "Brutalny powrót do rzeczywistości", "prysznic": "Codzienne odświeżenie ciała", "śniadanie": "Pierwszy posiłek dnia", "pranie": "Czynność po zapełnieniu kosza", "zakupy spożywcze": "Uzupełnianie zapasów w lodówce", "parasol": "Ochrona przed deszczem", "klucze do domu": "Przedmiot otwierający drzwi", "ładowarka do telefonu": "Ratunek przed rozładowaniem", "poczekalnia": "Miejsce cierpliwości przed wizytą", "mycie naczyń": "Czynność odkładana w zlewie", "wynoszenie śmieci": "Obowiązek domowy z workiem", "wizyta u dentysty": "Stresujący fotel lekarski", "kolejka w urzędzie": "Próba ludzkiej cierpliwości z numerkiem", "sąsiad, który gra głośno muzykę": "Uciążliwy lokator za ścianą", "zapchana pralka": "Awaria sprzętu AGD", "kot sąsiadów": "Czworonożny gość na klatce", "pilot do telewizora": "Władza nad ekranem w salonie", "wietrzenie mieszkania": "Wpuszczanie świeżego powietrza", "zapomniane hasło": "Problem przy logowaniu", "pusta lodówka": "Smutny widok po powrocie do domu", "poranne korki": "Utrudnienia na drodze w szczycie", "spóźniony autobus": "Niezgodność z rozkładem jazdy", "przypalona kolacja": "Kulinarna wpadka na patelni", "ostatnia bateria w pilocie": "Chwilowy ratunek elektroniki", "przymusowa drzemka w pracy": "Chwila słabości przy biurku", "sąsiedzki spór o parking": "Konflikt o miejsce pod blokiem", "reklamacja w sklepie": "Zwrot wadliwego towaru", "instrukcja obsługi mebli z IKEA": "Rysunkowy przewodnik z imbusem", "hałas z remontu u sąsiada": "Wiertarka udarowa o 7 rano",
-      // Jedzenie
+      // Jedzenie[cite: 1, 2]
       "pizza": "Włoski placek z dodatkami", "burger": "Kotlet w bułce z sosem", "frytki": "Smażone słupki ziemniaczane", "kebab": "Mięso w cienkim cieście", "lody": "Zimny deser na upały", "kanapka": "Szybka przekąska z pieczywa", "makaron": "Węglowodanowa baza obiadu", "sushi": "Japońskie rolki z ryżem", "Coca-Cola": "Kultowy gazowany napój", "gofry": "Chrupiący przysmak z bitą śmietaną", "McDonald's": "Fast food pod złotymi łukami", "KFC": "Panierowany kurczak w kubełku", "bar mleczny": "Tradycyjne i tanie obiady domowe", "zapiekanka": "Podłużna bagietka z pieczarkami", "pierogi": "Polskie ciasto z farszem", "shake protein": "Napój po ciężkim treningu", "energy drink": "Puszka z kofeiną i tauryną", "food truck": "Mobilna gastronomia na kółkach", "bufet szwedzki": "Jesz ile chcesz za stałą cenę", "sos czosnkowy": "Kultowy biały dodatek do dań", "chińszczyzna na wynos": "Szybki obiad w tekturowym pudełku", "kawa na wynos": "Napar w papierowym kubku", "kebab pod klubem": "Nocny ratunek po imprezie", "kolacja rodzinna w niedzielę": "Wspólny posiłek przy stole", "dieta pudełkowa": "Dostawa posiłków pod drzwi rano", "ramen": "Głęboki japoński bulion z makaronem", "poke bowl": "Hawajska miska pełna składników", "tapas": "Hiszpańskie małe przekąski", "fine dining": "Ekskluzywna kolacja degustacyjna", "degustacja win": "Ocenianie trunków w kieliszkach",
-      // Polska
+      // Polska[cite: 1, 2]
       "Kraków": "Dawna stolica z Wawelem", "Wisła": "Najdłuższa rzeka w kraju", "Biedronka": "Popularny dyskont z owadem w logo", "Żabka": "Zielony sklep na każdym rogu", "Orlen": "Narodowa stacja paliw", "polski hip-hop": "Nawijanie do mikrofonu na blokach", "kiełbasa": "Tradycyjny wyrób mięsny", "majówka": "Wiosenny długi weekend przy grillu", "Wielkanoc": "Wiosenne święta z jajkiem", "wigilia": "Grudniowa wieczerza z opłatkiem", "PKP Intercity": "Podróż koleją po szynach", "Allegro": "Polska platforma zakupowa", "zakręcona nakrętka od piwa": "Zabezpieczenie butelki z kapslem", "urząd skarbowy": "Instytucja rozliczająca podatki", "dzień dziecka w szkole": "Dzień bez pytania przy tablicy", "TVP": "Publiczny nadawca telewizyjny", "Wiadomości o 19:30": "Wieczorne wydanie faktów", "polski disco polo": "Skoczna muzyka na wiejskie wesela", "ognisko z pieczeniem kiełbasek": "Spotkanie przy żywym ogniu z kijem", "działka rodzinna": "Kawałek zieleni w ROD", "zbieranie grzybów": "Poranny spacer z nożykiem po lesie", "reklama Biedronki": "Spot promocyjny z niskimi cenami", "Pyszne.pl": "Zamawianie jedzenia przez telefon", "InPost paczkomat": "Żółty automat do odbioru paczek", "kartka na Dzień Babci": "Laurka z życzeniami w styczniu", "PESEL": "Jedenastocyfrowy numer obywatela", "Mazurkas Travel": "Biuro podróży", "Gadżet z Biedronki": "Drobiazg z kosza promocyjnego", "spis z natury w firmie": "Roczne liczenie całego magazynu",
-      // Gry
+      // Gry[cite: 1, 2]
       "Creeper": "Zielony cichy wybuchowiec", "diament": "Najcenniejszy minerał pod ziemią", "Steve": "Podstawowa postać gracza", "kilof": "Narzędzie do wydobywania surowców", "wioska": "Osada z osadnikami do handlu", "Ender Dragon": "Finałowy boss w wymiarze Kresu", "Nether": "Piekielny gorący wymiar", "Redstone": "Czerwony proszek do mechanizmów", "Enderman": "Wysoka postać nieznosząca wzroku", "portal": "Przejście między wymiarami", "GTA V": "Kultowa gra akcji w Los Santos", "Los Santos": "Wirtualne miasto zbrodni i gangsterów", "policyjny pościg": "Ucieczka przed syrenami radiowozów", "kradzież auta": "Bezprawne przejęcie cudzego pojazdu", "Grand Theft Auto Online": "Wieloosobowy tryb gry gangsterów", "misja skoku na bank": "Zorganizowany napad na gruby łup", "CJ": "Bohater powracający na Grove Street", "Trevor": "Szalony i nieprzewidywalny protagonista", "gwiazdki poszukiwania": "Wskaźnik zainteresowania policji", "Vice City": "Neonowe miasto z lat 80.", "Fortnite": "Gra Battle Royale z budowaniem", "Battle Bus": "Niebieski latający autobus zrzutowy", "budowanie": "Stawianie drewnianych ścian i schodów", "loot llama": "Fioletowa piniata z zasobami", "Victory Royale": "Wygrana na 100 graczy na mapie", "Roblox": "Platforma z milionami minigier", "Robuxy": "Wirtualna waluta w grze", "EA Sports FC": "Wirtualna symulacja meczów piłkarskich", "Ultimate Team": "Kolekcjonowanie kart i zgranie składu", "Warzone": "Darmowy tryb Battle Royale z bronią palną", "CS2": "Starcie terrorystów z antyterrorystami", "bomba do podłożenia": "Ładunek C4 na strefie A lub B", "Valorant": "Taktyczny shooter 5 na 5 z mocami", "League of Legends": "Rywalizacja na mapie Summoner's Rift",
-      // Filmy & Seriale
+      // Filmy & Seriale[cite: 1, 2]
       "Iron Man": "Geniusz i miliarder w pancerzu", "Spider-Man": "Chłopak z sąsiedztwa w masce pająka", "Avengers": "Najpotężniejsza drużyna herosów", "Batman": "Mroczny rycerz strzegący Gotham", "Joker": "Szalony klaun i arcywróg", "Harry Potter": "Czarodziej z blizną w kształcie błyskawicy", "Hogwart": "Szkoła magii i czarodziejstwa", "Kraina Lodu": "Animacja z królową śniegu i bałwanem", "Stranger Things": "Dziwne zjawiska i potwory w Hawkins", "Wednesday": "Mroczna córka Addamsów w akademii", "Squid Game": "Śmiertelne gry dziecięce o miliony", "Breaking Bad": "Nauczyciel chemii wchodzący w narkobiznes", "The Boys": "Brutalna prawda o skorumpowanych herosach", "The Last of Us": "Podróż przez świat opanowany przez grzyb", "Euphoria": "Trudne dorastanie i imprezy nastolatków", "The Office": "Komediowe absurdy w biurze papierniczym", "Friends": "Szóstka przyjaciół spotykająca się w kawiarni"
     };
 
@@ -1370,357 +1371,6 @@
       if (lowerCat.includes("polska")) return "Rzecz lub miejsce typowe dla naszego kraju";
       return "Pojęcie pasujące do klimatu kategorii";
     }
-
-    const SoundFX = {
-      ctx: null,
-      init() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          this.ctx = new AudioContext();
-        }
-        if (this.ctx.state === 'suspended') this.ctx.resume();
-      },
-      tick() {
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(950, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(350, this.ctx.currentTime + 0.03);
-        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.03);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.03);
-      },
-      boom() {
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(130, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(20, this.ctx.currentTime + 0.7);
-        gain.gain.setValueAtTime(0.9, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.7);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.7);
-      }
-    };
-
-    const App = {
-      showScreen(id) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        SoundFX.init();
-      },
-      openImpostorConfig() {
-        CategoryCarousel.render('impostor-carousel', 'impostor-cat-counter', 'impostor', (cats) => {
-          ImpostorEngine.selectedCategories = cats;
-        });
-        this.showScreen('screen-config-impostor');
-      },
-      openBombConfig() {
-        CategoryCarousel.render('bomb-carousel', 'bomb-cat-counter', 'bomba', (cats) => {
-          BombEngine.selectedCategories = cats;
-        });
-        this.showScreen('screen-config-bomb');
-      },
-      openWhoConfig() {
-        CategoryCarousel.render('who-carousel', 'who-cat-counter', 'ktoZNas', (cats) => {
-          WhoEngine.selectedCategories = cats;
-        });
-        this.showScreen('screen-config-who');
-      }
-    };
-
-    /* INSTALATOR PWA */
-    const PwaInstaller = {
-      deferredPrompt: null,
-      activePlatform: 'ios',
-
-      init() {
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          this.deferredPrompt = e;
-          const nativeBtn = document.getElementById('btn-native-install');
-          if (nativeBtn) nativeBtn.style.display = 'flex';
-        });
-
-        const userAgent = window.navigator.userAgent.toLowerCase();
-        this.activePlatform = /iphone|ipad|ipod/.test(userAgent) ? 'ios' : 'android';
-        this.check();
-      },
-
-      check() {
-        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-        const alreadyDismissed = localStorage.getItem('partylab_installed_dismissed');
-
-        if (!isStandalone && !alreadyDismissed) {
-          this.showGuide();
-        }
-      },
-
-      switchPlatform(platform) {
-        this.activePlatform = platform;
-        document.getElementById('tab-ios').classList.toggle('active', platform === 'ios');
-        document.getElementById('tab-android').classList.toggle('active', platform === 'android');
-        this.renderSteps();
-      },
-
-      showGuide() {
-        this.switchPlatform(this.activePlatform);
-        document.getElementById('install-modal').classList.add('active');
-      },
-
-      renderSteps() {
-        const container = document.getElementById('install-steps-container');
-
-        if (this.activePlatform === 'ios') {
-          container.innerHTML = `
-            <div class="install-step-row">
-              <div class="install-step-badge">1</div>
-              <div class="install-step-desc">
-                W Safari kliknij ikonę <b>Udostępnij</b>
-                <svg class="inline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                  <polyline points="16 6 12 2 8 6"></polyline>
-                  <line x1="12" y1="2" x2="12" y2="15"></line>
-                </svg>
-                (kwadrat ze strzałką w górę).
-              </div>
-            </div>
-            <div class="install-step-row">
-              <div class="install-step-badge">2</div>
-              <div class="install-step-desc">
-                Przewiń w dół i wybierz <b>„Do ekranu początkowego”</b>
-                <svg class="inline-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="12" y1="8" x2="12" y2="16"></line>
-                  <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>.
-              </div>
-            </div>
-          `;
-        } else {
-          container.innerHTML = `
-            <div class="install-step-row">
-              <div class="install-step-badge">1</div>
-              <div class="install-step-desc">
-                W Chrome dotknij ikony menu <b>Trzy kropki</b>
-                <svg class="inline-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <circle cx="12" cy="5" r="2"></circle>
-                  <circle cx="12" cy="12" r="2"></circle>
-                  <circle cx="12" cy="19" r="2"></circle>
-                </svg>
-                w prawym górnym rogu.
-              </div>
-            </div>
-            <div class="install-step-row">
-              <div class="install-step-badge">2</div>
-              <div class="install-step-desc">
-                Wybierz <b>„Zainstaluj aplikację”</b> lub <b>„Dodaj do ekranu głównego”</b>.
-              </div>
-            </div>
-          `;
-        }
-      },
-
-      triggerNative() {
-        if (this.deferredPrompt) {
-          this.deferredPrompt.prompt();
-          this.deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              this.dismiss();
-            }
-            this.deferredPrompt = null;
-          });
-        }
-      },
-
-      dismiss() {
-        localStorage.setItem('partylab_installed_dismissed', 'true');
-        document.getElementById('install-modal').classList.remove('active');
-      }
-    };
-
-    /* KARUZELA SWIPE + MODAL Z GRUPAMI KATEGORII */
-    const CategoryCarousel = {
-      selected: {
-        impostor: ["Codzienne życie"],
-        bomba: ["Makaroniarze"],
-        ktoZNas: ["Normalne"]
-      },
-      pending18: null,
-      activeContext: null,
-
-      render(containerId, counterId, mode, onSelect) {
-        this.activeContext = { containerId, counterId, mode, onSelect };
-        const container = document.getElementById(containerId);
-        container.innerHTML = '';
-
-        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
-        const displayCats = allCats.slice(0, 10);
-
-        displayCats.forEach(cat => {
-          const isSelected = this.selected[mode].includes(cat);
-          const isSpicy = cat.toLowerCase().includes('18+') || cat.toLowerCase().includes('spicy');
-          const emoji = categoryEmojis[cat] || "🎲";
-
-          const card = document.createElement('div');
-          card.className = `carousel-card ${isSelected ? 'active' : ''} ${isSpicy ? 'is-18' : ''}`;
-          card.innerHTML = `
-            <div class="carousel-check">✓</div>
-            <div class="carousel-emoji">${emoji}</div>
-            <div class="carousel-name">${cat}</div>
-          `;
-
-          card.onclick = () => this.toggleCategory(cat);
-          container.appendChild(card);
-        });
-
-        this.updateCounters(counterId, mode, allCats.length);
-        if (onSelect) onSelect(this.selected[mode]);
-      },
-
-      toggleCategory(cat) {
-        const { mode, containerId, counterId, onSelect } = this.activeContext;
-        const isSpicy = cat.toLowerCase().includes('18+') || cat.toLowerCase().includes('spicy');
-
-        if (this.selected[mode].includes(cat)) {
-          this.selected[mode] = this.selected[mode].filter(c => c !== cat);
-        } else {
-          if (isSpicy && !sessionStorage.getItem('partylab_18_confirmed')) {
-            this.pending18 = { cat };
-            document.getElementById('age-modal').classList.add('active');
-            return;
-          }
-          this.selected[mode].push(cat);
-        }
-
-        this.render(containerId, counterId, mode, onSelect);
-        if (document.getElementById('all-categories-modal').classList.contains('active')) {
-          this.renderAllCategoriesModal();
-        }
-      },
-
-      updateCounters(counterId, mode, totalCount) {
-        const currentSelected = this.selected[mode].length;
-        const counterEl = document.getElementById(counterId);
-        if (counterEl) {
-          if (currentSelected === 0) {
-            counterEl.innerText = "Wybrano: 0 (Wybierz min. 1)";
-            counterEl.style.color = "var(--accent-bomb)";
-          } else if (currentSelected === totalCount) {
-            counterEl.innerText = "Wybrano: Wszystkie";
-            counterEl.style.color = "var(--text-muted)";
-          } else {
-            counterEl.innerText = `Wybrano: ${currentSelected} z ${totalCount}`;
-            counterEl.style.color = "var(--text-muted)";
-          }
-        }
-
-        const startBtnMap = {
-          impostor: 'btn-start-impostor',
-          bomba: 'btn-start-bomb',
-          ktoZNas: 'btn-start-who'
-        };
-        const startBtn = document.getElementById(startBtnMap[mode]);
-        if (startBtn) {
-          startBtn.disabled = currentSelected === 0;
-        }
-      },
-
-      openAllCategoriesModal(containerId, counterId, mode) {
-        this.activeContext = { containerId, counterId, mode, onSelect: (cats) => {
-          if (mode === 'impostor') ImpostorEngine.selectedCategories = cats;
-          if (mode === 'bomba') BombEngine.selectedCategories = cats;
-          if (mode === 'ktoZNas') WhoEngine.selectedCategories = cats;
-        }};
-        this.renderAllCategoriesModal();
-        document.getElementById('all-categories-modal').classList.add('active');
-      },
-
-      closeAllCategoriesModal() {
-        document.getElementById('all-categories-modal').classList.remove('active');
-      },
-
-      renderAllCategoriesModal() {
-        const { mode } = this.activeContext;
-        const scrollArea = document.getElementById('cats-modal-scroll-area');
-        scrollArea.innerHTML = '';
-
-        const modeCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
-
-        for (const [groupName, catList] of Object.entries(categoryGroups)) {
-          const availableInGroup = catList.filter(c => modeCats.includes(c));
-          if (availableInGroup.length === 0) continue;
-
-          const groupEl = document.createElement('div');
-          groupEl.innerHTML = `<div class="cats-group-title">${groupName}</div>`;
-
-          const grid = document.createElement('div');
-          grid.className = 'cats-modal-grid';
-
-          availableInGroup.forEach(cat => {
-            const isSelected = this.selected[mode].includes(cat);
-            const isSpicy = cat.toLowerCase().includes('18+') || cat.toLowerCase().includes('spicy');
-            const emoji = categoryEmojis[cat] || "🎲";
-
-            const item = document.createElement('div');
-            item.className = `cat-modal-item ${isSelected ? 'active' : ''} ${isSpicy ? 'is-18' : ''}`;
-            item.innerHTML = `
-              <span>${emoji}</span>
-              <span class="cat-modal-item-name">${cat}</span>
-              ${isSelected ? '<span style="color:var(--accent-impostor); font-weight:900; font-size:0.8rem;">✓</span>' : ''}
-            `;
-
-            item.onclick = () => this.toggleCategory(cat);
-            grid.appendChild(item);
-          });
-
-          groupEl.appendChild(grid);
-          scrollArea.appendChild(groupEl);
-        }
-      },
-
-      selectAllModal() {
-        const { mode, containerId, counterId, onSelect } = this.activeContext;
-        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
-        this.selected[mode] = allCats;
-        this.render(containerId, counterId, mode, onSelect);
-        this.renderAllCategoriesModal();
-      },
-
-      clearAllModal() {
-        const { mode, containerId, counterId, onSelect } = this.activeContext;
-        this.selected[mode] = [];
-        this.render(containerId, counterId, mode, onSelect);
-        this.renderAllCategoriesModal();
-      },
-
-      confirm18() {
-        sessionStorage.setItem('partylab_18_confirmed', 'true');
-        document.getElementById('age-modal').classList.remove('active');
-        if (this.pending18) {
-          const { cat } = this.pending18;
-          const { mode, containerId, counterId, onSelect } = this.activeContext;
-          this.selected[mode].push(cat);
-          this.render(containerId, counterId, mode, onSelect);
-          if (document.getElementById('all-categories-modal').classList.contains('active')) {
-            this.renderAllCategoriesModal();
-          }
-          this.pending18 = null;
-        }
-      },
-
-      cancel18() {
-        document.getElementById('age-modal').classList.remove('active');
-        this.pending18 = null;
-      }
-    };
 
     /* SILNIK IMPOSTORA */
     const ImpostorEngine = {
@@ -1890,7 +1540,7 @@
           wordEl.style.color = "var(--accent-bomb)";
           
           if (this.hintsEnabled && this.currentWordData.hint) {
-            hintEl.innerText = `Wskazówka: ${this.currentWordData.hint}`;
+            hintEl.innerText = `💡 Wskazówka: ${this.currentWordData.hint}`;
             hintEl.style.display = 'inline-block';
           } else {
             hintEl.innerText = '';
