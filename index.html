@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>PartyLab</title>
   
-  <!-- FAVICON DLA KART PRZEGLĄDARKI -->
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
   <link rel="icon" type="image/svg+xml" href="./icon.svg">
   <link rel="shortcut icon" href="./icon-192.png">
@@ -23,7 +22,7 @@
   <style>
     :root {
       --bg: #090a0f;
-      --card-bg: rgba(22, 26, 38, 0.88);
+      --card-bg: rgba(22, 26, 38, 0.9);
       --card-border: rgba(255, 255, 255, 0.08);
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
@@ -48,14 +47,7 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    html {
-      background-color: var(--bg);
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    body {
+    html, body {
       background-color: var(--bg);
       color: var(--text-main);
       width: 100%;
@@ -77,26 +69,26 @@
     }
     .blob {
       position: absolute;
-      width: 360px;
-      height: 360px;
+      width: 380px;
+      height: 380px;
       border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.24;
+      filter: blur(110px);
+      opacity: 0.22;
     }
-    .blob-1 { top: -40px; left: -40px; background: var(--accent-impostor); }
-    .blob-2 { bottom: -40px; right: -40px; background: var(--accent-bomb); }
+    .blob-1 { top: -60px; left: -60px; background: var(--accent-impostor); }
+    .blob-2 { bottom: -60px; right: -60px; background: var(--accent-bomb); }
 
     #app-container {
       position: relative;
       z-index: 1;
       width: 100%;
-      max-width: 440px;
+      max-width: 480px;
       height: 100%;
       margin: 0 auto;
-      padding-top: max(16px, env(safe-area-inset-top));
-      padding-bottom: max(16px, env(safe-area-inset-bottom));
-      padding-left: max(16px, env(safe-area-inset-left));
-      padding-right: max(16px, env(safe-area-inset-right));
+      padding-top: max(14px, env(safe-area-inset-top));
+      padding-bottom: max(14px, env(safe-area-inset-bottom));
+      padding-left: max(14px, env(safe-area-inset-left));
+      padding-right: max(14px, env(safe-area-inset-right));
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -123,7 +115,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       flex-shrink: 0;
     }
     .brand-title {
@@ -182,13 +174,13 @@
     .game-card:active { transform: scale(0.97); }
 
     .game-icon {
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       border-radius: var(--radius-md);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 2rem;
       flex-shrink: 0;
     }
     .impostor .game-icon { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); }
@@ -248,95 +240,196 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .section-title {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      font-weight: 800;
+      font-weight: 900;
       color: var(--text-muted);
     }
     .section-subtitle-counter {
-      font-size: 0.78rem;
-      color: var(--text-muted);
+      font-size: 0.82rem;
+      color: var(--accent-impostor);
+      font-weight: 800;
+    }
+
+    /* FILTRY I WYSZUKIWARKA */
+    .filter-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .search-input-box {
+      position: relative;
+      width: 100%;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 12px 10px 36px;
+      color: #fff;
+      font-size: 0.9rem;
       font-weight: 700;
+      outline: none;
+    }
+    .search-input:focus {
+      border-color: var(--accent-impostor);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .tag-filters-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tag-filters-scroll::-webkit-scrollbar { display: none; }
+    .tag-chip {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tag-chip.active {
+      background: var(--text-main);
+      color: #090a0f;
+      border-color: #fff;
     }
 
     .cat-actions-bar {
       display: flex;
       gap: 6px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .cat-action-btn {
       flex: 1;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--card-border);
       color: var(--text-muted);
-      padding: 7px 4px;
+      padding: 8px 4px;
       border-radius: 10px;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 800;
       cursor: pointer;
       text-align: center;
     }
     .cat-action-btn:active { background: rgba(255, 255, 255, 0.1); color: #fff; }
 
-    .cat-mobile-grid {
+    /* DUŻE KAFLE KATEGORII (XXL) */
+    .cat-grid-xxl {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      max-height: 220px;
+      gap: 10px;
+      max-height: 280px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      padding-right: 2px;
+      padding: 2px;
     }
-    .cat-mobile-grid::-webkit-scrollbar { display: none; }
+    .cat-grid-xxl::-webkit-scrollbar { display: none; }
 
-    .cat-grid-card {
-      background: rgba(255, 255, 255, 0.03);
+    .cat-card-xxl {
+      background: rgba(255, 255, 255, 0.025);
       border: 1.5px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      position: relative;
-      transition: all 0.15s ease;
-    }
-    .cat-grid-card:active { transform: scale(0.96); }
-    .cat-grid-card.active {
-      background: rgba(139, 92, 246, 0.18);
-      border-color: var(--accent-impostor);
-    }
-    .cat-grid-card.is-18.active {
-      background: rgba(236, 72, 153, 0.2);
-      border-color: var(--accent-18);
-    }
-    .cat-grid-emoji { font-size: 1.5rem; flex-shrink: 0; }
-    .cat-grid-info {
+      border-radius: 16px;
+      padding: 14px 12px;
       display: flex;
       flex-direction: column;
-      text-align: left;
-      overflow: hidden;
+      justify-content: space-between;
+      min-height: 96px;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.12s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
     }
-    .cat-grid-name {
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .cat-card-xxl:active { transform: scale(0.96); }
+    .cat-card-xxl.active {
+      background: rgba(139, 92, 246, 0.16);
+      border-color: var(--accent-impostor);
+      box-shadow: 0 4px 18px var(--accent-impostor-glow);
+    }
+    .cat-card-xxl.is-18.active {
+      background: rgba(236, 72, 153, 0.2);
+      border-color: var(--accent-18);
+      box-shadow: 0 4px 18px rgba(236, 72, 153, 0.3);
     }
 
+    .cat-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .cat-card-emoji {
+      font-size: 1.85rem;
+      line-height: 1;
+    }
+    .cat-checkbox {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      border: 1.5px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: transparent;
+      transition: all 0.15s ease;
+    }
+    .cat-card-xxl.active .cat-checkbox {
+      background: var(--accent-impostor);
+      border-color: var(--accent-impostor);
+      color: #fff;
+    }
+    .cat-card-xxl.is-18.active .cat-checkbox {
+      background: var(--accent-18);
+      border-color: var(--accent-18);
+    }
+
+    .cat-card-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cat-card-title {
+      font-size: 0.92rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .cat-card-meta {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* LISTA GRACZY */
     .players-container {
       display: flex;
       flex-direction: column;
       gap: 8px;
       margin-top: 6px;
     }
-
     .player-row-card {
       background: #141724;
       border: 1px solid var(--card-border);
@@ -347,14 +440,12 @@
       padding: 0 10px 0 14px;
       height: 50px;
     }
-
     .player-index-badge {
       font-size: 0.9rem;
       font-weight: 800;
       color: var(--accent-impostor);
       min-width: 22px;
     }
-
     .player-input {
       flex: 1;
       background: transparent;
@@ -365,7 +456,6 @@
       outline: none;
       height: 100%;
     }
-
     .player-delete-btn {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--card-border);
@@ -458,6 +548,34 @@
       letter-spacing: -0.6px;
     }
 
+    .central-starter-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(244, 63, 94, 0.14));
+      border: 2px solid var(--accent-impostor);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 0 20px var(--accent-impostor-glow);
+    }
+    .central-starter-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+    }
+    .central-starter-name {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      margin-top: 2px;
+      letter-spacing: -0.5px;
+    }
+
     .swipe-stage {
       flex: 1;
       position: relative;
@@ -520,13 +638,13 @@
       font-weight: 800;
     }
     .secret-hint-direct {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       color: #fca5a5;
       font-weight: 800;
-      margin-top: 12px;
+      margin-top: 14px;
       background: rgba(244, 63, 94, 0.16);
-      border: 1px solid rgba(244, 63, 94, 0.35);
-      padding: 8px 16px;
+      border: 1.5px solid rgba(244, 63, 94, 0.4);
+      padding: 8px 18px;
       border-radius: 99px;
       display: none;
     }
@@ -713,7 +831,6 @@
       justify-content: center;
       font-size: 3.5rem;
       box-shadow: 0 0 40px var(--accent-bomb-glow);
-      animation: pulse 0.8s infinite alternate ease-in-out;
     }
     .bomb-category {
       font-size: 1.35rem;
@@ -721,10 +838,6 @@
       text-align: center;
       line-height: 1.3;
       padding: 0 10px;
-    }
-    @keyframes pulse {
-      from { transform: scale(0.95); }
-      to { transform: scale(1.05); }
     }
     .exploding {
       animation: explode 0.4s forwards cubic-bezier(0.1, 0.9, 0.2, 1);
@@ -759,7 +872,6 @@
     <div class="blob blob-2"></div>
   </div>
 
-  <!-- MODAL OSTRZEŻENIA 18+ -->
   <div class="modal-overlay" id="age-modal">
     <div class="modal-box">
       <div style="font-size: 3rem; margin-bottom: 8px;">🔞</div>
@@ -821,21 +933,31 @@
             <span class="section-title">Kategorie haseł</span>
             <span class="section-subtitle-counter" id="impostor-cat-counter">Wybrano: 1</span>
           </div>
+
+          <!-- WYSZUKIWARKA I FILTRY -->
+          <div class="filter-wrapper">
+            <div class="search-input-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="impostor-search" placeholder="Szukaj kategorii..." oninput="CategoryManager.handleSearch('impostor', this.value)" />
+            </div>
+            <div class="tag-filters-scroll" id="impostor-tag-filters"></div>
+          </div>
+
           <div class="cat-actions-bar">
-            <button class="cat-action-btn" onclick="CategoryManager.selectAll('impostor')">Wszystkie</button>
+            <button class="cat-action-btn" onclick="CategoryManager.selectAll('impostor')">Zaznacz widoczne</button>
             <button class="cat-action-btn" onclick="CategoryManager.select18Only('impostor')">Tylko 18+</button>
             <button class="cat-action-btn" onclick="CategoryManager.clearAll('impostor')">Wyczyść</button>
           </div>
-          <div class="cat-mobile-grid" id="impostor-cat-grid"></div>
+          <div class="cat-grid-xxl" id="impostor-cat-grid"></div>
         </div>
 
         <div class="glass-box">
           <div class="setting-row">
             <span style="font-weight:800; font-size:0.95rem;">Liczba Impostorów</span>
             <div class="stepper">
-              <button class="step-btn" onclick="ImpostorEngine.adjustImpostors(-1)">−</button>
+              <button class="step-btn" onclick="GameSettings.adjustImpostors(-1)">−</button>
               <span class="step-val" id="val-impostors">1</span>
-              <button class="step-btn" onclick="ImpostorEngine.adjustImpostors(1)">+</button>
+              <button class="step-btn" onclick="GameSettings.adjustImpostors(1)">+</button>
             </div>
           </div>
 
@@ -848,7 +970,7 @@
         <div class="glass-box">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
-            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:6px 12px; border-radius:10px; color:#fff; font-size:0.8rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj</button>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:6px 12px; border-radius:10px; color:#fff; font-size:0.8rem; font-weight:800;" onclick="GameSettings.addPlayer()">+ Dodaj</button>
           </div>
           <div class="players-container" id="impostor-players-list"></div>
         </div>
@@ -874,7 +996,7 @@
         <div class="secret-layer" id="secret-layer">
           <div class="secret-sub" id="secret-sub">Kategoria</div>
           <div class="secret-word" id="secret-word">Hasło</div>
-          <div class="secret-hint-direct" id="secret-hint-direct">💡 Wskazówka: ...</div>
+          <div class="secret-hint-direct" id="secret-hint-direct">💡 Podpowiedź: ...</div>
         </div>
 
         <div class="swipe-cover" id="swipe-cover">
@@ -895,16 +1017,21 @@
         <h2 class="brand-title">Dyskusja</h2>
       </header>
 
-      <div class="glass-box" style="text-align: center; margin: auto 0; padding: 28px 20px;">
-        <div style="font-size:3.5rem; margin-bottom:12px;">🗣️</div>
-        <h3 style="font-size: 1.4rem; font-weight:900; margin-bottom: 8px;">Telefon ląduje na stole</h3>
-        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.45;">Każdy mówi po jednym skojarzeniu. Przedyskutujcie sytuację i wskażcie Impostora!</p>
+      <div class="central-starter-card">
+        <span class="central-starter-label">Zaczyna pierwsze skojarzenie:</span>
+        <h2 class="central-starter-name" id="impostor-starter-text">Kuba 🗣️</h2>
+      </div>
+
+      <div class="glass-box" style="text-align: center; margin: auto 0; padding: 22px 18px;">
+        <div style="font-size:3rem; margin-bottom:8px;">📱</div>
+        <h3 style="font-size: 1.25rem; font-weight:900; margin-bottom: 6px;">Telefon na środek stołu!</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.4;">Wszyscy mówią po kolei jedno słowo powiązane z hasłem. Wytypujcie Impostora!</p>
       </div>
 
       <button class="btn btn-primary" onclick="ImpostorEngine.revealResult()">Pokaż odpowiedzi i Impostorów</button>
     </section>
 
-    <!-- 5. PRZEPROJEKTOWANE WYNIKI IMPOSTORA -->
+    <!-- 5. WYNIKI IMPOSTORA -->
     <section class="screen" id="screen-impostor-results">
       <header class="header">
         <button class="back-btn" onclick="App.showScreen('screen-menu')">←</button>
@@ -940,26 +1067,33 @@
             <span class="section-title">Kategorie pytań</span>
             <span class="section-subtitle-counter" id="bomb-cat-counter">Wybrano: 1</span>
           </div>
+
+          <!-- WYSZUKIWARKA I FILTRY -->
+          <div class="filter-wrapper">
+            <div class="search-input-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="bomba-search" placeholder="Szukaj kategorii..." oninput="CategoryManager.handleSearch('bomba', this.value)" />
+            </div>
+            <div class="tag-filters-scroll" id="bomba-tag-filters"></div>
+          </div>
+
           <div class="cat-actions-bar">
-            <button class="cat-action-btn" onclick="CategoryManager.selectAll('bomba')">Wszystkie</button>
+            <button class="cat-action-btn" onclick="CategoryManager.selectAll('bomba')">Zaznacz widoczne</button>
             <button class="cat-action-btn" onclick="CategoryManager.select18Only('bomba')">Tylko 18+</button>
             <button class="cat-action-btn" onclick="CategoryManager.clearAll('bomba')">Wyczyść</button>
           </div>
-          <div class="cat-mobile-grid" id="bomba-cat-grid"></div>
+          <div class="cat-grid-xxl" id="bomba-cat-grid"></div>
         </div>
 
         <div class="glass-box">
-          <div class="setting-row">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <div>
-              <div style="font-weight:800; font-size:1.05rem;">Liczba graczy</div>
-              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;" id="bomb-time-estimate">Czas: ok. 45-60 sek</div>
+              <p class="section-title" style="margin:0;">Gracze (<span id="bomb-player-count">4</span>)</p>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;" id="bomb-time-estimate">Czas: ok. 55-80 sek</div>
             </div>
-            <div class="stepper">
-              <button class="step-btn" onclick="BombEngine.adjustPlayers(-1)">−</button>
-              <span class="step-val" id="val-bomb-players">4</span>
-              <button class="step-btn" onclick="BombEngine.adjustPlayers(1)">+</button>
-            </div>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:6px 12px; border-radius:10px; color:#fff; font-size:0.8rem; font-weight:800;" onclick="GameSettings.addPlayer()">+ Dodaj</button>
           </div>
+          <div class="players-container" id="bomb-players-list"></div>
         </div>
       </div>
 
@@ -972,6 +1106,11 @@
         <button class="back-btn" onclick="BombEngine.stop()">←</button>
         <h2 class="brand-title">Bomba tyka!</h2>
       </header>
+
+      <div class="central-starter-card" style="background: linear-gradient(135deg, rgba(244, 63, 94, 0.22), rgba(236, 72, 153, 0.14)); border-color: var(--accent-bomb); box-shadow: 0 0 20px var(--accent-bomb-glow);">
+        <span class="central-starter-label" style="color:#fecdd3;">Trzyma telefon i zaczyna:</span>
+        <h2 class="central-starter-name" id="bomb-starter-text" style="color:#fff;">Kuba 💣</h2>
+      </div>
 
       <div class="bomb-zone">
         <div class="bomb-visual" id="bomb-icon">💣</div>
@@ -994,12 +1133,22 @@
             <span class="section-title">Kategorie pytań</span>
             <span class="section-subtitle-counter" id="who-cat-counter">Wybrano: 1</span>
           </div>
+
+          <!-- WYSZUKIWARKA I FILTRY -->
+          <div class="filter-wrapper">
+            <div class="search-input-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="who-search" placeholder="Szukaj kategorii..." oninput="CategoryManager.handleSearch('ktoZNas', this.value)" />
+            </div>
+            <div class="tag-filters-scroll" id="who-tag-filters"></div>
+          </div>
+
           <div class="cat-actions-bar">
-            <button class="cat-action-btn" onclick="CategoryManager.selectAll('ktoZNas')">Wszystkie</button>
+            <button class="cat-action-btn" onclick="CategoryManager.selectAll('ktoZNas')">Zaznacz widoczne</button>
             <button class="cat-action-btn" onclick="CategoryManager.select18Only('ktoZNas')">Tylko 18+</button>
             <button class="cat-action-btn" onclick="CategoryManager.clearAll('ktoZNas')">Wyczyść</button>
           </div>
-          <div class="cat-mobile-grid" id="who-cat-grid"></div>
+          <div class="cat-grid-xxl" id="who-cat-grid"></div>
         </div>
       </div>
 
@@ -1023,88 +1172,559 @@
   </main>
 
   <script>
-    // BAZA DANYCH ZE ZINTEGROWANYMI NOWYMI HASŁAMI DLA MAKARONIARZY[cite: 1, 2]
+    // ============================================================
+    // BAZA DANYCH PARTY LAB
+    // ============================================================
     const partyLabDatabase = {
       impostor: [
-        { category: "Codzienne życie", words: ["budzik", "prysznic", "śniadanie", "pranie", "zakupy spożywcze", "parasol", "klucze do domu", "ładowarka do telefonu", "poczekalnia", "mycie naczyń", "wynoszenie śmieci", "wizyta u dentysty", "kolejka w urzędzie", "głośny sąsiad", "zapchana pralka", "pilot do telewizora", "zapomniane hasło", "pusta lodówka", "poranne korki", "spóźniony autobus", "przypalona kolacja", "drzemka w pracy", "spór o parking"] },
-        { category: "Jedzenie", words: ["pizza", "burger", "frytki", "kebab", "lody", "kanapka", "makaron", "sushi", "Coca-Cola", "gofry", "McDonald's", "KFC", "bar mleczny", "zapiekanka", "pierogi", "napój energetyczny", "sos czosnkowy", "kawa na wynos", "kebab po imprezie", "niedzielny rosół", "dieta pudełkowa", "ramen"] },
-        { category: "Polska", words: ["Kraków", "Wisła", "Biedronka", "Żabka", "Orlen", "polski hip-hop", "kiełbasa z grilla", "majówka", "Wigilia", "pociąg PKP", "Allegro", "urząd skarbowy", "disco polo", "zbieranie grzybów", "Paczkomat InPost", "kartka na Dzień Babci", "PESEL"] },
-        { category: "Świat", words: ["Paryż", "Nowy Jork", "Wieża Eiffla", "Dubaj", "Wielki Mur Chiński", "Rzym", "Londyn", "Bali", "Piramidy w Egipcie", "karnawał w Rio", "metro w Tokio", "Wenecja i gondole", "Wodospad Niagara"] },
-        { category: "Marki", words: ["Nike", "Adidas", "Apple", "Samsung", "Netflix", "Amazon", "Google", "IKEA", "Zara", "H&M", "Rolex", "Ferrari", "Gucci", "Red Bull", "Spotify", "PlayStation", "Xbox", "Tesla", "Starbucks", "Vinted"] },
-        { category: "Technologia", words: ["smartfon", "słuchawki bezprzewodowe", "powerbank", "Wi-Fi", "aparat w telefonie", "smartwatch", "laptop", "konsola do gier", "sztuczna inteligencja", "tryb samolotowy", "inteligentny dom", "dron", "okulary VR", "kod QR"] },
-        { category: "Gry wideo", words: ["Minecraft", "Creeper", "diamentowy miecz", "GTA V", "kradzież auta", "pościg policyjny", "Fortnite", "latający autobus", "Roblox", "EA Sports FC (FIFA)", "Call of Duty", "Counter-Strike", "podłożenie bomby", "Wiedźmin 3", "Among Us", "The Sims"] },
-        { category: "Filmy i Kino", words: ["Iron Man", "Spider-Man", "Avengers", "Batman", "Joker", "Harry Potter", "Hogwart", "Kraina Lodu", "Król Lew", "Piła", "Titanic", "Barbie", "Oppenheimer", "Matrix", "Avatar", "Szybcy i wściekli", "Kevin sam w domu", "Chłopaki nie płaczą", "Listy do M."] },
-        { category: "Seriale", words: ["Stranger Things", "Wednesday", "Squid Game", "Breaking Bad", "The Boys", "Peaky Blinders", "Dom z papieru", "The Last of Us", "Euphoria", "The Office", "Przyjaciele", "Gra o Tron", "1670", "Czarne lustro"] },
-        { category: "Muzyka", words: ["Sanah", "Dawid Podsiadło", "Mata", "Taylor Swift", "Drake", "Beyoncé", "Ed Sheeran", "Queen", "Michael Jackson", "Coldplay", "Maneskin", "bitwa freestyle", "teledysk", "festiwal muzyczny"] },
-        { category: "Sport i Siłownia", words: ["piłka nożna", "koszykówka", "Formuła 1", "Mistrzostwa Świata", "Liga Mistrzów", "rzut karny", "żółta kartka", "MMA", "siatkówka", "maraton", "siłownia", "hantle", "bieżnia", "trener personalny", "zakwasy", "dzień nóg"] },
-        { category: "Szkoła i Uczelnia", words: ["dzwonek na przerwę", "sprawdzian", "wagary", "stołówka", "ściąganie na klasówce", "wychowawca", "praca domowa", "wywiadówka", "matura", "dziennik elektroniczny", "obrona pracy"] },
-        { category: "Imprezowe", words: ["domówka", "karaoke", "klub nocny", "zimne piwo", "afterparty", "shot na wejściu", "kac morderca", "beer pong", "wyjście po angielsku", "zgubiony portfel", "taksówka do domu"] },
-        { category: "Podróże", words: ["lotnisko", "walizka", "hotel all inclusive", "paszport", "plaża", "odprawa", "przesiadka", "opóźniony lot", "strefa bezcłowa"] },
-        { category: "Spicy", words: ["randka", "flirt", "Tinder", "ghosting", "crush", "były partner", "zdrada", "friendzone", "pikantna wiadomość", "relacja bez zobowiązań", "podryw w klubie"] },
-        { category: "Spicy 18+", words: ["szybki numerek", "wiadomość o 2 w nocy", "nagie zdjęcie", "bielizna erotyczna", "kajdanki", "wibrator", "sponsoring", "OnlyFans", "poranny spacer wstydu", "przypadkowy pocałunek", "zabawa w sypialni"] },
-        { category: "Absurd i Humor", words: ["taniec kaczuszek", "przejechany przystanek", "czkawka w ciszy", "machanie do obcego", "pchanie drzwi gdy trzeba ciągnąć", "śpiewanie pod prysznicem", "zaśnięcie na wykładzie", "znikające skarpetki"] }
+        { category: "Codzienne życie", group: "Życie", words: [
+          { word: "budzik", hint: "wróg poranka" },
+          { word: "prysznic", hint: "tam śpiewasz najlepiej" },
+          { word: "śniadanie", hint: "bez tego trudno zacząć dzień" },
+          { word: "pranie", hint: "skarpetki znikają w trakcie" },
+          { word: "zakupy spożywcze", hint: "zawsze coś zapominasz kupić" },
+          { word: "parasol", hint: "zawsze zostaje w domu, gdy pada" },
+          { word: "klucze do domu", hint: "panika, gdy nie ma ich w kieszeni" },
+          { word: "ładowarka do telefonu", hint: "wieczna walka o wolne gniazdko" },
+          { word: "poczekalnia", hint: "czas płynie tam wolniej niż zwykle" },
+          { word: "mycie naczyń", hint: "odkłada się to na później" },
+          { word: "wynoszenie śmieci", hint: "zawsze pamięta się o tym za późno" },
+          { word: "wizyta u dentysty", hint: "odkładana miesiącami" },
+          { word: "kolejka w urzędzie", hint: "numerek w dłoni, cierpliwość na wyczerpaniu" },
+          { word: "sąsiad, który gra głośno muzykę", hint: "powód nieprzespanej nocy" },
+          { word: "zapchana pralka", hint: "kałuża na podłodze w łazience" },
+          { word: "kot sąsiadów", hint: "traktuje twój balkon jak swój" },
+          { word: "pilot do telewizora", hint: "ginie zawsze między poduszkami" },
+          { word: "wietrzenie mieszkania", hint: "zimne powietrze wpada do środka" },
+          { word: "zapomniane hasło", hint: "kończy się resetowaniem konta" },
+          { word: "pusta lodówka", hint: "otwierasz kilka razy, licząc na cud" },
+          { word: "poranne korki", hint: "sprawiają, że patrzysz na zegarek" },
+          { word: "spóźniony autobus", hint: "biegniesz, a on i tak odjeżdża" },
+          { word: "przypalona kolacja", hint: "zapach unosi się po całym mieszkaniu" },
+          { word: "ostatnia bateria w pilocie", hint: "trzeba go stukać, żeby zadziałał" },
+          { word: "przymusowa drzemka w pracy", hint: "powieki cięższe niż powinny być" },
+          { word: "sąsiedzki spór o parking", hint: "notatka za wycieraczką" },
+          { word: "reklamacja w sklepie", hint: "paragon trzymany na wszelki wypadek" },
+          { word: "instrukcja obsługi mebli z IKEA", hint: "zostaje kilka śrubek na końcu" },
+          { word: "hałas z remontu u sąsiada", hint: "budzi cię wcześniej niż budzik" }
+        ]},
+        { category: "Jedzenie", group: "Życie", words: [
+          { word: "pizza", hint: "ostatni kawałek zawsze budzi spór" },
+          { word: "burger", hint: "trudno zjeść go bez brudzenia rąk" },
+          { word: "frytki", hint: "kradnie się je z cudzego talerza" },
+          { word: "kebab", hint: "ratunek po długiej nocy" },
+          { word: "lody", hint: "kapią, zanim zdążysz je zjeść" },
+          { word: "kanapka", hint: "robisz ją w pośpiechu przed wyjściem" },
+          { word: "makaron", hint: "kojarzy się z niedzielnym obiadem" },
+          { word: "sushi", hint: "wymaga wprawy w posługiwaniu się sztućcami" },
+          { word: "Coca-Cola", hint: "syczy po otwarciu" },
+          { word: "gofry", hint: "wygląda jak małe kratki" },
+          { word: "McDonald's", hint: "otwarte, gdy nic innego już nie jest" },
+          { word: "KFC", hint: "palce trzeba potem umyć" },
+          { word: "bar mleczny", hint: "kolejka jak za dawnych czasów" },
+          { word: "zapiekanka", hint: "kupuje się ją w biegu" },
+          { word: "pierogi", hint: "babcia robi je najlepiej" },
+          { word: "shake protein", hint: "pije się to z grymasem na twarzy" },
+          { word: "energy drink", hint: "serce bije szybciej po jednym łyku" },
+          { word: "food truck", hint: "kolejka ustawia się na chodniku" },
+          { word: "bufet szwedzki", hint: "trudno się powstrzymać przed dokładką" },
+          { word: "sos czosnkowy", hint: "zdradza cię na kolejnej randce" },
+          { word: "chińszczyzna na wynos", hint: "pudełka zostają w lodówce na jutro" },
+          { word: "kawa na wynos", hint: "trzymana w jednej ręce, telefon w drugiej" },
+          { word: "kebab pod klubem", hint: "decyzja podejmowana po północy" },
+          { word: "kolacja rodzinna w niedzielę", hint: "ktoś zawsze się spóźnia" },
+          { word: "dieta pudełkowa", hint: "ktoś inny liczy za ciebie kalorie" },
+          { word: "ramen", hint: "para unosi się nad miską" },
+          { word: "poke bowl", hint: "modne, kolorowe i na Instagramie" },
+          { word: "tapas", hint: "zamawia się kilka na środek stołu" },
+          { word: "fine dining", hint: "porcja mniejsza niż oczekiwania" },
+          { word: "degustacja win", hint: "mówi się o nutach, choć nikt do końca nie wie o co chodzi" }
+        ]},
+        { category: "Polska", group: "Życie", words: [
+          { word: "Kraków", hint: "smok czai się pod ziemią" },
+          { word: "Wisła", hint: "przecina stolicę na pół" },
+          { word: "Biedronka", hint: "zawsze jest gdzieś w pobliżu" },
+          { word: "Żabka", hint: "ratuje o dziwnych porach" },
+          { word: "Orlen", hint: "czerwono-niebieski szyld przy drodze" },
+          { word: "polski hip-hop", hint: "słychać z otwartych okien aut" },
+          { word: "kiełbasa", hint: "spada z rusztu, gdy nikt nie patrzy" },
+          { word: "majówka", hint: "kalendarz robi się dziurawy" },
+          { word: "Wielkanoc", hint: "poniedziałek bywa mokry" },
+          { word: "wigilia", hint: "jedno miejsce przy stole zostaje puste" },
+          { word: "PKP Intercity", hint: "spóźnienie liczy się w minutach albo w godzinach" },
+          { word: "Allegro", hint: "paczka przychodzi, gdy o niej zapomnisz" },
+          { word: "zakręcona nakrętka od piwa", hint: "szuka się do tego zapalniczki" },
+          { word: "urząd skarbowy", hint: "list, którego nikt nie chce otworzyć" },
+          { word: "dzień dziecka w szkole", hint: "plecak zostaje w domu" },
+          { word: "TVP", hint: "leci w tle u babci" },
+          { word: "Wiadomości o 19:30", hint: "przerywa kolację o stałej porze" },
+          { word: "polski disco polo", hint: "wstydliwie znasz cały tekst" },
+          { word: "ognisko z pieczeniem kiełbasek", hint: "dym gryzie w oczy" },
+          { word: "działka rodzinna", hint: "dziadek spędza tam całe lato" },
+          { word: "zbieranie grzybów", hint: "koszyk pełen niespodzianek" },
+          { word: "reklama Biedronki", hint: "melodia zapada w pamięć wbrew woli" },
+          { word: "Pyszne.pl", hint: "kurier dzwoni domofonem" },
+          { word: "InPost paczkomat", hint: "kod z SMS-a otwiera schowek" },
+          { word: "kartka na Dzień Babci", hint: "sercówka z bibuły" },
+          { word: "PESEL", hint: "pamiętasz go lepiej niż numer telefonu do mamy" },
+          { word: "Mazurkas Travel", hint: "kojarzy się z autokarem pełnym studentów" },
+          { word: "Gadżet z Biedronki", hint: "leży przy kasie i kusi" },
+          { word: "spis z natury w firmie", hint: "magazyn zamyka się na jeden dzień w roku" }
+        ]},
+        { category: "Świat", group: "Życie", words: [
+          { word: "Paryż", hint: "wieczorem błyska co godzinę" },
+          { word: "Nowy Jork", hint: "żółte auta wszędzie" },
+          { word: "wieża Eiffla", hint: "kolejka po bilet trwa dłużej niż wjazd" },
+          { word: "Times Square", hint: "noc wygląda tam jak dzień" },
+          { word: "Dubaj", hint: "narty na pustyni" },
+          { word: "Wielki Mur Chiński", hint: "widać go z bardzo wysoka, mówią" },
+          { word: "Rzym", hint: "wrzuca się monetę i wraca" },
+          { word: "Londyn", hint: "patrzysz nie w tę stronę przy przejściu" },
+          { word: "Bali", hint: "influencerzy nie mogą się stamtąd ruszyć" },
+          { word: "piramidy w Egipcie", hint: "wielbłąd czeka na zdjęcie obok" },
+          { word: "Oktoberfest", hint: "kufle noszone po kilka naraz" },
+          { word: "karnawał w Rio", hint: "pióra i błyszczący pył wszędzie" },
+          { word: "safari w Afryce", hint: "jeep zatrzymuje się w połowie zdania przewodnika" },
+          { word: "Islandia i zorza polarna", hint: "niebo robi coś, w co trudno uwierzyć" },
+          { word: "metro w Tokio", hint: "ktoś musi cię wepchnąć do środka" },
+          { word: "targ w Marrakeszu", hint: "targowanie się to sport narodowy" },
+          { word: "greckie wyspy", hint: "wszystko tam jest białe i niebieskie" },
+          { word: "Wenecja i gondole", hint: "ulice są mokre inaczej niż zwykle" },
+          { word: "Route 66", hint: "trasa dłuższa niż niejeden film" },
+          { word: "Machu Picchu", hint: "trzeba się nieźle nachodzić po górach" },
+          { word: "wodospad Niagara", hint: "peleryna nie pomoże, i tak zmokniesz" },
+          { word: "Wielka Rafa Koralowa", hint: "kolory jak z bajki, tylko pod wodą" }
+        ]},
+        { category: "Marki", group: "Popkultura", words: [
+          { word: "Nike", hint: "slogan każe ci coś po prostu zrobić" },
+          { word: "Adidas", hint: "trzy kreski wystarczą, żeby ją rozpoznać" },
+          { word: "Apple", hint: "logo z ugryzieniem" },
+          { word: "Samsung", hint: "rywal jabłka na rynku telefonów" },
+          { word: "Netflix", hint: "pyta, czy jeszcze tam jesteś" },
+          { word: "Amazon", hint: "strzałka w logo prowadzi od A do Z" },
+          { word: "Google", hint: "pytasz go o wszystko, o czym nie chcesz pytać ludzi" },
+          { word: "IKEA", hint: "zostają zawsze jakieś śrubki" },
+          { word: "Zara", hint: "kolekcja zmienia się szybciej niż pogoda" },
+          { word: "Lamborghini", hint: "drzwi otwierają się inaczej niż w zwykłym aucie" },
+          { word: "Gucci", hint: "logo z dwiema literami G" },
+          { word: "Red Bull", hint: "obietnica, której fizycznie nie dotrzymuje" },
+          { word: "Spotify", hint: "podsumowanie roku, którego wszyscy się boją" },
+          { word: "PlayStation", hint: "kontroler ma cztery symbole" },
+          { word: "Tesla", hint: "cichy silnik, głośne opinie na jej temat" },
+          { word: "Starbucks", hint: "imię pisane na kubku bywa przekręcone" }
+        ]},
+        { category: "Technologia", group: "Popkultura", words: [
+          { word: "smartfon", hint: "pierwsze, co sprawdzasz po przebudzeniu" },
+          { word: "słuchawki bezprzewodowe", hint: "jedna zawsze gubi się gdzieś w domu" },
+          { word: "power bank", hint: "ratuje w połowie długiego dnia" },
+          { word: "Wi-Fi", hint: "hasło wisi na kartce w kawiarni" },
+          { word: "aparat w telefonie", hint: "zbiera więcej selfie niż warto" },
+          { word: "smartwatch", hint: "przypomina, żebyś wstał od biurka" },
+          { word: "laptop", hint: "grzeje kolana bardziej niż powinien" },
+          { word: "sztuczna inteligencja", hint: "budzi zachwyt i niepokój jednocześnie" },
+          { word: "tryb samolotowy", hint: "wyłącza wszystko poza budzikiem" },
+          { word: "dron", hint: "sąsiedzi patrzą podejrzliwie w niebo" },
+          { word: "kod QR", hint: "menu w restauracji zamiast papieru" }
+        ]},
+        { category: "Gry", group: "Gry", words: [
+          { word: "Creeper", hint: "cichy do momentu, aż jest za późno" },
+          { word: "diament", hint: "warto kopać głębiej dla tego" },
+          { word: "Steve", hint: "twarz, którą kojarzy niemal każde dziecko" },
+          { word: "Ender Dragon", hint: "ostatnia przeszkoda przed napisami końcowymi" },
+          { word: "GTA V", hint: "trójka bohaterów zamiast jednego" },
+          { word: "Los Santos", hint: "słoneczne miasto, w którym lepiej nie parkować byle jak" },
+          { word: "policyjny pościg", hint: "im dłużej uciekasz, tym gorzej się kończy" },
+          { word: "Fortnite", hint: "budujesz ściany szybciej, niż myślisz" },
+          { word: "Battle Bus", hint: "wyskakujesz z niego w locie" },
+          { word: "Victory Royale", hint: "napis, na który czekasz cały mecz" },
+          { word: "V-Dolce", hint: "wirtualna waluta na nowe skiny i tańce" },
+          { word: "Roblox", hint: "milion różnych gier pod jednym dachem" },
+          { word: "EA Sports FC", hint: "zmieniła nazwę, choć gra się tak samo" },
+          { word: "CS2", hint: "odświeżona wersja gry sprzed lat" },
+          { word: "Among Us", hint: "jeden z was nie jest tym, za kogo się podaje" },
+          { word: "Wiedźmin 3", hint: "kontrakt na potwora zawsze się komplikuje" }
+        ]},
+        { category: "Filmy", group: "Popkultura", words: [
+          { word: "Iron Man", hint: "garaż jak fabryka zbrojeniowa" },
+          { word: "Spider-Man", hint: "wspina się po ścianach bez wysiłku" },
+          { word: "Avengers", hint: "jeden problem, wielu bohaterów" },
+          { word: "Batman", hint: "bogacz, który woli noc od dnia" },
+          { word: "Joker", hint: "uśmiech, którego lepiej się nie prowokować" },
+          { word: "Harry Potter", hint: "blizna, która wszystko wyjaśnia" },
+          { word: "Hogwart", hint: "list z sową to zaproszenie" },
+          { word: "Kraina Lodu", hint: "piosenka, której nie da się odczepić od głowy" },
+          { word: "Piła", hint: "pytanie \"chcesz zagrać w grę?\" nie wróży dobrze" },
+          { word: "Kevin sam w domu", hint: "pułapki na złodziei robione domowym sposobem" },
+          { word: "Szybcy i wściekli", hint: "rodzina liczy się bardziej niż paliwo" },
+          { word: "Matrix", hint: "pigułka, po której nie ma odwrotu" },
+          { word: "Avatar", hint: "ciało zostaje w łóżku, umysł wędruje dalej" },
+          { word: "Titanic", hint: "drzwi, na których zmieściłoby się dwoje" },
+          { word: "Barbie", hint: "różowy świat, który nagle traci kolory" },
+          { word: "Oppenheimer", hint: "trzy godziny czarno-białych rozmyślań o skutkach odkrycia" }
+        ]},
+        { category: "Seriale", group: "Popkultura", words: [
+          { word: "Stranger Things", hint: "lampki choinkowe zamiast telefonu" },
+          { word: "Eleven", hint: "krew z nosa oznacza, że coś się wydarzy" },
+          { word: "Wednesday", hint: "uśmiech to coś, na co nie ma czasu" },
+          { word: "Squid Game", hint: "dziecięce zabawy z bardzo dorosłą stawką" },
+          { word: "Breaking Bad", hint: "diagnoza zmienia bohatera nie do poznania" },
+          { word: "Walter White", hint: "kapelusz zastępuje mu tożsamość" },
+          { word: "The Boys", hint: "peleryna nie oznacza dobroci" },
+          { word: "Peaky Blinders", hint: "elegancja i przemoc w jednym garniturze" },
+          { word: "La Casa de Papel", hint: "kombinezony w jednym kolorze dla wszystkich" },
+          { word: "The Last of Us", hint: "grzyb, który zmienia więcej niż tylko wygląd" },
+          { word: "The Office", hint: "spojrzenie w kamerę mówi więcej niż słowa" },
+          { word: "Friends", hint: "klaskanie pojawia się w czołówce" },
+          { word: "1670", hint: "szlachcic zderza się ze współczesnymi problemami" }
+        ]},
+        { category: "Muzyka", group: "Popkultura", words: [
+          { word: "Sanah", hint: "teksty, które ktoś mógłby zacytować na Instagramie" },
+          { word: "Dawid Podsiadło", hint: "zaczynał od programu telewizyjnego" },
+          { word: "Mata", hint: "wers stał się memem na długo przed premierą płyty" },
+          { word: "Taylor Swift", hint: "album zapowiada zwykle jakiś ukryty szczegół" },
+          { word: "Drake", hint: "sowa w logo wytwórni" },
+          { word: "Queen", hint: "publiczność śpiewa refren bez podkładu" },
+          { word: "Michael Jackson", hint: "krok do tyłu, który wygląda jak krok do przodu" },
+          { word: "Maneskin", hint: "wygrali coś w Turynie i podbili świat" }
+        ]},
+        { category: "Sport i Siłownia", group: "Życie", words: [
+          { word: "piłka nożna", hint: "22 osoby gonią jeden okrągły przedmiot" },
+          { word: "koszykówka", hint: "im wyżej wyskoczysz, tym lepiej" },
+          { word: "Formuła 1", hint: "przystanek trwa kilka sekund, nie minut" },
+          { word: "Mistrzostwa Świata", hint: "raz na cztery lata cały kraj się jednoczy" },
+          { word: "Liga Mistrzów", hint: "hymn słychać przed każdym meczem tych rozgrywek" },
+          { word: "siłownia", hint: "grudniowy tłum znika już w lutym" },
+          { word: "hantle", hint: "im cięższe, tym większa duma po odłożeniu" },
+          { word: "bieżnia", hint: "biegniesz, a i tak stoisz w miejscu" },
+          { word: "dzień nóg (leg day)", hint: "schody następnego dnia stają się wrogiem" },
+          { word: "zakwasy", hint: "śmiech boli bardziej niż powinien dzień po treningu" }
+        ]},
+        { category: "Szkoła", group: "Życie", words: [
+          { word: "dzwonek na przerwę", hint: "ratunek w połowie nudnej lekcji" },
+          { word: "sprawdzian", hint: "wiadomość zapowiadana z tygodnia wyprzedzeniem" },
+          { word: "wagary", hint: "usprawiedliwienie wymyśla się dopiero po fakcie" },
+          { word: "ściąga na klasówce", hint: "schowana w miejscu, w które nauczyciel patrzy" },
+          { word: "wychowawca klasy", hint: "dzwoni do rodziców, gdy coś idzie nie tak" },
+          { word: "matura", hint: "kartka, na którą czekasz kilka miesięcy latem" },
+          { word: "dziennik elektroniczny", hint: "sprawdzasz go z niepokojem częściej niż powinieneś" }
+        ]},
+        { category: "Imprezowe", group: "Życie", words: [
+          { word: "domówka", hint: "sąsiedzi dzwonią po pierwszej w nocy" },
+          { word: "karaoke", hint: "odwaga rośnie wprost proporcjonalnie do drinków" },
+          { word: "klub nocny", hint: "kolejka na zewnątrz dłuższa niż w środku ludzi" },
+          { word: "piwo z lodówki", hint: "zawsze brakuje w najgorszym momencie" },
+          { word: "afterparty", hint: "impreza, która nie chce się skończyć" },
+          { word: "shot na powitanie", hint: "grymas na twarzy tuż po wypiciu" },
+          { word: "kac dnia następnego", hint: "obietnice \"nigdy więcej\" składane co weekend" },
+          { word: "beer pong", hint: "celność ważniejsza niż w sporcie" }
+        ]},
+        { category: "Podróże", group: "Życie", words: [
+          { word: "lotnisko", hint: "godziny czekania za kilka godzin lotu" },
+          { word: "walizka", hint: "siadanie na niej to jedyny sposób, by ją zamknąć" },
+          { word: "hotel all inclusive", hint: "opaska na ręce daje dostęp do wszystkiego" },
+          { word: "paszport", hint: "zdjęcie, którego nikt nie lubi" },
+          { word: "plaża", hint: "piasek znajduje się jeszcze tygodniami później" },
+          { word: "jet lag", hint: "organizm nie wie, która jest godzina" }
+        ]},
+        { category: "Samochody", group: "Życie", words: [
+          { word: "Ferrari", hint: "dźwięk silnika słychać, zanim auto się pojawi" },
+          { word: "korek uliczny", hint: "zegarek pokazuje coraz gorsze wieści" },
+          { word: "stacja benzynowa", hint: "kawa równie ważna jak paliwo" },
+          { word: "prawo jazdy", hint: "egzamin z tremą większą niż matura" },
+          { word: "drift", hint: "tył auta wyprzedza przód w zakręcie" }
+        ]},
+        { category: "Social Media", group: "Popkultura", words: [
+          { word: "TikTok", hint: "piętnaście sekund zamienia się w godzinę" },
+          { word: "Instagram", hint: "filtr sprawia, że wygląda lepiej niż w rzeczywistości" },
+          { word: "YouTube", hint: "jeden film, potem autoodtwarzanie robi resztę" },
+          { word: "Snapchat", hint: "znika, zanim zdążysz się zastanowić" },
+          { word: "streamer", hint: "praca polega na tym, żeby cię obserwowano" },
+          { word: "influencer", hint: "kod rabatowy pojawia się w każdym zdaniu" }
+        ]},
+        { category: "Spicy", group: "Spicy / 18+", words: [
+          { word: "crush", hint: "imię, które pojawia się w rozmowach za często" },
+          { word: "randka", hint: "wybór stroju trwa dłużej niż samo spotkanie" },
+          { word: "one night stand", hint: "znajomość bez dalszego ciągu" },
+          { word: "red flag", hint: "sygnał, który ignorujesz, choć widzisz go wyraźnie" },
+          { word: "ghosting", hint: "wiadomości bez odpowiedzi, cisza zamiast słów" },
+          { word: "flirt", hint: "spojrzenie trwa o sekundę za długo" },
+          { word: "Tinder", hint: "przesuwasz palcem częściej, niż piszesz" },
+          { word: "wiadomość o 2 w nocy", hint: "wysłana bez namysłu, żałowana rano" }
+        ]},
+        { category: "Spicy 18+", group: "Spicy / 18+", words: [
+          { word: "jednorazowy numer po imprezie", hint: "kontakt, o którym rano nie pamiętasz szczegółów" },
+          { word: "sexting", hint: "rozmowa, której nie pokazuje się nikomu" },
+          { word: "friends with benefits", hint: "znajomość bez etykietki, choć każdy wie o co chodzi" },
+          { word: "zdjęcie w bieliźnie", hint: "kadr wybierany o wiele dłużej niż powinien" },
+          { word: "hotel na godziny", hint: "recepcjonista nie zadaje zbędnych pytań" },
+          { word: "poranny spacer po nocy u kogoś", hint: "buty niesione w ręku, żeby nie hałasować" },
+          { word: "gra w prawda czy wyzwanie po alkoholu", hint: "pytania robią się odważniejsze z każdą kolejką" }
+        ]},
+        { category: "Absurd i Humor", group: "Życie", words: [
+          { word: "taniec kaczuszki", hint: "ruchy, których nikt nie pamięta, dopóki muzyka nie zagra" },
+          { word: "przejechany przystanek", hint: "budzisz się dużo dalej, niż planowałeś" },
+          { word: "czkawka w cichym pokoju", hint: "wszyscy udają, że tego nie słyszeli" },
+          { word: "machanie do obcej osoby", hint: "ratujesz się udawaniem, że poprawiasz włosy" },
+          { word: "pchanie drzwi, gdy trzeba ciągnąć", hint: "napis na szybie ignorowany przez wszystkich" },
+          { word: "śpiew pod prysznicem", hint: "publiczność zero osób, a dajesz z siebie 100%" },
+          { word: "zaśnięcie na wykładzie", hint: "głowa opada, zanim zdążysz zareagować" }
+        ]}
       ],
 
       bomba: [
-        { category: "Makaroniarze", words: [
+        { category: "Makaroniarze", group: "Własne", words: [
           "50 shonów z dobrej",
           "napoje",
           "rozjebane rzeczy w hotelu",
           "obiady",
-          "rodzaj włoskiego makaronu",
-          "dodatek do pizzy, za który Włoch by zabił",
-          "włoskie miasto lub region",
-          "marka włoskich luksusowych aut",
-          "gest dłonią w stylu włoskim",
-          "włoski deser lub kawa",
-          "składnik prawdziwej carbonary",
-          "rzecz kojarząca się z Sycylią"
+          "przypałowe akcje w nocy",
+          "nocne zamawianie jedzenia"
         ]},
-        { category: "Spicy 18+", words: ["rzecz, którą robisz w łóżku, ale wstydzisz się przyznać", "powód, żeby uciec z randki po pierwszej nocy", "nietypowe miejsce na szybki numerek", "część ciała, którą najchętniej całujesz u partnera", "najgorszy tekst na podryw, jaki można usłyszeć", "synonim do słowa orgazm lub seks", "fetysz, o którym ludzie boją się mówić głośno", "czerwona flaga zauważona w łóżku", "rzecz, którą znajdujesz pod łóżkiem u partnera", "wymówka, by nie uprawiać seksu"] },
-        { category: "Impreza i Melanż", words: ["rzecz, którą gubisz po alkoholu", "najgorszy alkohol do picia na czysto", "piosenka, którą każdy krzyczy na karaoke", "wymówka, żeby nie iść na domówkę", "coś, co robisz w toalecie w klubie", "najgorszy objaw kaca rano", "rzecz znaleziona w kieszeni po imprezie", "kłamstwo powiedziane rodzicom po powrocie w nocy"] },
-        { category: "Codzienne życie", words: ["wstydliwy zakup w aptece lub drogerii", "coś, co robisz tylko wtedy, gdy nikt nie patrzy", "najgorszy prezent, jaki można dostać", "powód spóźnienia do pracy lub szkoły", "rzecz, o której kłamiesz znajomym", "irytujący nawyk współlokatora lub partnera", "rzecz, którą zawsze odkładasz na później"] },
-        { category: "Jedzenie", words: ["danie, które zamawiasz o 2 w nocy", "dodatek do pizzy dzielący ludzi", "obrzydliwe połączenie smaków", "polskie danie wigilijne", "składnik dobrego kebaba", "danie z baru mlecznego", "coś, co zawsze psuje się w lodówce"] },
-        { category: "Popkultura i Gry", words: ["postać z uniwersum Marvela lub DC", "rzecz, która potrafi zabić w Minecrafcie", "kultowy tekst z polskiego filmu lub mema", "gra, w której najłatwiej się wkurzyć", "serial, który obejrzałeś w jeden weekend", "znany polski influencer lub streamer"] },
-        { category: "Przedmioty i Miejsca", words: ["przedmiot, który zawsze ginie w domu", "miejsce, w którym nie chcesz utknąć w nocy", "rzecz, którą zabierzesz na bezludną wyspę", "najdziwniejsza rzecz kupiona pod wpływem impulsu", "coś, co trzymasz w schowku samochodowym"] }
+        { category: "Zwierzęta", group: "Życie", words: ["zwierzęta domowe", "ptaki", "zwierzęta żyjące w wodzie", "zwierzęta z Afryki", "owady", "zwierzęta w polskim lesie", "zwierzęta nocne", "zwierzęta na literę K", "drapieżniki"] },
+        { category: "Jedzenie i Napoje", group: "Życie", words: ["owoce", "warzywa", "słodycze", "dania fast food", "napoje bezalkoholowe", "dania obiadowe", "kuchnie świata", "przekąski do piwa", "przyprawy kuchenne", "dania na dowóz", "rzeczy w lodówce", "rodzaje serów"] },
+        { category: "Geografia i Świat", group: "Życie", words: ["kraje na świecie", "miasta na świecie", "polskie miasta", "stolice europejskich krajów", "miejsca na wakacje", "rzeki na świecie", "kraje w Afryce", "wyspy na świecie", "góry i pasma górskie", "kraje na literę A"] },
+        { category: "Marki i Firmy", group: "Popkultura", words: ["marki samochodów", "marki odzieżowe", "marki telefonów", "sieci fast food", "marki napojów", "marki luksusowe", "marki kosmetyków", "marki zegarków", "marki AGD"] },
+        { category: "Sport", group: "Życie", words: ["dyscypliny sportowe", "sporty olimpijskie", "polskie kluby piłkarskie", "europejskie kluby piłkarskie", "sporty zimowe", "sporty walki", "polscy sportowcy", "znani piłkarze"] },
+        { category: "Zawody i Szkoła", group: "Życie", words: ["popularne zawody", "zawody medyczne", "zawody wymagające studiów", "przedmioty szkolne", "rzeczy z piórnika", "lektury szkolne", "rzeczy robione na przerwie"] },
+        { category: "Popkultura i Gry", group: "Gry", words: ["bajki Disneya", "seriale na Netflixie", "filmy Marvela", "filmy horrory", "gry komputerowe", "gry mobilne", "postacie z gier komputerowych", "rzeczy z Minecrafta", "rzeczy z GTA"] },
+        { category: "Muzyka", group: "Popkultura", words: ["gatunki muzyczne", "polscy piosenkarze", "zagraniczni piosenkarze", "instrumenty muzyczne", "zespoły rockowe", "polscy raperzy", "piosenki disco polo"] },
+        { category: "Przedmioty i Dom", group: "Życie", words: ["rzeczy w kuchni", "rzeczy w łazience", "rzeczy w plecaku", "rzeczy w portfelu", "elektronika w domu", "rzeczy pakowane na wakacje", "narzędzia z warsztatu"] },
+        { category: "Skojarzenia i Kolory", group: "Życie", words: ["coś czerwonego", "coś okrągłego", "coś, co lata", "coś zimnego", "coś rano", "coś kojarzącego się z latem", "coś śliskiego", "rzeczy na literę P", "rzeczy na literę M"] },
+        { category: "Impreza i Melanż", group: "Życie", words: ["rzeczy potrzebne na domówkę", "gry imprezowe", "drinki i koktajle", "powody wyjścia wcześniej z imprezy", "gry po alkoholu", "rzeczy robione po alkoholu", "rzeczy psujące imprezę"] },
+        { category: "Internet i Celebryci", group: "Popkultura", words: ["aplikacje w telefonie", "platformy społecznościowe", "polscy youtuberzy", "rzeczy dla lajków", "trendy internetowe", "polscy celebryci", "politycy"] },
+        { category: "Spicy", group: "Spicy / 18+", words: ["rzeczy robione na randce", "aplikacje randkowe", "powody do ghostingu", "red flagi u partnera", "miejsca na romantyczny wieczór", "wymówki przed drugą randką"] },
+        { category: "Spicy 18+", group: "Spicy / 18+", words: ["wieczór kawalerski / panieński", "powody ucieczki z kimś z imprezy", "rzeczy, o których nie mówi się rodzicom", "sygnały podrywu", "rzeczy pod łóżkiem", "fetysze i upodobania"] }
       ],
 
       ktoZNas: [
-        { category: "Normalne", questions: ["Kto z nas najpóźniej pójdzie spać?", "Kto z nas najszybciej zbiera się rano z łóżka?", "Kto z nas najczęściej się spóźnia?", "Kto z nas najlepiej gotuje?", "Kto z nas spędza najwięcej czasu przed ekranem?", "Kto z nas najczęściej zapomina o ważnych datach?", "Kto z nas potrafi przespać cały dzień?"] },
-        { category: "Śmieszne", questions: ["Kto z nas przeżyłby najkrócej w horrorze przez swoją głupotę?", "Kto z nas najbardziej zbłaźniłby się na scenie?", "Kto z nas uwierzyłby w najbardziej zmyśloną historię?", "Kto z nas najgorzej tańczy, ale robi to najodważniej?", "Kto z nas przypadkowo wyśle kompromitującą wiadomość nie do tej osoby?"] },
-        { category: "Impreza", questions: ["Kto z nas jako pierwszy wchodzi na parkiet?", "Kto z nas pierwszy zaśnie na domówce?", "Kto z nas ma najgorszego kaca dnia następnego?", "Kto z nas najczęściej wychodzi po angielsku bez pożegnania?", "Kto z nas wydałby całą wypłatę w jedną noc w klubie?"] },
-        { category: "Spicy", questions: ["Kto z nas najszybciej napisałby po pijaku do swojego ex?", "Kto z nas najczęściej przegląda profil swojego crusha?", "Kto z nas ma najwięcej sekretów w telefonie?", "Kto z nas najchętniej flirtuje bez zobowiązań?", "Kto z nas najszybciej poszedłby na randkę w ciemno?"] },
-        { category: "Spicy 18+", questions: ["Kto z nas najszybciej zgodziłby się na przygodę na jedną noc?", "Kto z nas ma najbardziej pikantne historie z randek?", "Kto z nas bez wahania wyśle odważne zdjęcie partnerowi?", "Kto z nas jest najbardziej otwarty na eksperymenty w sypialni?", "Kto z nas najgłośniej zachowuje się w łóżku?"] },
-        { category: "Relacje", questions: ["Kto z nas najszybciej się zakochuje?", "Kto z nas najdłużej trzyma w sobie urazę?", "Kto z nas daje najlepsze rady sercowe?", "Kto z nas najczęściej ląduje we friendzone?", "Kto z nas byłby najbardziej zazdrosnym partnerem?"] }
+        { category: "Normalne", group: "Życie", questions: [
+          "Kto z nas najpóźniej pójdzie spać?",
+          "Kto z nas najszybciej się zbiera rano?",
+          "Kto z nas najczęściej się spóźnia?",
+          "Kto z nas najlepiej gotuje?",
+          "Kto z nas najwięcej czasu spędza w telefonie?",
+          "Kto z nas jest najbardziej zorganizowany?",
+          "Kto z nas najczęściej zapomina o ważnych rzeczach?",
+          "Kto z nas najlepiej radzi sobie ze stresem?"
+        ]},
+        { category: "Śmieszne", group: "Życie", questions: [
+          "Kto z nas przeżyłby najkrócej na bezludnej wyspie?",
+          "Kto z nas najbardziej by się zbłaźnił na scenie?",
+          "Kto z nas uwierzyłby w najbardziej absurdalny żart?",
+          "Kto z nas zgubiłby się w dwóch pokojach?",
+          "Kto z nas najgorzej tańczy, ale tańczy najczęściej?",
+          "Kto z nas najbardziej dramatyzuje przez drobnostki?",
+          "Kto z nas przypadkiem wysłałby najbardziej niezręczną wiadomość?"
+        ]},
+        { category: "Szkoła", group: "Życie", questions: [
+          "Kto z nas najczęściej zapomniałby o pracy domowej?",
+          "Kto z nas najlepiej ściągał na sprawdzianach?",
+          "Kto z nas najczęściej chodził na wagary?",
+          "Kto z nas byłby ulubieńcem nauczycieli?",
+          "Kto z nas najlepiej improwizował przy tablicy?"
+        ]},
+        { category: "Impreza", group: "Życie", questions: [
+          "Kto z nas jako pierwszy zacznie tańczyć?",
+          "Kto z nas pierwszy wyjdzie z imprezy?",
+          "Kto z nas zaśnie pierwszy na domówce?",
+          "Kto z nas zorganizowałby najlepszą imprezę?",
+          "Kto z nas najgłośniej śpiewa karaoke?",
+          "Kto z nas najczęściej gubi telefon na imprezie?",
+          "Kto z nas ma najgorszego kaca następnego dnia?",
+          "Kto z nas pierwszy zaproponowałby kolejkę shotów?"
+        ]},
+        { category: "Relacje", group: "Życie", questions: [
+          "Kto z nas najłatwiej się zakocha?",
+          "Kto z nas jest najbardziej romantyczny?",
+          "Kto z nas najdłużej przetrzymuje uczucia w tajemnicy?",
+          "Kto z nas dałby najlepszą radę w sprawach sercowych?",
+          "Kto z nas najszybciej wybaczyłby zdradę?",
+          "Kto z nas najczęściej wpada w friendzone?"
+        ]},
+        { category: "Spicy", group: "Spicy / 18+", questions: [
+          "Kto z nas pierwszy napisałby do byłej/byłego?",
+          "Kto z nas najczęściej przegląda profil crusha?",
+          "Kto z nas najszybciej umówiłby się na randkę z aplikacji?",
+          "Kto z nas ma najwięcej niewysłanych wiadomości do kogoś?",
+          "Kto z nas najbardziej lubi flirtować bez konsekwencji?"
+        ]},
+        { category: "Spicy 18+", group: "Spicy / 18+", questions: [
+          "Kto z nas najszybciej umówiłby się na przygodę na jedną noc?",
+          "Kto z nas ma najbardziej odważne historie z randek?",
+          "Kto z nas wysłałby pikantne zdjęcie po jednym drinku?",
+          "Kto z nas byłby najbardziej otwarty na eksperymenty w sypialni?",
+          "Kto z nas najszybciej zgodziłby się na wspólny prysznic?",
+          "Kto z nas najczęściej flirtowałby z barmanem lub barmanką?"
+        ]},
+        { category: "Pieniądze", group: "Życie", questions: [
+          "Kto z nas najwięcej wyda na głupoty?",
+          "Kto z nas najlepiej oszczędza?",
+          "Kto z nas pierwszy zbankrutowałby na wyjeździe?",
+          "Kto z nas kupiłby coś drogiego pod wpływem impulsu?",
+          "Kto z nas zostałby milionerem najszybciej?"
+        ]},
+        { category: "Gry i Internet", group: "Gry", questions: [
+          "Kto z nas najbardziej się wkurza podczas przegrywania?",
+          "Kto z nas najdłużej gra bez przerwy?",
+          "Kto z nas najczęściej oszukuje w grach planszowych?",
+          "Kto z nas najdłużej siedzi na TikToku?",
+          "Kto z nas zostałby najlepszym influencerem?"
+        ]}
       ]
     };
 
     const categoryEmojis = {
-      "Makaroniarze": "🇮🇹", "Codzienne życie": "🏠", "Jedzenie": "🍕", "Polska": "🇵🇱", "Świat": "🌍", "Marki": "🏷️", "Technologia": "💻", "Gry wideo": "🎮", "Filmy i Kino": "🍿", "Seriale": "📺", "Muzyka": "🎵", "Sport i Siłownia": "🏆", "Szkoła i Uczelnia": "🎒", "Imprezowe": "🍻", "Impreza i Melanż": "🍻", "Impreza": "🍻", "Podróże": "✈️", "Spicy": "🌶️", "Spicy 18+": "🔥", "Absurd i Humor": "🤡", "Śmieszne": "😂", "Popkultura i Gry": "👾", "Przedmioty i Miejsca": "📦", "Normalne": "🙂", "Relacje": "❤️"
+      "Makaroniarze": "🇮🇹",
+      "Codzienne życie": "🏠",
+      "Jedzenie": "🍕",
+      "Jedzenie i Napoje": "🍕",
+      "Polska": "🇵🇱",
+      "Świat": "🌍",
+      "Geografia i Świat": "🌍",
+      "Marki": "🏷️",
+      "Marki i Firmy": "🏷️",
+      "Technologia": "💻",
+      "Gry": "🎮",
+      "Filmy": "🍿",
+      "Seriale": "📺",
+      "Muzyka": "🎵",
+      "Sport": "🏆",
+      "Sport i Siłownia": "💪",
+      "Szkoła": "🎒",
+      "Zawody i Szkoła": "💼",
+      "Imprezowe": "🍻",
+      "Impreza": "🍻",
+      "Impreza i Melanż": "🍻",
+      "Podróże": "✈️",
+      "Samochody": "🏎️",
+      "Social Media": "📱",
+      "Internet i Celebryci": "📱",
+      "Pieniądze": "💰",
+      "Spicy": "🌶️",
+      "Spicy 18+": "🔥",
+      "Absurd i Humor": "🤡",
+      "Śmieszne": "😂",
+      "Zwierzęta": "🐾",
+      "Popkultura i Gry": "👾",
+      "Przedmioty i Dom": "📦",
+      "Skojarzenia i Kolory": "🎨",
+      "Normalne": "🙂",
+      "Relacje": "❤️",
+      "Gry i Internet": "🎮"
     };
 
-    const customHints = {
-      "budzik": "Poranny wróg spokojnego snu", "prysznic": "Woda, piana i szybkie odświeżenie", "śniadanie": "Pierwszy posiłek na start dnia", "pranie": "Czynność, gdy kończą się czyste ubrania", "zakupy spożywcze": "Wyprawa z listą między półkami", "parasol": "Ochrona przed deszczem nad głową", "klucze do domu": "Metalowy przedmiot otwierający zamek", "ładowarka do telefonu": "Kabel ratujący rozładowany ekran", "poczekalnia": "Miejsce siedzenia przed wizytą", "mycie naczyń": "Zmagania z gąbką w zlewie", "wynoszenie śmieci": "Spacer z workiem do kontenera", "wizyta u dentysty": "Stresujący fotel i dźwięk wiertła", "kolejka w urzędzie": "Czekanie na swój numerek", "głośny sąsiad": "Uciążliwe dźwięki zza ściany", "zapchana pralka": "Awaria zalanego sprzętu AGD", "pilot do telewizora": "Przełączanie kanałów z kanapy", "zapomniane hasło": "Blokada przy próbie logowania", "pusta lodówka": "Przeciąg i światło po otwarciu drzwiczek", "poranne korki": "Stanie w sznurze aut przed pracą", "spóźniony autobus": "Rozkład jazdy mijający się z prawdą", "przypalona kolacja": "Swąd dymu z patelni w kuchni", "drzemka w pracy": "Chwila słabości z głową na biurku", "spór o parking": "Awantura o wolne miejsce pod blokiem",
-      "pizza": "Włoski okrągły klasyk z pieca", "burger": "Bułka z soczystym kotletem i sosem", "frytki": "Chrupiące ziemniaczane słupki", "kebab": "Mięso cięte z pionowego rożna", "lody": "Zimny deser na upalne dni", "kanapka": "Szybka przekąska z kromki chleba", "makaron": "Węglowodanowa baza włoskich dań", "sushi": "Rolki z ryżem i surową rybą", "Coca-Cola": "Ciemny gazowany napój z bąbelkami", "gofry": "Kratkowane ciasto z bitą śmietaną", "McDonald's": "Złote łuki i szybkie jedzenie", "KFC": "Panierowane kawałki kurczaka w kubełku", "bar mleczny": "Tani tradycyjny polski obiad", "zapiekanka": "Długa bułka z pieczarkami i serem", "pierogi": "Lepione ciasto z tradycyjnym farszem", "napój energetyczny": "Puszka dająca szybkiego kopa", "sos czosnkowy": "Kultowy biały dodatek do potraw", "kawa na wynos": "Gorący napar w papierowym kubku", "kebab po imprezie": "Nocny ratunek o 3 nad ranem", "niedzielny rosół": "Gorąca zupa z makaronem u babci", "dieta pudełkowa": "Zestaw posiłków pod drzwiami rano", "ramen": "Głęboki japoński bulion z makaronem",
-      "Kraków": "Miasto z Wawelem i Sukiennicami", "Wisła": "Królowa polskich rzek", "Biedronka": "Popularny dyskont z owadem w logo", "Żabka": "Zielony sklep na rogu każdej ulicy", "Orlen": "Największa stacja paliw w Polsce", "polski hip-hop": "Rymy i bity prosto z blokowisk", "kiełbasa z grilla": "Klasyk każdego letniego ogniska", "majówka": "Wiosenny długi weekend w plenerze", "Wigilia": "Grudniowa kolacja przy choince", "pociąg PKP": "Podróż po szynach z opóźnieniem", "Allegro": "Polska platforma zakupowa", "urząd skarbowy": "Miejsce rozliczania rocznych podatków", "disco polo": "Skoczna muzyka na wiejskie wesela", "zbieranie grzybów": "Poranny spacer z nożem po lesie", "Paczkomat InPost": "Odbiór przesyłki kodem z aplikacji", "kartka na Dzień Babci": "Laurka z życzeniami w styczniu", "PESEL": "Unikalny jedenastocyfrowy numer obywatela",
-      "Minecraft": "Klockowy świat i nieograniczone budowanie", "Creeper": "Zielony cichy wybuchacz w kopalni", "GTA V": "Kradzieże aut i misje w Los Santos", "Fortnite": "Gra Battle Royale z budowaniem ścian", "Wiedźmin 3": "Polskie RPG z Geraltem z Rivii", "Among Us": "Szukanie zdrajcy na statku kosmicznym", "The Sims": "Symulator życia i budowania domów",
-      "Iron Man": "Geniusz i miliarder w metalowym pancerzu", "Harry Potter": "Czarodziej z blizną w kształcie błyskawicy", "Stranger Things": "Potwory z Drugiej Strony w Hawkins", "Wednesday": "Mroczna dziewczyna z rodziny Addamsów", "Squid Game": "Gry o przetrwanie i ogromną fortunę", "Breaking Bad": "Nauczyciel chemii produkujący narkotyki", "The Boys": "Brutalna prawda o skorumpowanych superbohaterach", "The Office": "Życie pracowników firmy papierniczej",
-      "szybki numerek": "Intymne zbliżenie bez gry wstępnej", "wiadomość o 2 w nocy": "Nocne pisanie do dawnej sympatii", "nagie zdjęcie": "Dyskretny kadr wysłany w tajemnicy", "bielizna erotyczna": "Zmysłowy strój do sypialni", "wibrator": "Gadżet erotyczny dający przyjemność", "spacer wstydu": "Poranny powrót we wczorajszym stroju"
+    // ============================================================
+    // STAN GRY I ZARZĄDZANIE GRACZAMI
+    // ============================================================
+    const GameSettings = {
+      players: ["Kuba", "Marek", "Kasia", "Piotr"],
+      impostorsCount: 1,
+      starterHistory: [],
+
+      init() {
+        const saved = localStorage.getItem('partylab_players');
+        if (saved) {
+          try {
+            this.players = JSON.parse(saved);
+          } catch(e) {
+            this.players = ["Kuba", "Marek", "Kasia", "Piotr"];
+          }
+        }
+        this.renderAllPlayerLists();
+      },
+
+      save() {
+        localStorage.setItem('partylab_players', JSON.stringify(this.players));
+      },
+
+      renderAllPlayerLists() {
+        this.renderList('impostor-players-list', 'impostor-player-count');
+        this.renderList('bomb-players-list', 'bomb-player-count');
+        this.validateImpostors();
+        this.updateBombTimeEstimate();
+      },
+
+      renderList(containerId, counterId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        container.innerHTML = '';
+        
+        this.players.forEach((name, idx) => {
+          const row = document.createElement('div');
+          row.className = 'player-row-card';
+
+          row.innerHTML = `
+            <span class="player-index-badge">#${idx + 1}</span>
+            <input type="text" class="player-input" value="${name}" onfocus="this.select()" onchange="GameSettings.updateName(${idx}, this.value)" />
+            ${this.players.length > 2 ? `<button class="player-delete-btn" onclick="GameSettings.removePlayer(${idx})">✕</button>` : ''}
+          `;
+
+          container.appendChild(row);
+        });
+
+        const counter = document.getElementById(counterId);
+        if (counter) counter.innerText = this.players.length;
+      },
+
+      addPlayer() {
+        if (this.players.length >= 20) return;
+        this.players.push(`Gracz ${this.players.length + 1}`);
+        this.save();
+        this.renderAllPlayerLists();
+      },
+
+      removePlayer(idx) {
+        if (this.players.length <= 2) return;
+        this.players.splice(idx, 1);
+        this.save();
+        this.renderAllPlayerLists();
+        if (navigator.vibrate) navigator.vibrate(25);
+      },
+
+      updateName(idx, val) {
+        this.players[idx] = val.trim() || `Gracz ${idx + 1}`;
+        this.save();
+        this.renderAllPlayerLists();
+      },
+
+      adjustImpostors(delta) {
+        this.impostorsCount = Math.max(1, Math.min(Math.floor(this.players.length / 2), this.impostorsCount + delta));
+        const valEl = document.getElementById('val-impostors');
+        if (valEl) valEl.innerText = this.impostorsCount;
+      },
+
+      validateImpostors() {
+        if (this.impostorsCount >= this.players.length) {
+          this.impostorsCount = Math.max(1, Math.floor(this.players.length / 2));
+        }
+        const valEl = document.getElementById('val-impostors');
+        if (valEl) valEl.innerText = this.impostorsCount;
+      },
+
+      updateBombTimeEstimate() {
+        const est = document.getElementById('bomb-time-estimate');
+        if (est) {
+          const minS = Math.round(this.players.length * 15);
+          const maxS = Math.round(this.players.length * 20);
+          est.innerText = `Czas: ok. ${minS}-${maxS} sek`;
+        }
+      },
+
+      pickStarterPlayer() {
+        let available = this.players.filter(p => !this.starterHistory.includes(p));
+        if (available.length === 0) {
+          this.starterHistory = [];
+          available = [...this.players];
+        }
+        const chosen = available[Math.floor(Math.random() * available.length)];
+        this.starterHistory.push(chosen);
+        return chosen;
+      }
     };
 
-    function getHintForWord(word, category) {
-      if (customHints[word]) return customHints[word];
-      const lowerCat = (category || "").toLowerCase();
-      if (lowerCat.includes("film") || lowerCat.includes("serial")) return "Tytuł lub postać znana ze srebrnego ekranu";
-      if (lowerCat.includes("gry")) return "Motyw lub pojęcie z wirtualnego świata gier";
-      if (lowerCat.includes("jedzenie") || lowerCat.includes("makaron")) return "Coś smacznego, co ląduje na talerzu";
-      if (lowerCat.includes("marki")) return "Rozpoznawalna firma lub produkt na rynku";
-      if (lowerCat.includes("technologia") || lowerCat.includes("internet")) return "Związane z elektroniką, siecią lub aplikacjami";
-      if (lowerCat.includes("spicy") || lowerCat.includes("18+")) return "Temat dla dorosłych o intymnym zabarwieniu";
-      if (lowerCat.includes("sport") || lowerCat.includes("siłownia")) return "Aktywność fizyczna, ruch i trening";
-      if (lowerCat.includes("polska")) return "Rzecz lub miejsce typowe dla naszego kraju";
-      return "Hasło bezpośrednio powiązane z tą kategorią";
-    }
-
+    // ============================================================
+    // AUDIO ENGINE
+    // ============================================================
     const SoundFX = {
       ctx: null,
       init() {
@@ -1112,88 +1732,164 @@
           const AudioContext = window.AudioContext || window.webkitAudioContext;
           this.ctx = new AudioContext();
         }
-        if (this.ctx.state === 'suspended') this.ctx.resume();
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
       },
       tick() {
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(950, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(350, this.ctx.currentTime + 0.03);
-        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.03);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.03);
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(1100, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(400, this.ctx.currentTime + 0.05);
+          gain.gain.setValueAtTime(0.95, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.05);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.05);
+        } catch(e){}
       },
       boom() {
-        this.init();
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(130, this.ctx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(20, this.ctx.currentTime + 0.7);
-        gain.gain.setValueAtTime(0.9, this.ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.7);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start();
-        osc.stop(this.ctx.currentTime + 0.7);
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(160, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(25, this.ctx.currentTime + 1.2);
+          gain.gain.setValueAtTime(1.0, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 1.2);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 1.2);
+        } catch(e){}
       }
     };
 
+    // ============================================================
+    // APPS / SCREEN MANAGER
+    // ============================================================
     const App = {
       showScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        const target = document.getElementById(id);
+        if (target) target.classList.add('active');
         SoundFX.init();
       },
       openImpostorConfig() {
+        CategoryManager.activeTag['impostor'] = 'Wszystkie';
+        CategoryManager.searchQuery['impostor'] = '';
         CategoryManager.render('impostor');
+        GameSettings.renderAllPlayerLists();
         this.showScreen('screen-config-impostor');
       },
       openBombConfig() {
+        CategoryManager.activeTag['bomba'] = 'Wszystkie';
+        CategoryManager.searchQuery['bomba'] = '';
         CategoryManager.render('bomba');
+        GameSettings.renderAllPlayerLists();
         this.showScreen('screen-config-bomb');
       },
       openWhoConfig() {
+        CategoryManager.activeTag['ktoZNas'] = 'Wszystkie';
+        CategoryManager.searchQuery['ktoZNas'] = '';
         CategoryManager.render('ktoZNas');
         this.showScreen('screen-config-who');
       }
     };
 
-    /* ZARZĄDZANIE KATEGORIAMI MOBILE FIRST */
+    // ============================================================
+    // ROZBUDOWANY MANAGER KATEGORII Z FILTRAMI I XXL CARDAMI
+    // ============================================================
     const CategoryManager = {
       selected: {
         impostor: ["Codzienne życie"],
-        bomba: ["Makaroniarze", "Spicy 18+"],
+        bomba: ["Makaroniarze", "Jedzenie i Napoje"],
         ktoZNas: ["Normalne"]
       },
+      activeTag: {
+        impostor: 'Wszystkie',
+        bomba: 'Wszystkie',
+        ktoZNas: 'Wszystkie'
+      },
+      searchQuery: {
+        impostor: '',
+        bomba: '',
+        ktoZNas: ''
+      },
       pending18: null,
+
+      handleSearch(mode, val) {
+        this.searchQuery[mode] = (val || '').toLowerCase().trim();
+        this.render(mode);
+      },
+
+      setTag(mode, tag) {
+        this.activeTag[mode] = tag;
+        this.render(mode);
+      },
 
       render(mode) {
         const gridId = mode === 'impostor' ? 'impostor-cat-grid' : mode === 'bomba' ? 'bomba-cat-grid' : 'who-cat-grid';
         const counterId = mode === 'impostor' ? 'impostor-cat-counter' : mode === 'bomba' ? 'bomb-cat-counter' : 'who-cat-counter';
         const startBtnId = mode === 'impostor' ? 'btn-start-impostor' : mode === 'bomba' ? 'btn-start-bomb' : 'btn-start-who';
+        const tagContainerId = mode === 'impostor' ? 'impostor-tag-filters' : mode === 'bomba' ? 'bomba-tag-filters' : 'who-tag-filters';
 
+        const rawList = partyLabDatabase[mode];
+        const allGroups = ['Wszystkie', ...new Set(rawList.map(i => i.group || 'Życie'))];
+
+        // Renderowanie tagów filtrów
+        const tagBox = document.getElementById(tagContainerId);
+        if (tagBox) {
+          tagBox.innerHTML = '';
+          allGroups.forEach(grp => {
+            const chip = document.createElement('div');
+            chip.className = `tag-chip ${this.activeTag[mode] === grp ? 'active' : ''}`;
+            chip.innerText = grp;
+            chip.onclick = () => this.setTag(mode, grp);
+            tagBox.appendChild(chip);
+          });
+        }
+
+        // Filtrowanie kategorii
         const grid = document.getElementById(gridId);
+        if (!grid) return;
         grid.innerHTML = '';
 
-        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
+        const search = this.searchQuery[mode];
+        const activeGrp = this.activeTag[mode];
 
-        allCats.forEach(cat => {
+        const filteredPacks = rawList.filter(pack => {
+          const matchesGroup = activeGrp === 'Wszystkie' || (pack.group || 'Życie') === activeGrp;
+          const matchesSearch = !search || pack.category.toLowerCase().includes(search);
+          return matchesGroup && matchesSearch;
+        });
+
+        if (filteredPacks.length === 0) {
+          grid.innerHTML = `<div style="grid-column: span 2; text-align:center; padding: 24px 0; color:var(--text-muted); font-size:0.85rem; font-weight:700;">Nie znaleziono kategorii 😢</div>`;
+        }
+
+        filteredPacks.forEach(pack => {
+          const cat = pack.category;
           const isSelected = this.selected[mode].includes(cat);
           const is18 = cat.toLowerCase().includes('18+') || cat.toLowerCase().includes('spicy');
           const emoji = categoryEmojis[cat] || "🎲";
+          const count = pack.words ? pack.words.length : (pack.questions ? pack.questions.length : 0);
 
           const card = document.createElement('div');
-          card.className = `cat-grid-card ${isSelected ? 'active' : ''} ${is18 ? 'is-18' : ''}`;
+          card.className = `cat-card-xxl ${isSelected ? 'active' : ''} ${is18 ? 'is-18' : ''}`;
           card.innerHTML = `
-            <div class="cat-grid-emoji">${emoji}</div>
-            <div class="cat-grid-info">
-              <span class="cat-grid-name">${cat}</span>
+            <div class="cat-card-top">
+              <span class="cat-card-emoji">${emoji}</span>
+              <div class="cat-checkbox">${isSelected ? '✓' : ''}</div>
+            </div>
+            <div class="cat-card-bottom">
+              <span class="cat-card-title">${cat}</span>
+              <span class="cat-card-meta">${count} ${mode === 'ktoZNas' ? 'pytań' : 'haseł'}</span>
             </div>
           `;
 
@@ -1208,8 +1904,8 @@
             counter.innerText = "Wybierz min. 1";
             counter.style.color = "var(--accent-bomb)";
           } else {
-            counter.innerText = `Wybrano: ${selectedCount} z ${allCats.length}`;
-            counter.style.color = "var(--text-muted)";
+            counter.innerText = `Wybrano: ${selectedCount} z ${rawList.length}`;
+            counter.style.color = "var(--accent-impostor)";
           }
         }
 
@@ -1241,13 +1937,25 @@
       },
 
       selectAll(mode) {
-        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
-        this.selected[mode] = allCats;
+        const search = this.searchQuery[mode];
+        const activeGrp = this.activeTag[mode];
+        
+        const visibleCats = partyLabDatabase[mode]
+          .filter(pack => {
+            const matchesGroup = activeGrp === 'Wszystkie' || (pack.group || 'Życie') === activeGrp;
+            const matchesSearch = !search || pack.category.toLowerCase().includes(search);
+            return matchesGroup && matchesSearch;
+          })
+          .map(p => p.category);
+
+        visibleCats.forEach(c => {
+          if (!this.selected[mode].includes(c)) this.selected[mode].push(c);
+        });
         this.render(mode);
       },
 
       select18Only(mode) {
-        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
+        const allCats = partyLabDatabase[mode].map(i => i.category);
         this.selected[mode] = allCats.filter(c => c.toLowerCase().includes('18+') || c.toLowerCase().includes('spicy'));
         this.render(mode);
       },
@@ -1274,10 +1982,10 @@
       }
     };
 
-    /* SILNIK IMPOSTORA */
+    // ============================================================
+    // IMPOSTOR ENGINE
+    // ============================================================
     const ImpostorEngine = {
-      players: [],
-      impostorsCount: 1,
       selectedCategories: ["Codzienne życie"],
       hintsEnabled: true,
       currentIndex: 0,
@@ -1285,24 +1993,7 @@
       currentWordData: null,
       usedWords: [],
       recentImpostors: [],
-
-      init() {
-        const saved = localStorage.getItem('partylab_players');
-        if (saved) {
-          try {
-            this.players = JSON.parse(saved);
-          } catch(e) {
-            this.players = ["Kuba", "Marek", "Kasia", "Piotr"];
-          }
-        } else {
-          this.players = ["Kuba", "Marek", "Kasia", "Piotr"];
-        }
-        this.renderPlayersList();
-      },
-
-      savePlayers() {
-        localStorage.setItem('partylab_players', JSON.stringify(this.players));
-      },
+      eventsBound: false,
 
       toggleHints() {
         this.hintsEnabled = !this.hintsEnabled;
@@ -1316,69 +2007,23 @@
         }
       },
 
-      renderPlayersList() {
-        const container = document.getElementById('impostor-players-list');
-        container.innerHTML = '';
-        
-        this.players.forEach((name, idx) => {
-          const row = document.createElement('div');
-          row.className = 'player-row-card';
-
-          row.innerHTML = `
-            <span class="player-index-badge">#${idx + 1}</span>
-            <input type="text" class="player-input" value="${name}" onfocus="this.select()" onchange="ImpostorEngine.updateName(${idx}, this.value)" />
-            ${this.players.length > 3 ? `<button class="player-delete-btn" onclick="ImpostorEngine.removePlayer(${idx})">✕</button>` : ''}
-          `;
-
-          container.appendChild(row);
-        });
-
-        document.getElementById('impostor-player-count').innerText = this.players.length;
-        this.validateImpostors();
-      },
-
-      addPlayer() {
-        if (this.players.length >= 20) return;
-        this.players.push(`Gracz ${this.players.length + 1}`);
-        this.savePlayers();
-        this.renderPlayersList();
-      },
-
-      removePlayer(idx) {
-        if (this.players.length <= 3) return;
-        this.players.splice(idx, 1);
-        this.savePlayers();
-        this.renderPlayersList();
-        if (navigator.vibrate) navigator.vibrate(25);
-      },
-
-      updateName(idx, val) {
-        this.players[idx] = val.trim() || `Gracz ${idx + 1}`;
-        this.savePlayers();
-      },
-
-      adjustImpostors(delta) {
-        this.impostorsCount = Math.max(1, Math.min(Math.floor(this.players.length / 2), this.impostorsCount + delta));
-        document.getElementById('val-impostors').innerText = this.impostorsCount;
-      },
-
-      validateImpostors() {
-        if (this.impostorsCount >= this.players.length) {
-          this.impostorsCount = Math.max(1, this.players.length - 1);
-        }
-        document.getElementById('val-impostors').innerText = this.impostorsCount;
-      },
-
       getRandomWord() {
         let pool = [];
         partyLabDatabase.impostor
           .filter(pack => this.selectedCategories.includes(pack.category))
           .forEach(pack => {
-            pack.words.forEach(w => pool.push({ word: w, category: pack.category }));
+            pack.words.forEach(item => {
+              const wordObj = typeof item === 'string' ? { word: item, hint: "Brak podpowiedzi" } : item;
+              pool.push({ word: wordObj.word, hint: wordObj.hint, category: pack.category });
+            });
           });
 
         if (pool.length === 0) {
-          partyLabDatabase.impostor[0].words.forEach(w => pool.push({ word: w, category: partyLabDatabase.impostor[0].category }));
+          const fallbackPack = partyLabDatabase.impostor[0];
+          fallbackPack.words.forEach(item => {
+            const wordObj = typeof item === 'string' ? { word: item, hint: "Brak podpowiedzi" } : item;
+            pool.push({ word: wordObj.word, hint: wordObj.hint, category: fallbackPack.category });
+          });
         }
 
         let available = pool.filter(p => !this.usedWords.includes(p.word));
@@ -1390,8 +2035,7 @@
         const picked = available[Math.floor(Math.random() * available.length)];
         this.usedWords.push(picked.word);
         
-        const hint = getHintForWord(picked.word, picked.category);
-        return { word: picked.word, category: picked.category, hint: hint };
+        return picked;
       },
 
       start() {
@@ -1399,10 +2043,10 @@
         this.currentWordData = this.getRandomWord();
         this.currentIndex = 0;
 
-        const allPlayerIndexes = this.players.map((_, i) => i);
-        let eligibleForImpostor = allPlayerIndexes.filter(i => !this.recentImpostors.includes(this.players[i]));
+        const allPlayerIndexes = GameSettings.players.map((_, i) => i);
+        let eligibleForImpostor = allPlayerIndexes.filter(i => !this.recentImpostors.includes(GameSettings.players[i]));
 
-        if (eligibleForImpostor.length < this.impostorsCount) {
+        if (eligibleForImpostor.length < GameSettings.impostorsCount) {
           this.recentImpostors = [];
           eligibleForImpostor = [...allPlayerIndexes];
         }
@@ -1412,10 +2056,10 @@
           [eligibleForImpostor[i], eligibleForImpostor[j]] = [eligibleForImpostor[j], eligibleForImpostor[i]];
         }
 
-        const chosenImpIndexes = eligibleForImpostor.slice(0, this.impostorsCount);
-        chosenImpIndexes.forEach(idx => this.recentImpostors.push(this.players[idx]));
+        const chosenImpIndexes = eligibleForImpostor.slice(0, GameSettings.impostorsCount);
+        chosenImpIndexes.forEach(idx => this.recentImpostors.push(GameSettings.players[idx]));
 
-        this.assignedRoles = this.players.map((name, idx) => ({
+        this.assignedRoles = GameSettings.players.map((name, idx) => ({
           name,
           isImpostor: chosenImpIndexes.includes(idx)
         }));
@@ -1457,6 +2101,9 @@
       },
 
       bindEvents() {
+        if (this.eventsBound) return;
+        this.eventsBound = true;
+
         const stage = document.getElementById('impostor-swipe-stage');
         const cover = document.getElementById('swipe-cover');
         const secret = document.getElementById('secret-layer');
@@ -1495,7 +2142,7 @@
 
           const endY = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
           const deltaY = endY - startY;
-          const threshold = stage.offsetHeight * 0.4;
+          const threshold = stage.offsetHeight * 0.35;
 
           if (deltaY < -threshold) {
             this.isRevealed = true;
@@ -1515,10 +2162,10 @@
           }
         };
 
-        stage.onpointerdown = onStart;
-        window.onpointermove = onMove;
-        window.onpointerup = onEnd;
-        window.onpointercancel = onEnd;
+        stage.addEventListener('pointerdown', onStart);
+        window.addEventListener('pointermove', onMove);
+        window.addEventListener('pointerup', onEnd);
+        window.addEventListener('pointercancel', onEnd);
       },
 
       resetSwipeCover() {
@@ -1541,9 +2188,11 @@
 
       nextPlayer() {
         this.currentIndex++;
-        if (this.currentIndex < this.players.length) {
+        if (this.currentIndex < GameSettings.players.length) {
           this.renderCurrentTurn();
         } else {
+          const starter = GameSettings.pickStarterPlayer();
+          document.getElementById('impostor-starter-text').innerText = `${starter} 🗣️`;
           App.showScreen('screen-impostor-end');
         }
       },
@@ -1571,29 +2220,24 @@
       }
     };
 
-    /* SILNIK BOMBY */
+    // ============================================================
+    // BOMB ENGINE
+    // ============================================================
     const BombEngine = {
-      playersCount: 4,
-      selectedCategories: ["Makaroniarze", "Spicy 18+"],
+      selectedCategories: ["Makaroniarze", "Jedzenie i Napoje"],
       timer: null,
       duration: 0,
       elapsed: 0,
       usedBombWords: [],
-
-      adjustPlayers(delta) {
-        this.playersCount = Math.max(2, Math.min(20, this.playersCount + delta));
-        document.getElementById('val-bomb-players').innerText = this.playersCount;
-        
-        const minS = this.playersCount * 9;
-        const maxS = this.playersCount * 13;
-        document.getElementById('bomb-time-estimate').innerText = `Czas: ok. ${minS}-${maxS} sek`;
-      },
 
       start() {
         if (this.selectedCategories.length === 0) return;
         App.showScreen('screen-game-bomb');
         document.getElementById('bomb-icon').classList.remove('exploding');
         document.getElementById('bomb-icon').innerText = '💣';
+
+        const starter = GameSettings.pickStarterPlayer();
+        document.getElementById('bomb-starter-text').innerText = `${starter} 💣`;
 
         let pool = [];
         partyLabDatabase.bomba
@@ -1614,12 +2258,12 @@
         this.usedBombWords.push(task);
         document.getElementById('bomb-category-text').innerText = task;
 
-        const baseTimePerPlayer = 10.5;
-        const randomVariation = (Math.random() * 6 - 3) * this.playersCount;
-        this.duration = Math.max(14, (this.playersCount * baseTimePerPlayer) + randomVariation);
+        const baseTimePerPlayer = 17.5;
+        const randomVariation = (Math.random() * 8 - 4) * GameSettings.players.length;
+        this.duration = Math.max(28, (GameSettings.players.length * baseTimePerPlayer) + randomVariation);
         this.elapsed = 0;
 
-        this.scheduleNextTick(650);
+        this.scheduleNextTick(700);
       },
 
       scheduleNextTick(delay) {
@@ -1631,7 +2275,7 @@
             this.explode();
           } else {
             const progress = this.elapsed / this.duration;
-            const nextDelay = Math.max(85, 650 * (1 - progress * 0.88));
+            const nextDelay = Math.max(80, 700 * (1 - progress * 0.88));
             this.scheduleNextTick(nextDelay);
           }
         }, delay);
@@ -1653,7 +2297,9 @@
       }
     };
 
-    /* SILNIK KTO Z NAS */
+    // ============================================================
+    // WHO ENGINE (KTO Z NAS)
+    // ============================================================
     const WhoEngine = {
       selectedCategories: ["Normalne"],
       usedQuestions: [],
@@ -1687,9 +2333,10 @@
       }
     };
 
-    // Inicjalizacja domyślna
-    ImpostorEngine.init();
-    BombEngine.adjustPlayers(0);
+    // INICJALIZACJA
+    window.addEventListener('DOMContentLoaded', () => {
+      GameSettings.init();
+    });
   </script>
 </body>
 </html>
