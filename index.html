@@ -86,6 +86,7 @@
     .blob-1 { top: -40px; left: -40px; background: var(--accent-impostor); }
     .blob-2 { bottom: -40px; right: -40px; background: var(--accent-bomb); }
 
+    /* Bezszwowy układ Safe Area */
     #app-container {
       position: relative;
       z-index: 1;
@@ -418,7 +419,7 @@
       text-overflow: ellipsis;
     }
 
-    /* Lista graczy */
+    /* Lista graczy z przyciskami X */
     .players-container {
       display: flex;
       flex-direction: column;
@@ -1539,7 +1540,7 @@
         container.innerHTML = '';
 
         const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
-        const displayCats = allCats.slice(0, 10); // 10 najpopularniejszych na karuzeli
+        const displayCats = allCats.slice(0, 10);
 
         displayCats.forEach(cat => {
           const isSelected = this.selected[mode].includes(cat);
@@ -1599,7 +1600,6 @@
           }
         }
 
-        // Blokowanie przycisku start
         const startBtnMap = {
           impostor: 'btn-start-impostor',
           bomba: 'btn-start-bomb',
@@ -1700,7 +1700,7 @@
       }
     };
 
-    /* SILNIK IMPOSTORA Z ANTY-POWTÓRKOWYM WYBOREM IMPOSTORA */
+    /* SILNIK IMPOSTORA */
     const ImpostorEngine = {
       players: [],
       impostorsCount: 1,
@@ -1710,7 +1710,7 @@
       assignedRoles: [],
       currentWordData: null,
       usedWords: [],
-      recentImpostors: [], // Pamięć ról zapobiegająca powtórkom
+      recentImpostors: [],
 
       touchStartY: 0,
       isRevealed: false,
@@ -1827,17 +1827,14 @@
         this.currentWordData = this.getRandomWord();
         this.currentIndex = 0;
 
-        // Prawdziwe, bezpowtórkowe losowanie Impostorów
         const allPlayerIndexes = this.players.map((_, i) => i);
         let eligibleForImpostor = allPlayerIndexes.filter(i => !this.recentImpostors.includes(this.players[i]));
 
-        // Jeśli wszyscy już byli impostorami, czyścimy historię
         if (eligibleForImpostor.length < this.impostorsCount) {
           this.recentImpostors = [];
           eligibleForImpostor = [...allPlayerIndexes];
         }
 
-        // Mieszanie Fisher-Yates
         for (let i = eligibleForImpostor.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [eligibleForImpostor[i], eligibleForImpostor[j]] = [eligibleForImpostor[j], eligibleForImpostor[i]];
