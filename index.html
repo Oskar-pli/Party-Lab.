@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Party Lab</title>
+  <title>PartyLab</title>
   
   <!-- FAVICON DLA KART PRZEGLĄDARKI -->
   <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
@@ -34,8 +34,8 @@
       --accent-who: #06b6d4;
       --accent-who-glow: rgba(6, 182, 212, 0.35);
       --accent-18: #ec4899;
-      --radius-lg: 24px;
-      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
     }
 
     * {
@@ -126,27 +126,17 @@
       margin-bottom: 12px;
       flex-shrink: 0;
     }
-    .brand-box {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
-      object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
-      background: #141724;
-    }
     .brand-title {
-      font-size: 1.55rem;
+      font-size: 1.65rem;
       font-weight: 900;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, #fff 40%, #9ca3af 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+    .brand-title span {
+      color: var(--accent-impostor);
+      -webkit-text-fill-color: var(--accent-impostor);
     }
 
     .back-btn {
@@ -225,7 +215,7 @@
     }
     .btn:active:not(:disabled) { transform: scale(0.97); }
     .btn:disabled {
-      opacity: 0.4;
+      opacity: 0.35;
       cursor: not-allowed;
       filter: grayscale(1);
     }
@@ -249,7 +239,7 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: var(--radius-lg);
-      padding: 18px 16px;
+      padding: 16px 14px;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
     }
@@ -273,170 +263,98 @@
       font-weight: 700;
     }
 
-    .carousel-container {
+    /* NOWA SIATKA WYBORU KATEGORII DLA SMARTFONA */
+    .cat-actions-bar {
       display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding: 4px 2px 8px;
-      scrollbar-width: none;
-      flex-shrink: 0;
-    }
-    .carousel-container::-webkit-scrollbar { display: none; }
-
-    .carousel-card {
-      flex: 0 0 130px;
-      scroll-snap-align: start;
-      background: rgba(255, 255, 255, 0.03);
-      border: 2px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 16px 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 8px;
-      cursor: pointer;
-      position: relative;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .carousel-card:active { transform: scale(0.95); }
-    .carousel-card.active {
-      background: rgba(139, 92, 246, 0.18);
-      border-color: var(--accent-impostor);
-      box-shadow: 0 0 20px var(--accent-impostor-glow);
-    }
-    .carousel-card.is-18.active {
-      background: rgba(236, 72, 153, 0.2);
-      border-color: var(--accent-18);
-      box-shadow: 0 0 20px rgba(236, 72, 153, 0.35);
-    }
-
-    .carousel-check {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--card-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 900;
-      color: transparent;
-      transition: all 0.2s ease;
-    }
-    .carousel-card.active .carousel-check {
-      background: var(--accent-impostor);
-      border-color: transparent;
-      color: #fff;
-    }
-    .carousel-card.is-18.active .carousel-check { background: var(--accent-18); }
-
-    .carousel-emoji { font-size: 2rem; line-height: 1; }
-    .carousel-name { font-size: 0.82rem; font-weight: 800; line-height: 1.2; color: #fff; }
-
-    .btn-show-more-cats {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px dashed rgba(255, 255, 255, 0.18);
-      border-radius: 12px;
-      padding: 10px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 6px;
-      margin-top: 4px;
+      margin-bottom: 10px;
     }
-    .btn-show-more-cats:active { background: rgba(255, 255, 255, 0.08); }
-
-    .cats-modal-scroll {
+    .cat-action-btn {
       flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin: 12px 0;
-      padding-right: 4px;
-      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 7px 4px;
+      border-radius: 10px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
     }
-    .cats-modal-scroll::-webkit-scrollbar { display: none; }
-    .cats-group-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      font-weight: 900;
-      letter-spacing: 0.8px;
-      color: var(--accent-impostor);
-      margin-bottom: 8px;
-    }
-    .cats-modal-grid {
+    .cat-action-btn:active { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+    .cat-mobile-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 2px;
     }
-    .cat-modal-item {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 10px 12px;
+    .cat-mobile-grid::-webkit-scrollbar { display: none; }
+
+    .cat-grid-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 12px 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      position: relative;
+      transition: all 0.15s ease;
     }
-    .cat-modal-item.active {
-      background: rgba(139, 92, 246, 0.22);
+    .cat-grid-card:active { transform: scale(0.96); }
+    .cat-grid-card.active {
+      background: rgba(139, 92, 246, 0.18);
       border-color: var(--accent-impostor);
     }
-    .cat-modal-item.is-18.active {
-      background: rgba(236, 72, 153, 0.22);
+    .cat-grid-card.is-18.active {
+      background: rgba(236, 72, 153, 0.2);
       border-color: var(--accent-18);
     }
-    .cat-modal-item-name {
+    .cat-grid-emoji { font-size: 1.5rem; flex-shrink: 0; }
+    .cat-grid-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      overflow: hidden;
+    }
+    .cat-grid-name {
       font-size: 0.8rem;
       font-weight: 800;
       color: #fff;
-      flex: 1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
+    /* Lista graczy */
     .players-container {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
       margin-top: 6px;
     }
 
     .player-row-card {
       background: #141724;
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 0 12px 0 16px;
-      height: 54px;
-      transition: all 0.2s ease;
+      padding: 0 10px 0 14px;
+      height: 50px;
     }
 
     .player-index-badge {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 800;
       color: var(--accent-impostor);
-      min-width: 24px;
+      min-width: 22px;
     }
 
     .player-input {
@@ -444,7 +362,7 @@
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
       outline: none;
       height: 100%;
@@ -454,17 +372,16 @@
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--card-border);
       color: var(--text-muted);
-      width: 38px;
-      height: 38px;
-      border-radius: 11px;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       font-weight: 900;
       flex-shrink: 0;
-      transition: background 0.15s ease, color 0.15s ease;
     }
     .player-delete-btn:active {
       background: rgba(244, 63, 94, 0.25);
@@ -514,6 +431,7 @@
       color: #fff;
     }
 
+    /* Centralny Banner Gracza */
     .player-focus-badge {
       display: flex;
       flex-direction: column;
@@ -543,6 +461,7 @@
       letter-spacing: -0.6px;
     }
 
+    /* Scena Swipe Up */
     .swipe-stage {
       flex: 1;
       position: relative;
@@ -674,6 +593,7 @@
       font-weight: 600;
     }
 
+    /* Podsumowanie & Wyniki */
     .results-scroll-area {
       flex: 1;
       display: flex;
@@ -778,81 +698,7 @@
       text-align: center;
       max-width: 380px;
       width: 100%;
-      max-height: 85vh;
-      display: flex;
-      flex-direction: column;
       box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
-    }
-
-    .install-app-logo {
-      width: 72px;
-      height: 72px;
-      border-radius: 18px;
-      margin: 0 auto 12px;
-      display: block;
-      object-fit: cover;
-      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: #090a0f;
-    }
-    .install-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 4px;
-      border-radius: 12px;
-      margin-bottom: 14px;
-    }
-    .install-tab {
-      padding: 8px 10px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .install-tab.active {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-    }
-
-    .install-step-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      padding: 12px 14px;
-      border-radius: var(--radius-md);
-      margin-bottom: 8px;
-      text-align: left;
-    }
-    .install-step-badge {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-    .install-step-desc {
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--text-main);
-      line-height: 1.35;
-    }
-    .inline-icon {
-      display: inline-flex;
-      vertical-align: -3px;
-      margin: 0 3px;
-      color: #38bdf8;
     }
 
     /* UI Bomba */
@@ -881,6 +727,7 @@
       font-weight: 800;
       text-align: center;
       line-height: 1.3;
+      padding: 0 10px;
     }
     @keyframes pulse {
       from { transform: scale(0.95); }
@@ -920,56 +767,17 @@
     <div class="blob blob-2"></div>
   </div>
 
-  <!-- MODAL INSTRUKCJI PWA -->
-  <div class="modal-overlay" id="install-modal">
-    <div class="modal-box">
-      <img src="./icon-192.png" alt="Party Lab Logo" class="install-app-logo" onerror="this.onerror=null; this.src='./icon.svg';">
-      <h3 style="font-size: 1.25rem; font-weight: 900; margin-bottom: 2px; color: #fff;">Zainstaluj Party Lab</h3>
-      <p style="color: var(--text-muted); font-size: 0.78rem; line-height: 1.35; margin-bottom: 14px;">
-        Graj na pełnym ekranie bez pasków przeglądarki!
-      </p>
-
-      <div class="install-tabs">
-        <div class="install-tab active" id="tab-ios" onclick="PwaInstaller.switchPlatform('ios')">iPhone (Safari)</div>
-        <div class="install-tab" id="tab-android" onclick="PwaInstaller.switchPlatform('android')">Android (Chrome)</div>
-      </div>
-
-      <div id="install-steps-container"></div>
-
-      <div style="display:flex; flex-direction:column; gap:8px; margin-top:14px;">
-        <button class="btn btn-primary" id="btn-native-install" style="display:none;" onclick="PwaInstaller.triggerNative()">Zainstaluj aplikację</button>
-        <button class="btn btn-ghost" onclick="PwaInstaller.dismiss()">Graj w przeglądarce</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL WSZYSTKICH KATEGORII -->
-  <div class="modal-overlay" id="all-categories-modal">
-    <div class="modal-box">
-      <h3 style="font-size: 1.25rem; font-weight: 900; color: #fff;">Wszystkie kategorie</h3>
-      <p style="color: var(--text-muted); font-size: 0.78rem; margin-top: 2px;">Wybierz kategorie do rozgrywki</p>
-
-      <div class="cats-modal-scroll" id="cats-modal-scroll-area"></div>
-
-      <div style="display:flex; gap:8px;">
-        <button class="btn btn-ghost" style="padding:12px;" onclick="CategoryCarousel.selectAllModal()">Zaznacz wszystko</button>
-        <button class="btn btn-ghost" style="padding:12px;" onclick="CategoryCarousel.clearAllModal()">Wyczyść</button>
-      </div>
-      <button class="btn btn-primary" style="margin-top:8px;" onclick="CategoryCarousel.closeAllCategoriesModal()">Zatwierdź</button>
-    </div>
-  </div>
-
   <!-- MODAL OSTRZEŻENIA 18+ -->
   <div class="modal-overlay" id="age-modal">
     <div class="modal-box">
       <div style="font-size: 3rem; margin-bottom: 8px;">🔞</div>
       <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 8px; color: #fff;">Treści dla dorosłych</h3>
       <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4; margin-bottom: 20px;">
-        Wybrana kategoria zawiera hasła pikantne i bez cenzury (+18). Czy masz ukończone 18 lat?
+        Wybrana kategoria zawiera hasła bez cenzury (+18). Czy masz ukończone 18 lat?
       </p>
       <div style="display: flex; flex-direction: column; gap: 8px;">
-        <button class="btn btn-danger" onclick="CategoryCarousel.confirm18()">Tak, mam 18 lat</button>
-        <button class="btn btn-ghost" onclick="CategoryCarousel.cancel18()">Anuluj</button>
+        <button class="btn btn-danger" onclick="CategoryManager.confirm18()">Tak, mam 18 lat</button>
+        <button class="btn btn-ghost" onclick="CategoryManager.cancel18()">Anuluj</button>
       </div>
     </div>
   </div>
@@ -979,10 +787,7 @@
     <!-- 1. MENU GŁÓWNE -->
     <section class="screen active" id="screen-menu">
       <header class="header">
-        <div class="brand-box">
-          <img src="./icon-192.png" alt="Party Lab Icon" class="brand-icon" onerror="this.onerror=null; this.src='./icon.svg';">
-          <h1 class="brand-title">Party Lab.</h1>
-        </div>
+        <h1 class="brand-title">Party<span>Lab</span></h1>
       </header>
 
       <div class="menu-grid">
@@ -1015,21 +820,22 @@
     <section class="screen" id="screen-config-impostor">
       <header class="header">
         <button class="back-btn" onclick="App.showScreen('screen-menu')">←</button>
-        <div class="brand-box">
-          <h2 class="brand-title">Impostor</h2>
-        </div>
+        <h2 class="brand-title">Impostor</h2>
       </header>
 
       <div class="config-scroll-area">
-        <div class="section-title-bar">
-          <span class="section-title">Kategorie haseł</span>
-          <span class="section-subtitle-counter" id="impostor-cat-counter">Wybrano: 1</span>
+        <div class="glass-box">
+          <div class="section-title-bar">
+            <span class="section-title">Kategorie haseł</span>
+            <span class="section-subtitle-counter" id="impostor-cat-counter">Wybrano: 1</span>
+          </div>
+          <div class="cat-actions-bar">
+            <button class="cat-action-btn" onclick="CategoryManager.selectAll('impostor')">Wszystkie</button>
+            <button class="cat-action-btn" onclick="CategoryManager.select18Only('impostor')">Tylko 18+</button>
+            <button class="cat-action-btn" onclick="CategoryManager.clearAll('impostor')">Wyczyść</button>
+          </div>
+          <div class="cat-mobile-grid" id="impostor-cat-grid"></div>
         </div>
-        <div class="carousel-container" id="impostor-carousel"></div>
-
-        <button class="btn-show-more-cats" onclick="CategoryCarousel.openAllCategoriesModal('impostor-carousel', 'impostor-cat-counter', 'impostor')">
-          <span>⚡ Wszystkie kategorie (zobacz i filtruj)</span>
-        </button>
 
         <div class="glass-box">
           <div class="setting-row">
@@ -1048,9 +854,9 @@
         </div>
 
         <div class="glass-box">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <p class="section-title" style="margin:0;">Gracze (<span id="impostor-player-count">4</span>)</p>
-            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:7px 14px; border-radius:10px; color:#fff; font-size:0.85rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj gracza</button>
+            <button class="badge" style="cursor:pointer; background:rgba(255,255,255,0.12); border:none; padding:6px 12px; border-radius:10px; color:#fff; font-size:0.8rem; font-weight:800;" onclick="ImpostorEngine.addPlayer()">+ Dodaj</button>
           </div>
           <div class="players-container" id="impostor-players-list"></div>
         </div>
@@ -1065,7 +871,6 @@
         <button class="back-btn" onclick="App.showScreen('screen-config-impostor')">←</button>
       </header>
 
-      <!-- Centralny Banner Gracza -->
       <div class="player-focus-badge">
         <span class="player-focus-label">Teraz kolej gracza</span>
         <h2 class="player-focus-name" id="impostor-player-title">Kuba</h2>
@@ -1077,7 +882,7 @@
         <div class="secret-layer" id="secret-layer">
           <div class="secret-sub" id="secret-sub">Kategoria</div>
           <div class="secret-word" id="secret-word">Hasło</div>
-          <div class="secret-hint-direct" id="secret-hint-direct">Wskazówka: ...</div>
+          <div class="secret-hint-direct" id="secret-hint-direct">💡 Wskazówka: ...</div>
         </div>
 
         <div class="swipe-cover" id="swipe-cover">
@@ -1101,7 +906,7 @@
       <div class="glass-box" style="text-align: center; margin: auto 0; padding: 28px 20px;">
         <div style="font-size:3.5rem; margin-bottom:12px;">🗣️</div>
         <h3 style="font-size: 1.4rem; font-weight:900; margin-bottom: 8px;">Telefon ląduje na stole</h3>
-        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.45;">Każdy mówi po jednym skojarzeniu. Przedyskutujcie podejrzenia i wskażcie Impostora!</p>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.45;">Każdy mówi po jednym skojarzeniu. Przedyskutujcie sytuację i wskażcie Impostora!</p>
       </div>
 
       <button class="btn btn-primary" onclick="ImpostorEngine.revealResult()">Pokaż odpowiedzi i Impostorów</button>
@@ -1138,15 +943,18 @@
       </header>
 
       <div class="config-scroll-area">
-        <div class="section-title-bar">
-          <span class="section-title">Kategorie pytań</span>
-          <span class="section-subtitle-counter" id="bomb-cat-counter">Wybrano: 1</span>
+        <div class="glass-box">
+          <div class="section-title-bar">
+            <span class="section-title">Kategorie pytań</span>
+            <span class="section-subtitle-counter" id="bomb-cat-counter">Wybrano: 1</span>
+          </div>
+          <div class="cat-actions-bar">
+            <button class="cat-action-btn" onclick="CategoryManager.selectAll('bomba')">Wszystkie</button>
+            <button class="cat-action-btn" onclick="CategoryManager.select18Only('bomba')">Tylko 18+</button>
+            <button class="cat-action-btn" onclick="CategoryManager.clearAll('bomba')">Wyczyść</button>
+          </div>
+          <div class="cat-mobile-grid" id="bomba-cat-grid"></div>
         </div>
-        <div class="carousel-container" id="bomb-carousel"></div>
-
-        <button class="btn-show-more-cats" onclick="CategoryCarousel.openAllCategoriesModal('bomb-carousel', 'bomb-cat-counter', 'bomba')">
-          <span>⚡ Wszystkie kategorie (zobacz i filtruj)</span>
-        </button>
 
         <div class="glass-box">
           <div class="setting-row">
@@ -1189,15 +997,18 @@
       </header>
 
       <div class="config-scroll-area">
-        <div class="section-title-bar">
-          <span class="section-title">Kategorie pytań</span>
-          <span class="section-subtitle-counter" id="who-cat-counter">Wybrano: 1</span>
+        <div class="glass-box">
+          <div class="section-title-bar">
+            <span class="section-title">Kategorie pytań</span>
+            <span class="section-subtitle-counter" id="who-cat-counter">Wybrano: 1</span>
+          </div>
+          <div class="cat-actions-bar">
+            <button class="cat-action-btn" onclick="CategoryManager.selectAll('ktoZNas')">Wszystkie</button>
+            <button class="cat-action-btn" onclick="CategoryManager.select18Only('ktoZNas')">Tylko 18+</button>
+            <button class="cat-action-btn" onclick="CategoryManager.clearAll('ktoZNas')">Wyczyść</button>
+          </div>
+          <div class="cat-mobile-grid" id="who-cat-grid"></div>
         </div>
-        <div class="carousel-container" id="who-carousel"></div>
-
-        <button class="btn-show-more-cats" onclick="CategoryCarousel.openAllCategoriesModal('who-carousel', 'who-cat-counter', 'ktoZNas')">
-          <span>⚡ Wszystkie kategorie (zobacz i filtruj)</span>
-        </button>
       </div>
 
       <button class="btn btn-primary" id="btn-start-who" onclick="WhoEngine.start()">Rozpocznij</button>
@@ -1220,157 +1031,244 @@
   </main>
 
   <script>
-    // BAZA DANYCH ZE ZINTEGROWANYMI KATEGORIAMI I HASŁAMI[cite: 1, 2]
+    // BAZA DANYCH ZE SPICY 18+ DLA BOMBY I NATURALNYM POLSKIM JĘZYKIEM[cite: 1, 2]
     const partyLabDatabase = {
       impostor: [
-        { category: "Codzienne życie", difficulty: "easy", words: ["budzik", "prysznic", "śniadanie", "pranie", "zakupy spożywcze", "parasol", "klucze do domu", "ładowarka do telefonu", "poczekalnia"] },
-        { category: "Codzienne życie", difficulty: "medium", words: ["mycie naczyń", "wynoszenie śmieci", "wizyta u dentysty", "kolejka w urzędzie", "sąsiad, który gra głośno muzykę", "zapchana pralka", "kot sąsiadów", "pilot do telewizora", "wietrzenie mieszkania", "zapomniane hasło", "pusta lodówka", "poranne korki", "spóźniony autobus", "przypalona kolacja", "ostatnia bateria w pilocie"] },
-        { category: "Codzienne życie", difficulty: "hard", words: ["przymusowa drzemka w pracy", "sąsiedzki spór o parking", "reklamacja w sklepie", "instrukcja obsługi mebli z IKEA", "hałas z remontu u sąsiada"] },
-        { category: "Jedzenie", difficulty: "easy", words: ["pizza", "burger", "frytki", "kebab", "lody", "kanapka", "makaron", "sushi", "Coca-Cola", "gofry"] },
-        { category: "Jedzenie", difficulty: "medium", words: ["McDonald's", "KFC", "bar mleczny", "zapiekanka", "pierogi", "shake protein", "energy drink", "food truck", "bufet szwedzki", "sos czosnkowy", "chińszczyzna na wynos", "kawa na wynos", "kebab pod klubem", "kolacja rodzinna w niedzielę", "dieta pudełkowa"] },
-        { category: "Jedzenie", difficulty: "hard", words: ["ramen", "poke bowl", "tapas", "fine dining", "degustacja win"] },
-        { category: "Polska", difficulty: "easy", words: ["Kraków", "Wisła", "Biedronka", "Żabka", "Orlen", "polski hip-hop", "kiełbasa", "majówka", "Wielkanoc", "wigilia"] },
-        { category: "Polska", difficulty: "medium", words: ["PKP Intercity", "Allegro", "zakręcona nakrętka od piwa", "urząd skarbowy", "dzień dziecka w szkole", "TVP", "Wiadomości o 19:30", "polski disco polo", "ognisko z pieczeniem kiełbasek", "działka rodzinna", "zbieranie grzybów", "reklama Biedronki", "Pyszne.pl", "InPost paczkomat", "kartka na Dzień Babci"] },
-        { category: "Polska", difficulty: "hard", words: ["PESEL", "Mazurkas Travel", "Gadżet z Biedronki", "spis z natury w firmie"] },
-        { category: "Świat", difficulty: "easy", words: ["Paryż", "Nowy Jork", "wieża Eiffla", "Times Square", "Dubaj", "Wielki Mur Chiński", "Rzym", "Londyn", "Bali", "piramidy w Egipcie"] },
-        { category: "Świat", difficulty: "medium", words: ["Oktoberfest", "karnawał w Rio", "safari w Afryce", "Islandia i zorza polarna", "metro w Tokio", "targ w Marrakeszu", "greckie wyspy", "Wenecja i gondole", "Route 66", "Machu Picchu", "wodospad Niagara", "Wielka Rafa Koralowa"] },
-        { category: "Świat", difficulty: "hard", words: ["Sagrada Familia", "Chichén Itzá", "Petra w Jordanii", "wyspa Wielkanocna", "targi w Stambule"] },
-        { category: "Marki", difficulty: "easy", words: ["Nike", "Adidas", "Apple", "Samsung", "Netflix", "Amazon", "Google", "IKEA"] },
-        { category: "Marki", difficulty: "medium", words: ["Zara", "H&M", "Rolex", "Ferrari", "Lamborghini", "Gucci", "Louis Vuitton", "Red Bull", "Spotify", "PlayStation", "Xbox", "Tesla", "Starbucks", "Vinted", "Shein"] },
-        { category: "Marki", difficulty: "hard", words: ["Patek Philippe", "Bugatti", "Balenciaga", "Off-White", "Aston Martin"] },
-        { category: "Technologia", difficulty: "easy", words: ["smartfon", "słuchawki bezprzewodowe", "power bank", "Wi-Fi", "ładowarka", "aparat w telefonie", "smartwatch", "tablet", "laptop", "konsola do gier"] },
-        { category: "Technologia", difficulty: "medium", words: ["sztuczna inteligencja", "VPN", "chmura danych", "aktualizacja systemu", "dwuetapowa weryfikacja", "tryb samolotowy", "hotspot", "asystent głosowy", "smart dom", "drukarka 3D", "dron", "rzeczywistość wirtualna (VR)"] },
-        { category: "Technologia", difficulty: "hard", words: ["blockchain", "chatbot AI", "deepfake", "kod QR", "biometryczne odblokowanie"] },
-        { category: "Gry: Minecraft", difficulty: "easy", words: ["Creeper", "diament", "Steve", "kilof", "wioska"] },
-        { category: "Gry: Minecraft", difficulty: "medium", words: ["Ender Dragon", "Nether", "Redstone", "Enderman", "portal"] },
-        { category: "Gry: GTA", difficulty: "easy", words: ["GTA V", "Los Santos", "policyjny pościg", "kradzież auta", "Grand Theft Auto Online"] },
-        { category: "Gry: GTA", difficulty: "medium", words: ["misja skoku na bank", "CJ", "Trevor", "gwiazdki poszukiwania", "Vice City"] },
-        { category: "Gry: Fortnite", difficulty: "easy", words: ["Fortnite", "Battle Bus", "budowanie", "loot llama", "Victory Royale"] },
-        { category: "Gry: Fortnite", difficulty: "medium", words: ["burza (strefa)", "skin sezonowy", "Battle Pass", "V-Bucki", "emote taneczny"] },
-        { category: "Gry: Roblox", difficulty: "easy", words: ["Roblox", "Robuxy", "awatar", "Adopt Me", "Brookhaven"] },
-        { category: "Gry: FIFA", difficulty: "easy", words: ["EA Sports FC", "Ultimate Team", "karta gracza", "mecz towarzyski w grze"] },
-        { category: "Gry: Call of Duty", difficulty: "medium", words: ["Warzone", "killstreak", "camping (chowanie się)", "granat dymny", "respawn"] },
-        { category: "Gry: Counter Strike", difficulty: "medium", words: ["CS2", "bomba do podłożenia", "headshot", "AWP", "ranking (rank)"] },
-        { category: "Gry: Valorant", difficulty: "medium", words: ["Valorant", "agent", "spike", "ability ultimate", "ranked match"] },
-        { category: "Gry: League of Legends", difficulty: "hard", words: ["League of Legends", "jungler", "baron nashor", "farmienie minionów", "ganking"] },
-        { category: "Gry: Inne", difficulty: "medium", words: ["Among Us", "The Sims", "Genshin Impact", "Brawl Stars", "Wiedźmin 3", "Rocket League"] },
-        { category: "Filmy: Marvel", difficulty: "easy", words: ["Iron Man", "Spider-Man", "Avengers", "Thor", "Hulk"] },
-        { category: "Filmy: DC", difficulty: "medium", words: ["Batman", "Joker", "Superman", "Wonder Woman", "Aquaman"] },
-        { category: "Filmy: Harry Potter", difficulty: "easy", words: ["Harry Potter", "Hogwart", "różdżka", "Voldemort", "Quidditch"] },
-        { category: "Filmy: Disney & Pixar", difficulty: "easy", words: ["Kraina Lodu", "Król Lew", "Aladyn", "Mała Syrenka", "Zwierzogród", "Toy Story", "Auta", "Coco", "Odlot"] },
-        { category: "Filmy: Horrory", difficulty: "medium", words: ["Piła", "Lśnienie", "To (Stephen King)", "Ostatni dzwonek", "Egzorcyzmy"] },
-        { category: "Filmy: Hity kinowe", difficulty: "easy", words: ["Barbie", "Oppenheimer", "Wonka", "Diuna", "Top Gun: Maverick", "Matrix", "Interstellar", "Gwiezdne Wojny", "Incepcja", "Avatar", "Szybcy i wściekli", "John Wick", "Titanic", "Pulp Fiction", "Kevin sam w domu"] },
-        { category: "Filmy: Polskie", difficulty: "medium", words: ["Kogel Mogel", "Sami Swoi", "Chłopaki nie płaczą", "365 dni", "Listy do M."] },
-        { category: "Seriale: Hity", difficulty: "easy", words: ["Stranger Things", "Wednesday", "Squid Game", "Breaking Bad", "The Boys", "Peaky Blinders", "La Casa de Papel", "Black Mirror", "The Last of Us", "Euphoria", "You", "Sex Education", "The Office", "Friends", "Gra o Tron", "1670"] },
-        { category: "Muzyka", difficulty: "easy", words: ["Sanah", "Dawid Podsiadło", "Mata", "Taylor Swift", "Drake", "Beyoncé", "Ed Sheeran", "Queen", "Michael Jackson", "Coldplay", "Maneskin", "bitwa na freestyle", "trap beat", "hit lata", "teledysk"] },
-        { category: "Sport", difficulty: "easy", words: ["piłka nożna", "koszykówka", "Formuła 1", "Mistrzostwa Świata", "Liga Mistrzów", "rzut karny", "żółta kartka", "boks zawodowy", "MMA", "siatkówka plażowa", "maraton", "VAR"] },
-        { category: "Wiedza ogólna", difficulty: "medium", words: ["Wikipedia", "Google Maps", "kalendarz", "prognoza pogody", "fake news", "teoria spiskowa", "viralowy filmik", "clickbait", "algorytm mediów społecznościowych", "syndrom oszusta", "efekt placebo", "prawo Murphy'ego"] },
-        { category: "Internet i social media", difficulty: "easy", words: ["TikTok", "Instagram", "YouTube", "Snapchat", "Twitch", "streamer", "influencer", "trend taneczny", "viral", "shadowban", "cancel culture"] },
-        { category: "Szkoła", difficulty: "easy", words: ["dzwonek na przerwę", "sprawdzian", "wagary", "stołówka", "plecak", "ściąga na klasówce", "wychowawca klasy", "praca domowa na jutro", "wywiadówka", "dyskoteka szkolna", "matura", "dziennik elektroniczny"] },
-        { category: "Imprezowe", difficulty: "easy", words: ["domówka", "karaoke", "impreza urodzinowa", "klub nocny", "piwo z lodówki", "afterparty", "shot na powitanie", "gra imprezowa", "kac dnia następnego", "beer pong", "silent disco"] },
-        { category: "Podróże", difficulty: "easy", words: ["lotnisko", "walizka", "hotel all inclusive", "paszport", "plaża", "odprawa bagażowa", "jet lag", "przesiadka na lotnisku", "hostel", "opóźniony lot"] },
-        { category: "Samochody", difficulty: "easy", words: ["korek uliczny", "stacja benzynowa", "prawo jazdy", "myjnia samochodowa", "tuning samochodu", "kolizja na parkingu", "przegląd techniczny", "samochód elektryczny", "drift"] },
-        { category: "Siłownia i lifestyle", difficulty: "easy", words: ["siłownia", "hantle", "bieżnia", "protein shake", "trener personalny", "leg day", "zakwasy", "suplementy diety", "cheat day"] },
-        { category: "Spicy", difficulty: "medium", words: ["crush", "randka", "one night stand", "red flag", "ghosting", "flirt", "były / była", "zdrada", "friendzone", "Tinder", "sexy zdjęcie", "wiadomość o 2 w nocy", "situationship", "love bombing"] },
-        { category: "Spicy 18+", difficulty: "medium", words: ["jednorazowy numer telefonu po imprezie", "sexting", "przypadkowe polubienie na starym profilu ex", "niejednoznaczna wiadomość o północy", "podryw w klubie", "friends with benefits", "zdjęcie w bieliźnie", "niespodzianka w sypialni"] },
-        { category: "Absurdalne / Śmieszne", difficulty: "easy", words: ["taniec kaczuszki", "przejechanie przystanku w autobusie", "czkawka w cichym pokoju", "gubienie klucza", "machanie do kogoś obcego", "pchanie drzwi gdy trzeba ciągnąć", "śpiew pod prysznicem", "zaśnięcie na wykładzie", "skarpetki ginące w praniu"] },
-        { category: "Luksus i pieniądze", difficulty: "easy", words: ["prywatny odrzutowiec", "willa nad morzem", "luksusowy jacht", "apartament penthouse", "gwiazdka Michelin", "kryptowaluty", "prywatny szofer", "wakacje na Malediwach"] },
-        { category: "Celebryci", difficulty: "easy", words: ["Krzysztof Stanowski", "Friz", "Marcin Dubiel", "Ekipa", "Rezigiusz", "Kim Kardashian", "Kanye West", "MrBeast", "Selena Gomez", "Cristiano Ronaldo"] },
-        { category: "Random", difficulty: "medium", words: ["escape room", "kasyno", "wakacje all inclusive", "gabinet lustrzany", "targi motoryzacyjne", "wesele", "koncert na stadionie", "zoo", "wesołe miasteczko", "pchli targ"] }
+        { category: "Codzienne życie", words: ["budzik", "prysznic", "śniadanie", "pranie", "zakupy spożywcze", "parasol", "klucze do domu", "ładowarka do telefonu", "poczekalnia", "mycie naczyń", "wynoszenie śmieci", "wizyta u dentysty", "kolejka w urzędzie", "głośny sąsiad", "zapchana pralka", "pilot do telewizora", "zapomniane hasło", "pusta lodówka", "poranne korki", "spóźniony autobus", "przypalona kolacja", "drzemka w pracy", "spór o parking"] },
+        { category: "Jedzenie", words: ["pizza", "burger", "frytki", "kebab", "lody", "kanapka", "makaron", "sushi", "Coca-Cola", "gofry", "McDonald's", "KFC", "bar mleczny", "zapiekanka", "pierogi", "napój energetyczny", "sos czosnkowy", "kawa na wynos", "kebab po imprezie", "niedzielny rosół", "dieta pudełkowa", "ramen"] },
+        { category: "Polska", words: ["Kraków", "Wisła", "Biedronka", "Żabka", "Orlen", "polski hip-hop", "kiełbasa z grilla", "majówka", "Wigilia", "pociąg PKP", "Allegro", "urząd skarbowy", "disco polo", "zbieranie grzybów", "Paczkomat InPost", "kartka na Dzień Babci", "PESEL"] },
+        { category: "Świat", words: ["Paryż", "Nowy Jork", "Wieża Eiffla", "Dubaj", "Wielki Mur Chiński", "Rzym", "Londyn", "Bali", "Piramidy w Egipcie", "karnawał w Rio", "metro w Tokio", "Wenecja i gondole", "Wodospad Niagara"] },
+        { category: "Marki", words: ["Nike", "Adidas", "Apple", "Samsung", "Netflix", "Amazon", "Google", "IKEA", "Zara", "H&M", "Rolex", "Ferrari", "Gucci", "Red Bull", "Spotify", "PlayStation", "Xbox", "Tesla", "Starbucks", "Vinted"] },
+        { category: "Technologia", words: ["smartfon", "słuchawki bezprzewodowe", "powerbank", "Wi-Fi", "aparat w telefonie", "smartwatch", "laptop", "konsola do gier", "sztuczna inteligencja", "tryb samolotowy", "inteligentny dom", "dron", "okulary VR", "kod QR"] },
+        { category: "Gry wideo", words: ["Minecraft", "Creeper", "diamentowy miecz", "GTA V", "kradzież auta", "pościg policyjny", "Fortnite", "latający autobus", "Roblox", "EA Sports FC (FIFA)", "Call of Duty", "Counter-Strike", "podłożenie bomby", "Wiedźmin 3", "Among Us", "The Sims"] },
+        { category: "Filmy i Kino", words: ["Iron Man", "Spider-Man", "Avengers", "Batman", "Joker", "Harry Potter", "Hogwart", "Kraina Lodu", "Król Lew", "Piła", "Titanic", "Barbie", "Oppenheimer", "Matrix", "Avatar", "Szybcy i wściekli", "Kevin sam w domu", "Chłopaki nie płaczą", "Listy do M."] },
+        { category: "Seriale", words: ["Stranger Things", "Wednesday", "Squid Game", "Breaking Bad", "The Boys", "Peaky Blinders", "Dom z papieru", "The Last of Us", "Euphoria", "The Office", "Przyjaciele", "Gra o Tron", "1670", "Czarne lustro"] },
+        { category: "Muzyka", words: ["Sanah", "Dawid Podsiadło", "Mata", "Taylor Swift", "Drake", "Beyoncé", "Ed Sheeran", "Queen", "Michael Jackson", "Coldplay", "Maneskin", "bitwa freestyle", "teledysk", "festiwal muzyczny"] },
+        { category: "Sport i Siłownia", words: ["piłka nożna", "koszykówka", "Formuła 1", "Mistrzostwa Świata", "Liga Mistrzów", "rzut karny", "żółta kartka", "MMA", "siatkówka", "maraton", "siłownia", "hantle", "bieżnia", "trener personalny", "zakwasy", "dzień nóg"] },
+        { category: "Szkoła i Uczelnia", words: ["dzwonek na przerwę", "sprawdzian", "wagary", "stołówka", "ściąganie na klasówce", "wychowawca", "praca domowa", "wywiadówka", "matura", "dziennik elektroniczny", "obrona pracy"] },
+        { category: "Imprezowe", words: ["domówka", "karaoke", "klub nocny", "zimne piwo", "afterparty", "shot na wejściu", "kac morderca", "beer pong", "wyjście po angielsku", "zgubiony portfel", "taksówka do domu"] },
+        { category: "Podróże", words: ["lotnisko", "walizka", "hotel all inclusive", "paszport", "plaża", "odprawa", "przesiadka", "opóźniony lot", "strefa bezcłowa"] },
+        { category: "Spicy", words: ["randka", "flirt", "Tinder", "ghosting", "crush", "były partner", "zdrada", "friendzone", "pikantna wiadomość", "relacja bez zobowiązań", "podryw w klubie"] },
+        { category: "Spicy 18+", words: ["szybki numerek", "wiadomość o 2 w nocy", "nagie zdjęcie", "bielizna erotyczna", "kajdanki", "wibrator", "sponsoring", "OnlyFans", "poranny spacer wstydu", "przypadkowy pocałunek", "zabawa w sypialni"] },
+        { category: "Absurd i Humor", words: ["taniec kaczuszek", "przejechany przystanek", "czkawka w ciszy", "machanie do obcego", "pchanie drzwi gdy trzeba ciągnąć", "śpiewanie pod prysznicem", "zaśnięcie na wykładzie", "znikające skarpetki"] }
       ],
 
       bomba: [
-        { category: "Makaroniarze", difficulty: "medium", words: ["rodzaj włoskiego makaronu", "dodatek do pizzy, za który Włoch by zabił", "włoskie miasto lub region", "znana marka włoskich samochodów", "gest ręką w stylu włoskim", "włoski deser lub kawa", "składnik prawdziwej carbonary"] },
-        { category: "Jedzenie", difficulty: "easy", words: ["pizza", "burger", "sushi", "kebab", "lody", "naleśnik", "ciasto", "zupa", "frytki", "hot dog", "sałatka", "makaron", "kanapka", "ryż", "owoc", "risotto", "pierogi", "curry", "quesadilla", "sernik", "tiramisu", "gulasz", "tacos", "falafel", "hummus"] },
-        { category: "Przedmioty", difficulty: "easy", words: ["krzesło", "lampa", "telefon", "klucz", "zegarek", "torba", "parasol", "okulary", "poduszka", "kubek", "notatnik", "długopis", "termos", "latarka", "scyzoryk", "słuchawki", "portfel", "plecak", "ładowarka", "budzik", "kalkulator", "lusterko"] },
-        { category: "Zwierzęta", difficulty: "easy", words: ["pies", "kot", "słoń", "lew", "żyrafa", "delfin", "papuga", "koń", "krowa", "owca", "królik", "ryba", "kameleon", "orangutan", "manta", "koala", "mangusta", "hiena", "pancernik", "sęp", "gepard", "orka"] },
-        { category: "Miejsca", difficulty: "easy", words: ["szpital", "szkoła", "lotnisko", "kino", "park", "plaża", "biblioteka", "restauracja", "supermarket", "siłownia", "muzeum", "targ rybny", "ambasada", "obserwatorium", "stocznia", "koszary", "winnica", "opera", "cmentarz", "warsztat samochodowy"] },
-        { category: "Miasta", difficulty: "easy", words: ["Warszawa", "Kraków", "Gdańsk", "Paryż", "Londyn", "Nowy Jork", "Rzym", "Berlin", "Barcelona", "Tokio", "Szczecin", "Wrocław", "Amsterdam", "Lizbona", "Praga", "Budapeszt", "Wiedeń", "Kopenhaga", "Sewilla", "Edynburg"] },
-        { category: "Kraje", difficulty: "easy", words: ["Polska", "Niemcy", "Francja", "Włochy", "Hiszpania", "USA", "Japonia", "Chiny", "Brazylia", "Egipt", "Norwegia", "Portugalia", "Grecja", "Meksyk", "Maroko", "Tajlandia", "Indonezja", "Nowa Zelandia", "Chorwacja", "Islandia"] },
-        { category: "Zawody", difficulty: "easy", words: ["lekarz", "nauczyciel", "policjant", "kucharz", "pilot", "strażak", "fryzjer", "sprzedawca", "kierowca", "aktor", "notariusz", "architekt", "psycholog", "tłumacz", "programista", "dyplomata", "kaskader", "grafik", "logopeda", "geodeta"] },
-        { category: "Celebryci", difficulty: "easy", words: ["Kim Kardashian", "Cristiano Ronaldo", "MrBeast", "Taylor Swift", "Robert Lewandowski", "Friz", "Krzysztof Stanowski", "Anja Rubik", "Doda", "Kuba Wojewódzki"] },
-        { category: "Filmy", difficulty: "easy", words: ["Titanic", "Kraina Lodu", "Harry Potter", "Avatar", "Iron Man", "Incepcja", "Diuna", "Joker", "Barbie", "Oppenheimer"] },
-        { category: "Seriale", difficulty: "easy", words: ["Stranger Things", "Wednesday", "Friends", "Squid Game", "The Office", "Breaking Bad", "Peaky Blinders", "The Boys", "Dark", "You"] },
-        { category: "Gry", difficulty: "easy", words: ["Minecraft", "Fortnite", "Roblox", "FIFA", "Among Us", "Counter Strike", "Valorant", "League of Legends", "GTA V", "Call of Duty"] },
-        { category: "Marki", difficulty: "easy", words: ["Nike", "Adidas", "Apple", "McDonald's", "Ferrari", "Rolex", "Gucci", "Tesla", "Starbucks"] },
-        { category: "Sport", difficulty: "easy", words: ["piłka nożna", "koszykówka", "tenis", "boks", "siatkówka", "Formuła 1", "MMA", "rugby", "łucznictwo", "hokej na lodzie"] },
-        { category: "Szkoła", difficulty: "easy", words: ["sprawdzian", "przerwa", "wagary", "zeszyt", "matura", "korepetycje", "dziennik elektroniczny", "ściąga", "wywiadówka"] },
-        { category: "Internet", difficulty: "easy", words: ["TikTok", "Instagram", "YouTube", "meme", "hasztag", "influencer", "algorytm", "viral", "streamer", "shadowban"] },
-        { category: "Technologia", difficulty: "easy", words: ["smartfon", "laptop", "Wi-Fi", "tablet", "sztuczna inteligencja", "VPN", "dron", "chmura danych", "smartwatch"] },
-        { category: "Muzyka", difficulty: "easy", words: ["piosenka", "koncert", "playlista", "gitara", "mikrofon", "album koncepcyjny", "festiwal muzyczny", "DJ set", "remix", "teledysk"] },
-        { category: "Samochody", difficulty: "easy", words: ["stacja benzynowa", "prawo jazdy", "korek", "tuning", "przegląd techniczny", "drift", "leasing samochodu", "spalanie paliwa"] },
-        { category: "Podróże", difficulty: "easy", words: ["walizka", "paszport", "hotel", "opóźniony lot", "jet lag", "przesiadka", "wiza", "hostel", "wycieczka objazdowa"] },
-        { category: "Impreza", difficulty: "easy", words: ["domówka", "karaoke", "klub nocny", "piwo", "taniec", "afterparty", "beer pong", "shot", "impreza tematyczna", "silent disco"] },
-        { category: "Codzienne życie", difficulty: "easy", words: ["śniadanie", "prysznic", "zakupy", "sprzątanie", "pranie", "wizyta u dentysty", "wynoszenie śmieci", "kolejka w urzędzie"] },
-        { category: "Spicy", difficulty: "medium", words: ["randka", "flirt", "Tinder", "ghosting", "crush", "friendzone", "były / była", "zdrada", "sexting", "one night stand"] },
-        { category: "Wiedza ogólna", difficulty: "medium", words: ["fake news", "teoria spiskowa", "clickbait", "deepfake"] },
-        { category: "Random", difficulty: "medium", words: ["kasyno", "wesele", "zoo", "festiwal", "pchli targ", "wesołe miasteczko"] },
-        { category: "Śmieszne", difficulty: "easy", words: ["czkawka", "potknięcie się na płaskim", "gubienie kluczy", "zaśnięcie na wykładzie", "wysłanie wiadomości do złej osoby", "machanie do kogoś obcego", "pchnięcie drzwi które trzeba ciągnąć"] },
-        { category: "Trudne", difficulty: "hard", words: ["fotosynteza", "grawitacja", "inflacja", "demokracja", "ekosystem", "cyberbezpieczeństwo", "geopolityka", "biotechnologia"] },
-        { category: "Temat: Minecraft", difficulty: "easy", words: ["Creeper", "Ender Dragon", "diament", "Nether", "wioska", "Steve", "kilof", "Redstone"] },
-        { category: "Temat: Harry Potter", difficulty: "easy", words: ["Hogwart", "różdżka", "Voldemort", "Quidditch", "Bagieta", "sowa pocztowa", "eliksir"] },
-        { category: "Temat: Star Wars", difficulty: "medium", words: ["miecz świetlny", "Sith", "Jedi", "Gwiazda Śmierci", "Millennium Falcon", "Wookie"] },
-        { category: "Temat: Stranger Things", difficulty: "medium", words: ["Demogorgon", "odwrócony świat", "Eleven", "Hawkins", "walkie-talkie"] },
-        { category: "Temat: GTA", difficulty: "medium", words: ["Los Santos", "kradzież auta", "gwiazdki poszukiwania", "misja skoku na bank"] }
+        { category: "Makaroniarze", words: ["rodzaj włoskiego makaronu", "dodatek do pizzy, za który Włoch by zabił", "włoskie miasto lub region", "marka włoskich luksusowych aut", "gest dłonią w stylu włoskim", "włoski deser lub kawa", "składnik prawdziwej carbonary", "rzecz kojarząca się z Sycylią"] },
+        { category: "Spicy 18+", words: ["rzecz, którą robisz w łóżku, ale wstydzisz się przyznać", "powód, żeby uciec z randki po pierwszej nocy", "nietypowe miejsce na szybki numerek", "część ciała, którą najchętniej całujesz u partnera", "najgorszy tekst na podryw, jaki można usłyszeć", "synonim do słowa orgazm lub seks", "fetysz, o którym ludzie boją się mówić głośno", "czerwona flaga zauważona w łóżku", "rzecz, którą znajdujesz pod łóżkiem u partnera", "wymówka, by nie uprawiać seksu"] },
+        { category: "Impreza i Melanż", words: ["rzecz, którą gubisz po alkoholu", "najgorszy alkohol do picia na czysto", "piosenka, którą każdy krzyczy na karaoke", "wymówka, żeby nie iść na domówkę", "coś, co robisz w toalecie w klubie", "najgorszy objaw kaca rano", "rzecz znaleziona w kieszeni po imprezie", "kłamstwo powiedziane rodzicom po powrocie w nocy"] },
+        { category: "Codzienne życie", words: ["wstydliwy zakup w aptece lub drogerii", "coś, co robisz tylko wtedy, gdy nikt nie patrzy", "najgorszy prezent, jaki można dostać", "powód spóźnienia do pracy lub szkoły", "rzecz, o której kłamiesz znajomym", "irytujący nawyk współlokatora lub partnera", "rzecz, którą zawsze odkładasz na później"] },
+        { category: "Jedzenie", words: ["danie, które zamawiasz o 2 w nocy", "dodatek do pizzy dzielący ludzi", "obrzydliwe połączenie smaków", "polskie danie wigilijne", "składnik dobrego kebaba", "danie z baru mlecznego", "coś, co zawsze psuje się w lodówce"] },
+        { category: "Popkultura i Gry", words: ["postać z uniwersum Marvela lub DC", "rzecz, która potrafi zabić w Minecrafcie", "kultowy tekst z polskiego filmu lub mema", "gra, w której najłatwiej się wkurzyć", "serial, który obejrzałeś w jeden weekend", "znany polski influencer lub streamer"] },
+        { category: "Przedmioty i Miejsca", words: ["przedmiot, który zawsze ginie w domu", "miejsce, w którym nie chcesz utknąć w nocy", "rzecz, którą zabierzesz na bezludną wyspę", "najdziwniejsza rzecz kupiona pod wpływem impulsu", "coś, co trzymasz w schowku samochodowym"] }
       ],
 
       ktoZNas: [
-        { category: "Normalne", questions: ["Kto z nas najpóźniej pójdzie spać?", "Kto z nas najszybciej się zbiera rano?", "Kto z nas najczęściej się spóźnia?", "Kto z nas najlepiej gotuje?", "Kto z nas najwięcej czasu spędza w telefonie?", "Kto z nas jest najbardziej zorganizowany?", "Kto z nas najczęściej zapomina o ważnych rzeczach?", "Kto z nas najlepiej radzi sobie ze stresem?", "Kto z nas potrafi spać najdłużej?", "Kto z nas najczęściej się śmieje?"] },
-        { category: "Śmieszne", questions: ["Kto z nas przeżyłby najkrócej na bezludnej wyspie?", "Kto z nas najbardziej by się zbłaźnił na scenie?", "Kto z nas uwierzyłby w najbardziej absurdalny żart?", "Kto z nas zgubiłby się w dwóch pokojach?", "Kto z nas najgorzej tańczy, ale tańczy najczęściej?", "Kto z nas najbardziej dramatyzuje przez drobnostki?", "Kto z nas mógłby zostać influencerem od żenujących filmików?", "Kto z nas przypadkiem wysłałby najbardziej niezręczną wiadomość?"] },
-        { category: "Szkoła", questions: ["Kto z nas najczęściej zapomniałby o pracy domowej?", "Kto z nas najlepiej ściągał na sprawdzianach?", "Kto z nas najczęściej chodził na wagary?", "Kto z nas byłby ulubieńcem nauczycieli?", "Kto z nas najgorzej znosił poranne lekcje?", "Kto z nas najlepiej improwizował przy tablicy?", "Kto z nas napisałby wypracowanie na ostatnią chwilę?"] },
-        { category: "Impreza", questions: ["Kto z nas jako pierwszy zacznie tańczyć?", "Kto z nas pierwszy wyjdzie z imprezy?", "Kto z nas zaśnie pierwszy na domówce?", "Kto z nas zorganizowałby najlepszą imprezę?", "Kto z nas najgłośniej śpiewa karaoke?", "Kto z nas najczęściej gubi telefon na imprezie?", "Kto z nas ma najgorszego kaca następnego dnia?", "Kto z nas zaprosiłby najwięcej osób na jedną imprezę?"] },
-        { category: "Relacje", questions: ["Kto z nas najłatwiej się zakocha?", "Kto z nas jest najbardziej romantyczny?", "Kto z nas najdłużej przetrzymuje uczucia w tajemnicy?", "Kto z nas dałby najlepszą radę w sprawach sercowych?", "Kto z nas najszybciej wybaczyłby zdradę?", "Kto z nas najczęściej wpada w friendzone?", "Kto z nas byłby najbardziej zazdrosnym partnerem?"] },
-        { category: "Spicy", questions: ["Kto z nas pierwszy napisałby do byłej/byłego?", "Kto z nas najczęściej przegląda profil crusha?", "Kto z nas najszybciej umówiłby się na randkę z aplikacji?", "Kto z nas ma najwięcej niewysłanych wiadomości do kogoś?", "Kto z nas najbardziej lubi flirtować bez konsekwencji?", "Kto z nas najprędzej zgodziłby się na randkę w ciemno?"] },
-        { category: "Spicy 18+", questions: ["Kto z nas najszybciej umówiłby się na przygodę na jedną noc?", "Kto z nas ma najbardziej odważne historie z randek?", "Kto z nas wysłałby pikantne zdjęcie po jednym drinku?", "Kto z nas byłby najbardziej otwarty na eksperymenty w sypialni?"] },
-        { category: "Przyjaźń", questions: ["Kto z nas jest najlepszym słuchaczem?", "Kto z nas dochowałby tajemnicy najdłużej?", "Kto z nas najczęściej się obraża?", "Kto z nas najbardziej wspiera innych w trudnych chwilach?", "Kto z nas najczęściej organizuje wspólne wyjścia?", "Kto z nas jest najbardziej lojalny wobec przyjaciół?"] },
-        { category: "Pieniądze", questions: ["Kto z nas najwięcej wyda na głupoty?", "Kto z nas najlepiej oszczędza?", "Kto z nas pierwszy zbankrutowałby na wyjeździe?", "Kto z nas kupiłby coś drogiego pod wpływem impulsu?", "Kto z nas najczęściej pożycza pieniądze i zapomina oddać?", "Kto z nas zostałby milionerem najszybciej?"] },
-        { category: "Wakacje", questions: ["Kto z nas zgubiłby paszport?", "Kto z nas najlepiej planuje wycieczki?", "Kto z nas spakowałby się na ostatnią chwilę?", "Kto z nas najczęściej spóźniłby się na samolot?", "Kto z nas zjadłby coś, czego pożałuje na wakacjach?", "Kto z nas najlepiej się targuje na zagranicznym targu?"] },
-        { category: "Gry", questions: ["Kto z nas najbardziej się wkurza podczas przegrywania?", "Kto z nas jest najlepszym graczem drużynowym?", "Kto z nas najdłużej gra bez przerwy?", "Kto z nas najczęściej oszukuje w grach planszowych?", "Kto z nas najszybciej się poddaje w trudnej grze?"] },
-        { category: "Internet", questions: ["Kto z nas najdłużej siedzi na TikToku?", "Kto z nas ma najwięcej niewysłuchanych powiadomień?", "Kto z nas zostałby najlepszym influencerem?", "Kto z nas najczęściej scrolluje przed snem?", "Kto z nas uwierzyłby w fake newsa najszybciej?"] },
-        { category: "Charakter", questions: ["Kto z nas najłatwiej się obraża?", "Kto z nas jest najbardziej uparty?", "Kto z nas najszybciej traci cierpliwość?", "Kto z nas jest najbardziej opanowany w stresie?", "Kto z nas najczęściej zmienia zdanie?", "Kto z nas jest najbardziej ambitny?"] },
-        { category: "Przyszłość", questions: ["Kto z nas pierwszy kupi mieszkanie?", "Kto z nas pierwszy się ożeni / wyjdzie za mąż?", "Kto z nas zostanie sławny?", "Kto z nas będzie miał najciekawszą pracę za 10 lat?", "Kto z nas przeprowadzi się za granicę?", "Kto z nas pierwszy zostanie rodzicem?"] },
-        { category: "Random", questions: ["Kto z nas przeżyłby zombie apokalipsę najdłużej?", "Kto z nas zjadłby coś dziwnego za pieniądze?", "Kto z nas zgubiłby się w lesie?", "Kto z nas mógłby zostać prezydentem?", "Kto z nas najgorzej znosi łaskotanie?", "Kto z nas najlepiej udawałby, że zna odpowiedź, choć jej nie zna?", "Kto z nas przetrwałby dzień bez telefonu?"] }
+        { category: "Normalne", questions: ["Kto z nas najpóźniej pójdzie spać?", "Kto z nas najszybciej zbiera się rano z łóżka?", "Kto z nas najczęściej się spóźnia?", "Kto z nas najlepiej gotuje?", "Kto z nas spędza najwięcej czasu przed ekranem?", "Kto z nas najczęściej zapomina o ważnych datach?", "Kto z nas potrafi przespać cały dzień?"] },
+        { category: "Śmieszne", questions: ["Kto z nas przeżyłby najkrócej w horrorze przez swoją głupotę?", "Kto z nas najbardziej zbłaźniłby się na scenie?", "Kto z nas uwierzyłby w najbardziej zmyśloną historię?", "Kto z nas najgorzej tańczy, ale robi to najodważniej?", "Kto z nas przypadkowo wyśle kompromitującą wiadomość nie do tej osoby?"] },
+        { category: "Impreza", questions: ["Kto z nas jako pierwszy wchodzi na parkiet?", "Kto z nas pierwszy zaśnie na domówce?", "Kto z nas ma najgorszego kaca dnia następnego?", "Kto z nas najczęściej wychodzi po angielsku bez pożegnania?", "Kto z nas wydałby całą wypłatę w jedną noc w klubie?"] },
+        { category: "Spicy", questions: ["Kto z nas najszybciej napisałby po pijaku do swojego ex?", "Kto z nas najczęściej przegląda profil swojego crusha?", "Kto z nas ma najwięcej sekretów w telefonie?", "Kto z nas najchętniej flirtuje bez zobowiązań?", "Kto z nas najszybciej poszedłby na randkę w ciemno?"] },
+        { category: "Spicy 18+", questions: ["Kto z nas najszybciej zgodziłby się na przygodę na jedną noc?", "Kto z nas ma najbardziej pikantne historie z randek?", "Kto z nas bez wahania wyśle odważne zdjęcie partnerowi?", "Kto z nas jest najbardziej otwarty na eksperymenty w sypialni?", "Kto z nas najgłośniej zachowuje się w łóżku?"] },
+        { category: "Relacje", questions: ["Kto z nas najszybciej się zakochuje?", "Kto z nas najdłużej trzyma w sobie urazę?", "Kto z nas daje najlepsze rady sercowe?", "Kto z nas najczęściej ląduje we friendzone?", "Kto z nas byłby najbardziej zazdrosnym partnerem?"] }
       ]
     };
 
-    const categoryGroups = {
-      "Popkultura & Gry": ["Gry: Minecraft", "Gry: GTA", "Gry: Fortnite", "Gry: Roblox", "Gry: FIFA", "Gry: Call of Duty", "Gry: Counter Strike", "Gry: Valorant", "Gry: League of Legends", "Gry: Inne", "Gry", "Temat: Minecraft", "Temat: Harry Potter", "Temat: Star Wars", "Temat: Stranger Things", "Temat: GTA", "Filmy: Marvel", "Filmy: DC", "Filmy: Harry Potter", "Filmy: Disney & Pixar", "Filmy: Horrory", "Filmy: Hity kinowe", "Filmy: Polskie", "Filmy", "Seriale: Hity", "Seriale"],
-      "Imprezowe & Spicy": ["Imprezowe", "Impreza", "Spicy", "Spicy 18+", "Makaroniarze", "Absurdalne / Śmieszne", "Śmieszne", "Relacje", "Przyjaźń"],
-      "Życie codzienne & Świat": ["Codzienne życie", "Jedzenie", "Polska", "Świat", "Podróże", "Wakacje", "Szkoła", "Przedmioty", "Zwierzęta", "Miejsca", "Miasta", "Kraje", "Zawody", "Normalne", "Charakter", "Przyszłość"],
-      "Technologia & Inne": ["Technologia", "Internet i social media", "Internet", "Marki", "Sport", "Siłownia i lifestyle", "Luksus i pieniądze", "Pieniądze", "Celebryci", "Wiedza ogólna", "Trudne", "Random"]
-    };
-
     const categoryEmojis = {
-      "Makaroniarze": "🇮🇹", "Codzienne życie": "🏠", "Jedzenie": "🍕", "Polska": "🇵🇱", "Świat": "🌍", "Marki": "🏷️", "Technologia": "💻", "Gry: Minecraft": "⛏️", "Gry: GTA": "🚗", "Gry: Fortnite": "🪂", "Gry: Roblox": "🧱", "Gry: FIFA": "⚽", "Gry: Call of Duty": "🪖", "Gry: Counter Strike": "🎯", "Gry: Valorant": "🗡️", "Gry: League of Legends": "🧙", "Gry: Inne": "🕹️", "Gry": "🎮", "Filmy: Marvel": "🦸", "Filmy: DC": "🦇", "Filmy: Harry Potter": "🧙‍♂️", "Filmy: Disney & Pixar": "🏰", "Filmy: Horrory": "👻", "Filmy: Hity kinowe": "🍿", "Filmy: Polskie": "🎬", "Filmy": "🎥", "Seriale: Hity": "📺", "Seriale": "📺", "Muzyka": "🎵", "Sport": "🏆", "Wiedza ogólna": "🧠", "Internet i social media": "📱", "Internet": "🌐", "Szkoła": "🎒", "Imprezowe": "🍻", "Impreza": "🍻", "Podróże": "✈️", "Samochody": "🏎️", "Siłownia i lifestyle": "💪", "Spicy": "🌶️", "Spicy 18+": "🔥", "Absurdalne / Śmieszne": "🤡", "Śmieszne": "😂", "Luksus i pieniądze": "💎", "Pieniądze": "💸", "Celebryci": "⭐", "Random": "🎲", "Przedmioty": "📦", "Zwierzęta": "🐾", "Miejsca": "📍", "Miasta": "🏙️", "Kraje": "🗺️", "Zawody": "👔", "Trudne": "🧩", "Temat: Minecraft": "⛏️", "Temat: Harry Potter": "⚡", "Temat: Star Wars": "⚔️", "Temat: Stranger Things": "🚲", "Temat: GTA": "🔫", "Normalne": "🙂", "Relacje": "❤️", "Przyjaźń": "🤝", "Wakacje": "🏖️", "Charakter": "🎭", "Przyszłość": "🔮"
+      "Makaroniarze": "🇮🇹", "Codzienne życie": "🏠", "Jedzenie": "🍕", "Polska": "🇵🇱", "Świat": "🌍", "Marki": "🏷️", "Technologia": "💻", "Gry wideo": "🎮", "Filmy i Kino": "🍿", "Seriale": "📺", "Muzyka": "🎵", "Sport i Siłownia": "🏆", "Szkoła i Uczelnia": "🎒", "Imprezowe": "🍻", "Impreza i Melanż": "🍻", "Impreza": "🍻", "Podróże": "✈️", "Spicy": "🌶️", "Spicy 18+": "🔥", "Absurd i Humor": "🤡", "Śmieszne": "😂", "Popkultura i Gry": "👾", "Przedmioty i Miejsca": "📦", "Normalne": "🙂", "Relacje": "❤️"
     };
 
-    // BOGATA BAZA PODPOWIEDZI DLA IMPOSTORA
+    // GENERATOR SPALONYCH I SPRYTNYCH PODPOWIEDZI
     const customHints = {
-      // Codzienne życie[cite: 1, 2]
-      "budzik": "Brutalny powrót do rzeczywistości", "prysznic": "Codzienne odświeżenie ciała", "śniadanie": "Pierwszy posiłek dnia", "pranie": "Czynność po zapełnieniu kosza", "zakupy spożywcze": "Uzupełnianie zapasów w lodówce", "parasol": "Ochrona przed deszczem", "klucze do domu": "Przedmiot otwierający drzwi", "ładowarka do telefonu": "Ratunek przed rozładowaniem", "poczekalnia": "Miejsce cierpliwości przed wizytą", "mycie naczyń": "Czynność odkładana w zlewie", "wynoszenie śmieci": "Obowiązek domowy z workiem", "wizyta u dentysty": "Stresujący fotel lekarski", "kolejka w urzędzie": "Próba ludzkiej cierpliwości z numerkiem", "sąsiad, który gra głośno muzykę": "Uciążliwy lokator za ścianą", "zapchana pralka": "Awaria sprzętu AGD", "kot sąsiadów": "Czworonożny gość na klatce", "pilot do telewizora": "Władza nad ekranem w salonie", "wietrzenie mieszkania": "Wpuszczanie świeżego powietrza", "zapomniane hasło": "Problem przy logowaniu", "pusta lodówka": "Smutny widok po powrocie do domu", "poranne korki": "Utrudnienia na drodze w szczycie", "spóźniony autobus": "Niezgodność z rozkładem jazdy", "przypalona kolacja": "Kulinarna wpadka na patelni", "ostatnia bateria w pilocie": "Chwilowy ratunek elektroniki", "przymusowa drzemka w pracy": "Chwila słabości przy biurku", "sąsiedzki spór o parking": "Konflikt o miejsce pod blokiem", "reklamacja w sklepie": "Zwrot wadliwego towaru", "instrukcja obsługi mebli z IKEA": "Rysunkowy przewodnik z imbusem", "hałas z remontu u sąsiada": "Wiertarka udarowa o 7 rano",
-      // Jedzenie[cite: 1, 2]
-      "pizza": "Włoski placek z dodatkami", "burger": "Kotlet w bułce z sosem", "frytki": "Smażone słupki ziemniaczane", "kebab": "Mięso w cienkim cieście", "lody": "Zimny deser na upały", "kanapka": "Szybka przekąska z pieczywa", "makaron": "Węglowodanowa baza obiadu", "sushi": "Japońskie rolki z ryżem", "Coca-Cola": "Kultowy gazowany napój", "gofry": "Chrupiący przysmak z bitą śmietaną", "McDonald's": "Fast food pod złotymi łukami", "KFC": "Panierowany kurczak w kubełku", "bar mleczny": "Tradycyjne i tanie obiady domowe", "zapiekanka": "Podłużna bagietka z pieczarkami", "pierogi": "Polskie ciasto z farszem", "shake protein": "Napój po ciężkim treningu", "energy drink": "Puszka z kofeiną i tauryną", "food truck": "Mobilna gastronomia na kółkach", "bufet szwedzki": "Jesz ile chcesz za stałą cenę", "sos czosnkowy": "Kultowy biały dodatek do dań", "chińszczyzna na wynos": "Szybki obiad w tekturowym pudełku", "kawa na wynos": "Napar w papierowym kubku", "kebab pod klubem": "Nocny ratunek po imprezie", "kolacja rodzinna w niedzielę": "Wspólny posiłek przy stole", "dieta pudełkowa": "Dostawa posiłków pod drzwi rano", "ramen": "Głęboki japoński bulion z makaronem", "poke bowl": "Hawajska miska pełna składników", "tapas": "Hiszpańskie małe przekąski", "fine dining": "Ekskluzywna kolacja degustacyjna", "degustacja win": "Ocenianie trunków w kieliszkach",
-      // Polska[cite: 1, 2]
-      "Kraków": "Dawna stolica z Wawelem", "Wisła": "Najdłuższa rzeka w kraju", "Biedronka": "Popularny dyskont z owadem w logo", "Żabka": "Zielony sklep na każdym rogu", "Orlen": "Narodowa stacja paliw", "polski hip-hop": "Nawijanie do mikrofonu na blokach", "kiełbasa": "Tradycyjny wyrób mięsny", "majówka": "Wiosenny długi weekend przy grillu", "Wielkanoc": "Wiosenne święta z jajkiem", "wigilia": "Grudniowa wieczerza z opłatkiem", "PKP Intercity": "Podróż koleją po szynach", "Allegro": "Polska platforma zakupowa", "zakręcona nakrętka od piwa": "Zabezpieczenie butelki z kapslem", "urząd skarbowy": "Instytucja rozliczająca podatki", "dzień dziecka w szkole": "Dzień bez pytania przy tablicy", "TVP": "Publiczny nadawca telewizyjny", "Wiadomości o 19:30": "Wieczorne wydanie faktów", "polski disco polo": "Skoczna muzyka na wiejskie wesela", "ognisko z pieczeniem kiełbasek": "Spotkanie przy żywym ogniu z kijem", "działka rodzinna": "Kawałek zieleni w ROD", "zbieranie grzybów": "Poranny spacer z nożykiem po lesie", "reklama Biedronki": "Spot promocyjny z niskimi cenami", "Pyszne.pl": "Zamawianie jedzenia przez telefon", "InPost paczkomat": "Żółty automat do odbioru paczek", "kartka na Dzień Babci": "Laurka z życzeniami w styczniu", "PESEL": "Jedenastocyfrowy numer obywatela", "Mazurkas Travel": "Biuro podróży", "Gadżet z Biedronki": "Drobiazg z kosza promocyjnego", "spis z natury w firmie": "Roczne liczenie całego magazynu",
-      // Gry[cite: 1, 2]
-      "Creeper": "Zielony cichy wybuchowiec", "diament": "Najcenniejszy minerał pod ziemią", "Steve": "Podstawowa postać gracza", "kilof": "Narzędzie do wydobywania surowców", "wioska": "Osada z osadnikami do handlu", "Ender Dragon": "Finałowy boss w wymiarze Kresu", "Nether": "Piekielny gorący wymiar", "Redstone": "Czerwony proszek do mechanizmów", "Enderman": "Wysoka postać nieznosząca wzroku", "portal": "Przejście między wymiarami", "GTA V": "Kultowa gra akcji w Los Santos", "Los Santos": "Wirtualne miasto zbrodni i gangsterów", "policyjny pościg": "Ucieczka przed syrenami radiowozów", "kradzież auta": "Bezprawne przejęcie cudzego pojazdu", "Grand Theft Auto Online": "Wieloosobowy tryb gry gangsterów", "misja skoku na bank": "Zorganizowany napad na gruby łup", "CJ": "Bohater powracający na Grove Street", "Trevor": "Szalony i nieprzewidywalny protagonista", "gwiazdki poszukiwania": "Wskaźnik zainteresowania policji", "Vice City": "Neonowe miasto z lat 80.", "Fortnite": "Gra Battle Royale z budowaniem", "Battle Bus": "Niebieski latający autobus zrzutowy", "budowanie": "Stawianie drewnianych ścian i schodów", "loot llama": "Fioletowa piniata z zasobami", "Victory Royale": "Wygrana na 100 graczy na mapie", "Roblox": "Platforma z milionami minigier", "Robuxy": "Wirtualna waluta w grze", "EA Sports FC": "Wirtualna symulacja meczów piłkarskich", "Ultimate Team": "Kolekcjonowanie kart i zgranie składu", "Warzone": "Darmowy tryb Battle Royale z bronią palną", "CS2": "Starcie terrorystów z antyterrorystami", "bomba do podłożenia": "Ładunek C4 na strefie A lub B", "Valorant": "Taktyczny shooter 5 na 5 z mocami", "League of Legends": "Rywalizacja na mapie Summoner's Rift",
-      // Filmy & Seriale[cite: 1, 2]
-      "Iron Man": "Geniusz i miliarder w pancerzu", "Spider-Man": "Chłopak z sąsiedztwa w masce pająka", "Avengers": "Najpotężniejsza drużyna herosów", "Batman": "Mroczny rycerz strzegący Gotham", "Joker": "Szalony klaun i arcywróg", "Harry Potter": "Czarodziej z blizną w kształcie błyskawicy", "Hogwart": "Szkoła magii i czarodziejstwa", "Kraina Lodu": "Animacja z królową śniegu i bałwanem", "Stranger Things": "Dziwne zjawiska i potwory w Hawkins", "Wednesday": "Mroczna córka Addamsów w akademii", "Squid Game": "Śmiertelne gry dziecięce o miliony", "Breaking Bad": "Nauczyciel chemii wchodzący w narkobiznes", "The Boys": "Brutalna prawda o skorumpowanych herosach", "The Last of Us": "Podróż przez świat opanowany przez grzyb", "Euphoria": "Trudne dorastanie i imprezy nastolatków", "The Office": "Komediowe absurdy w biurze papierniczym", "Friends": "Szóstka przyjaciół spotykająca się w kawiarni"
+      "budzik": "Poranny wróg spokojnego snu", "prysznic": "Woda, piana i szybkie odświeżenie", "śniadanie": "Pierwszy posiłek na start dnia", "pranie": "Czynność, gdy kończą się czyste ubrania", "zakupy spożywcze": "Wyprawa z listą między półkami", "parasol": "Ochrona przed deszczem nad głową", "klucze do domu": "Metalowy przedmiot otwierający zamek", "ładowarka do telefonu": "Kabel ratujący rozładowany ekran", "poczekalnia": "Miejsce siedzenia przed wizytą", "mycie naczyń": "Zmagania z gąbką w zlewie", "wynoszenie śmieci": "Spacer z workiem do kontenera", "wizyta u dentysty": "Stresujący fotel i dźwięk wiertła", "kolejka w urzędzie": "Czekanie na swój numerek", "głośny sąsiad": "Uciążliwe dźwięki zza ściany", "zapchana pralka": "Awaria zalanego sprzętu AGD", "pilot do telewizora": "Przełączanie kanałów z kanapy", "zapomniane hasło": "Blokada przy próbie logowania", "pusta lodówka": "Przeciąg i światło po otwarciu drzwiczek", "poranne korki": "Stanie w sznurze aut przed pracą", "spóźniony autobus": "Rozkład jazdy mijający się z prawdą", "przypalona kolacja": "Swąd dymu z patelni w kuchni", "drzemka w pracy": "Chwila słabości z głową na biurku", "spór o parking": "Awantura o wolne miejsce pod blokiem",
+      "pizza": "Włoski okrągły klasyk z pieca", "burger": "Bułka z soczystym kotletem i sosem", "frytki": "Chrupiące ziemniaczane słupki", "kebab": "Mięso cięte z pionowego rożna", "lody": "Zimny deser na upalne dni", "kanapka": "Szybka przekąska z kromki chleba", "makaron": "Węglowodanowa baza włoskich dań", "sushi": "Rolki z ryżem i surową rybą", "Coca-Cola": "Ciemny gazowany napój z bąbelkami", "gofry": "Kratkowane ciasto z bitą śmietaną", "McDonald's": "Złote łuki i szybkie jedzenie", "KFC": "Panierowane kawałki kurczaka w kubełku", "bar mleczny": "Tani tradycyjny polski obiad", "zapiekanka": "Długa bułka z pieczarkami i serem", "pierogi": "Lepione ciasto z tradycyjnym farszem", "napój energetyczny": "Puszka dająca szybkiego kopa", "sos czosnkowy": "Kultowy biały dodatek do potraw", "kawa na wynos": "Gorący napar w papierowym kubku", "kebab po imprezie": "Nocny ratunek o 3 nad ranem", "niedzielny rosół": "Gorąca zupa z makaronem u babci", "dieta pudełkowa": "Zestaw posiłków pod drzwiami rano", "ramen": "Głęboki japoński bulion z makaronem",
+      "Kraków": "Miasto z Wawelem i Sukiennicami", "Wisła": "Królowa polskich rzek", "Biedronka": "Popularny dyskont z owadem w logo", "Żabka": "Zielony sklep na rogu każdej ulicy", "Orlen": "Największa stacja paliw w Polsce", "polski hip-hop": "Rymy i bity prosto z blokowisk", "kiełbasa z grilla": "Klasyk każdego letniego ogniska", "majówka": "Wiosenny długi weekend w plenerze", "Wigilia": "Grudniowa kolacja przy choince", "pociąg PKP": "Podróż po szynach z opóźnieniem", "Allegro": "Polska platforma zakupowa", "urząd skarbowy": "Miejsce rozliczania rocznych podatków", "disco polo": "Skoczna muzyka na wiejskie wesela", "zbieranie grzybów": "Poranny spacer z nożem po lesie", "Paczkomat InPost": "Odbiór przesyłki kodem z aplikacji", "kartka na Dzień Babci": "Laurka z życzeniami w styczniu", "PESEL": "Unikalny jedenastocyfrowy numer obywatela",
+      "Minecraft": "Klockowy świat i nieograniczone budowanie", "Creeper": "Zielony cichy wybuchacz w kopalni", "GTA V": "Kradzieże aut i misje w Los Santos", "Fortnite": "Gra Battle Royale z budowaniem ścian", "Wiedźmin 3": "Polskie RPG z Geraltem z Rivii", "Among Us": "Szukanie zdrajcy na statku kosmicznym", "The Sims": "Symulator życia i budowania domów",
+      "Iron Man": "Geniusz i miliarder w metalowym pancerzu", "Harry Potter": "Czarodziej z blizną w kształcie błyskawicy", "Stranger Things": "Potwory z Drugiej Strony w Hawkins", "Wednesday": "Mroczna dziewczyna z rodziny Addamsów", "Squid Game": "Gry o przetrwanie i ogromną fortunę", "Breaking Bad": "Nauczyciel chemii produkujący narkotyki", "The Boys": "Brutalna prawda o skorumpowanych superbohaterach", "The Office": "Życie pracowników firmy papierniczej",
+      "szybki numerek": "Intymne zbliżenie bez gry wstępnej", "wiadomość o 2 w nocy": "Nocne pisanie do dawnej sympatii", "nagie zdjęcie": "Dyskretny kadr wysłany w tajemnicy", "bielizna erotyczna": "Zmysłowy strój do sypialni", "wibrator": "Gadżet erotyczny dający przyjemność", "spacer wstydu": "Poranny powrót we wczorajszym stroju"
     };
 
     function getHintForWord(word, category) {
       if (customHints[word]) return customHints[word];
       const lowerCat = (category || "").toLowerCase();
-      if (lowerCat.includes("film") || lowerCat.includes("serial")) return "Tytuł lub motyw znany z ekranu";
-      if (lowerCat.includes("gry") || lowerCat.includes("gra")) return "Rzecz lub postać z wirtualnego świata";
-      if (lowerCat.includes("jedzenie") || lowerCat.includes("makaron")) return "Coś, co ląduje na talerzu lub w żołądku";
-      if (lowerCat.includes("marki")) return "Rozpoznawalne logo i produkt znany na świecie";
-      if (lowerCat.includes("technologia") || lowerCat.includes("internet")) return "Związane z urządzeniami lub siecią";
-      if (lowerCat.includes("spicy") || lowerCat.includes("18+")) return "Temat intymny lub z podtekstem";
-      if (lowerCat.includes("sport") || lowerCat.includes("siłownia")) return "Związane z aktywnością fizyczną i formą";
+      if (lowerCat.includes("film") || lowerCat.includes("serial")) return "Tytuł lub postać znana ze srebrnego ekranu";
+      if (lowerCat.includes("gry")) return "Motyw lub pojęcie z wirtualnego świata gier";
+      if (lowerCat.includes("jedzenie") || lowerCat.includes("makaron")) return "Coś smacznego, co ląduje na talerzu";
+      if (lowerCat.includes("marki")) return "Rozpoznawalna firma lub produkt na rynku";
+      if (lowerCat.includes("technologia") || lowerCat.includes("internet")) return "Związane z elektroniką, siecią lub aplikacjami";
+      if (lowerCat.includes("spicy") || lowerCat.includes("18+")) return "Temat dla dorosłych o intymnym zabarwieniu";
+      if (lowerCat.includes("sport") || lowerCat.includes("siłownia")) return "Aktywność fizyczna, ruch i trening";
       if (lowerCat.includes("polska")) return "Rzecz lub miejsce typowe dla naszego kraju";
-      return "Pojęcie pasujące do klimatu kategorii";
+      return "Hasło bezpośrednio powiązane z tą kategorią";
     }
+
+    const SoundFX = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContext();
+        }
+        if (this.ctx.state === 'suspended') this.ctx.resume();
+      },
+      tick() {
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(950, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(350, this.ctx.currentTime + 0.03);
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.03);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.03);
+      },
+      boom() {
+        this.init();
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(130, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(20, this.ctx.currentTime + 0.7);
+        gain.gain.setValueAtTime(0.9, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.7);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.7);
+      }
+    };
+
+    const App = {
+      showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        SoundFX.init();
+      },
+      openImpostorConfig() {
+        CategoryManager.render('impostor');
+        this.showScreen('screen-config-impostor');
+      },
+      openBombConfig() {
+        CategoryManager.render('bomba');
+        this.showScreen('screen-config-bomb');
+      },
+      openWhoConfig() {
+        CategoryManager.render('ktoZNas');
+        this.showScreen('screen-config-who');
+      }
+    };
+
+    /* ZARZĄDZANIE KATEGORIAMI MOBILE FIRST */
+    const CategoryManager = {
+      selected: {
+        impostor: ["Codzienne życie"],
+        bomba: ["Makaroniarze", "Spicy 18+"],
+        ktoZNas: ["Normalne"]
+      },
+      pending18: null,
+
+      render(mode) {
+        const gridId = mode === 'impostor' ? 'impostor-cat-grid' : mode === 'bomba' ? 'bomba-cat-grid' : 'who-cat-grid';
+        const counterId = mode === 'impostor' ? 'impostor-cat-counter' : mode === 'bomba' ? 'bomb-cat-counter' : 'who-cat-counter';
+        const startBtnId = mode === 'impostor' ? 'btn-start-impostor' : mode === 'bomba' ? 'btn-start-bomb' : 'btn-start-who';
+
+        const grid = document.getElementById(gridId);
+        grid.innerHTML = '';
+
+        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
+
+        allCats.forEach(cat => {
+          const isSelected = this.selected[mode].includes(cat);
+          const is18 = cat.toLowerCase().includes('18+') || cat.toLowerCase().includes('spicy');
+          const emoji = categoryEmojis[cat] || "🎲";
+
+          const card = document.createElement('div');
+          card.className = `cat-grid-card ${isSelected ? 'active' : ''} ${is18 ? 'is-18' : ''}`;
+          card.innerHTML = `
+            <div class="cat-grid-emoji">${emoji}</div>
+            <div class="cat-grid-info">
+              <span class="cat-grid-name">${cat}</span>
+            </div>
+          `;
+
+          card.onclick = () => this.toggleCategory(mode, cat);
+          grid.appendChild(card);
+        });
+
+        const selectedCount = this.selected[mode].length;
+        const counter = document.getElementById(counterId);
+        if (counter) {
+          if (selectedCount === 0) {
+            counter.innerText = "Wybierz min. 1";
+            counter.style.color = "var(--accent-bomb)";
+          } else {
+            counter.innerText = `Wybrano: ${selectedCount} z ${allCats.length}`;
+            counter.style.color = "var(--text-muted)";
+          }
+        }
+
+        const startBtn = document.getElementById(startBtnId);
+        if (startBtn) {
+          startBtn.disabled = selectedCount === 0;
+        }
+
+        if (mode === 'impostor') ImpostorEngine.selectedCategories = this.selected.impostor;
+        if (mode === 'bomba') BombEngine.selectedCategories = this.selected.bomba;
+        if (mode === 'ktoZNas') WhoEngine.selectedCategories = this.selected.ktoZNas;
+      },
+
+      toggleCategory(mode, cat) {
+        const is18 = cat.toLowerCase().includes('18+') || cat.toLowerCase().includes('spicy');
+
+        if (this.selected[mode].includes(cat)) {
+          this.selected[mode] = this.selected[mode].filter(c => c !== cat);
+          this.render(mode);
+        } else {
+          if (is18 && !sessionStorage.getItem('partylab_18_confirmed')) {
+            this.pending18 = { mode, cat };
+            document.getElementById('age-modal').classList.add('active');
+            return;
+          }
+          this.selected[mode].push(cat);
+          this.render(mode);
+        }
+      },
+
+      selectAll(mode) {
+        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
+        this.selected[mode] = allCats;
+        this.render(mode);
+      },
+
+      select18Only(mode) {
+        const allCats = [...new Set(partyLabDatabase[mode].map(i => i.category))];
+        this.selected[mode] = allCats.filter(c => c.toLowerCase().includes('18+') || c.toLowerCase().includes('spicy'));
+        this.render(mode);
+      },
+
+      clearAll(mode) {
+        this.selected[mode] = [];
+        this.render(mode);
+      },
+
+      confirm18() {
+        sessionStorage.setItem('partylab_18_confirmed', 'true');
+        document.getElementById('age-modal').classList.remove('active');
+        if (this.pending18) {
+          const { mode, cat } = this.pending18;
+          this.selected[mode].push(cat);
+          this.render(mode);
+          this.pending18 = null;
+        }
+      },
+
+      cancel18() {
+        document.getElementById('age-modal').classList.remove('active');
+        this.pending18 = null;
+      }
+    };
 
     /* SILNIK IMPOSTORA */
     const ImpostorEngine = {
@@ -1383,9 +1281,6 @@
       currentWordData: null,
       usedWords: [],
       recentImpostors: [],
-
-      touchStartY: 0,
-      isRevealed: false,
 
       init() {
         const saved = localStorage.getItem('partylab_players');
@@ -1492,7 +1387,7 @@
         this.usedWords.push(picked.word);
         
         const hint = getHintForWord(picked.word, picked.category);
-        return { ...picked, hint };
+        return { word: picked.word, category: picked.category, hint: hint };
       },
 
       start() {
@@ -1540,7 +1435,7 @@
           wordEl.style.color = "var(--accent-bomb)";
           
           if (this.hintsEnabled && this.currentWordData.hint) {
-            hintEl.innerText = `💡 Wskazówka: ${this.currentWordData.hint}`;
+            hintEl.innerText = `💡 Podpowiedź: ${this.currentWordData.hint}`;
             hintEl.style.display = 'inline-block';
           } else {
             hintEl.innerText = '';
@@ -1675,7 +1570,7 @@
     /* SILNIK BOMBY */
     const BombEngine = {
       playersCount: 4,
-      selectedCategories: ["Makaroniarze"],
+      selectedCategories: ["Makaroniarze", "Spicy 18+"],
       timer: null,
       duration: 0,
       elapsed: 0,
@@ -1791,7 +1686,6 @@
     // Inicjalizacja domyślna
     ImpostorEngine.init();
     BombEngine.adjustPlayers(0);
-    PwaInstaller.init();
   </script>
 </body>
 </html>
